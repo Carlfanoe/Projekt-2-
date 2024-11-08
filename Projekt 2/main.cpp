@@ -18,7 +18,7 @@ int main(void) {
 	uart.init(MY_UBRR);
 
 	// Create a Potteplante instance with an ID, Sensor Pin, Humidity Threshold, and Watering Duration
-	Potteplante plant(1, 0, 60, 10);  // Example values
+	Potteplante plant1( 1, 0 , 20 , 5);
 
 	
 

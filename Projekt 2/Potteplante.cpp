@@ -2,12 +2,12 @@
 
 
 	
-Potteplante::Potteplante(int ID, int HumiditySensorPin, int HumidityTreshold, int WateringDuration)
+Potteplante::Potteplante(int ID, int HumiditySensorPin, int HumidityThreshold, int WateringDuration)
 : id(ID),
 humiditySensorPin(HumiditySensorPin),
-humidityTreshold(HumidityTreshold),
+humidityTreshold(HumidityThreshold),
 wateringDuration(WateringDuration),
-jordfugtighedsensor(HumidityTreshold) // Initialiser Jordfugtighedsensor her
+jordfugtighedsensor(HumidityThreshold, HumiditySensorPin)  // Pass the pin here
 {}
 
 	

@@ -12,8 +12,7 @@ class Potteplante{
 	Jordfugtighedsensor jordfugtighedsensor;
 	
 	public:
-	Potteplante(int ID, int HumiditySensorPin, int NyHumidityTreshold, int WateringDuration);
-	
+Potteplante(int ID, int HumiditySensorPin, int HumidityThreshold, int WateringDuration);
 	void WaterPlant();
 	int GetHumidity();
 	int GetThreshold();

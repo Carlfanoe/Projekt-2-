@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 000000f0  00000000  00000000  0000060c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001d4b  00000000  00000000  000006fc  2**0
+  6 .debug_info   00001d7c  00000000  00000000  000006fc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000011dd  00000000  00000000  00002447  2**0
+  7 .debug_abbrev 000011ea  00000000  00000000  00002478  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000006e4  00000000  00000000  00003624  2**0
+  8 .debug_line   000006e4  00000000  00000000  00003662  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000001c8  00000000  00000000  00003d08  2**2
+  9 .debug_frame  000001c8  00000000  00000000  00003d48  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000a09  00000000  00000000  00003ed0  2**0
+ 10 .debug_str    00000a2a  00000000  00000000  00003f10  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000552  00000000  00000000  000048d9  2**0
+ 11 .debug_loc    00000552  00000000  00000000  0000493a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000b0  00000000  00000000  00004e2b  2**0
+ 12 .debug_ranges 000000b0  00000000  00000000  00004e8c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -192,7 +192,7 @@ Disassembly of section .text:
 00000122 <__bad_interrupt>:
  122:	6e cf       	rjmp	.-292    	; 0x0 <__vectors>
 
-00000124 <_ZN19JordfugtighedsensorC1Ei>:
+00000124 <_ZN19JordfugtighedsensorC1Eii>:
 	threshold = NytTreshold;
 }
 
@@ -204,8 +204,8 @@ void Jordfugtighedsensor::ADC_init() {
  128:	10 82       	st	Z, r1
  12a:	73 83       	std	Z+3, r23	; 0x03
  12c:	62 83       	std	Z+2, r22	; 0x02
- 12e:	15 82       	std	Z+5, r1	; 0x05
- 130:	14 82       	std	Z+4, r1	; 0x04
+ 12e:	55 83       	std	Z+5, r21	; 0x05
+ 130:	44 83       	std	Z+4, r20	; 0x04
  132:	08 95       	ret
 
 00000134 <_ZN19Jordfugtighedsensor11GetHumidityEv>:
@@ -432,9 +432,9 @@ int main(void) {
 0000026a <_ZN11PotteplanteC1Eiiii>:
  26a:	0f 93       	push	r16
  26c:	1f 93       	push	r17
-wateringDuration(WateringDuration),
-jordfugtighedsensor(HumidityTreshold) // Initialiser Jordfugtighedsensor her
+jordfugtighedsensor(HumidityThreshold, HumiditySensorPin)  // Pass the pin here
 {}
+
 
 	
 void Potteplante::WaterPlant(){
@@ -449,7 +449,7 @@ void Potteplante::WaterPlant(){
  27e:	06 83       	std	Z+6, r16	; 0x06
  280:	b9 01       	movw	r22, r18
  282:	0c 96       	adiw	r24, 0x0c	; 12
- 284:	4f df       	rcall	.-354    	; 0x124 <_ZN19JordfugtighedsensorC1Ei>
+ 284:	4f df       	rcall	.-354    	; 0x124 <_ZN19JordfugtighedsensorC1Eii>
  286:	1f 91       	pop	r17
  288:	0f 91       	pop	r16
  28a:	08 95       	ret

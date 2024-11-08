@@ -11,8 +11,8 @@ private:
 	int adcPin = 0;  // ADC0 PIN på arduino: Vi SKAL finde på en løsning her, fordi lige nu er adcPin den samme for hvert object af plante, hvilket den ikke må være.
 	
 public:
-	Jordfugtighedsensor(int NytTreshold);
-	
+	Jordfugtighedsensor(int NytThreshold, int pin);
+ 	
 	int GetHumidity();
 	int GetThreshold();
 	void SetThreshold(int NytTreshold);
