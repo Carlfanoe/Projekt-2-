@@ -17,8 +17,8 @@ int main(void) {
 	uart.init(MY_UBRR);
 
 	// Create a Potteplante instance with an ID, Sensor Pin, Humidity Threshold, and Watering Duration
-	Potteplante plant1( 1, 0 , 20 , 5); 
-	Potteplante plant2( 2, 0 , 20 , 5);
+	Potteplante plant1(1, 0, 20, 5); // Brug ADC0 til plant1
+	Potteplante plant2(2, 1, 20, 5); // Brug ADC1 til plant2
 
 	// Main loop
 	while (1) {
@@ -31,7 +31,6 @@ int main(void) {
 		// Send threshold value via UART
 		uart.print("Threshold for plant 1: ");
 		uart.printNumber(plant1.GetThreshold());
-		uart.print("\r\n");
 		uart.print("\r\n");
 		uart.print("\r\n");
 		
@@ -47,11 +46,10 @@ int main(void) {
 		uart.printNumber(plant2.GetThreshold());
 		uart.print("\r\n");
 		uart.print("\r\n");
-		uart.print("\r\n");
 
 	
 		// Delay 1 second (1000 milliseconds)
-		_delay_ms(6000);
+		_delay_ms(10000);
 	}
 
 	return 0;
