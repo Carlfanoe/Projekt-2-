@@ -3,31 +3,31 @@ Projekt 2.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000001e  00800200  000004e8  0000057c  2**0
+  0 .data         0000001e  00800200  000004f8  0000058c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000004e8  00000000  00000000  00000094  2**1
+  1 .text         000004f8  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000001  0080021e  0080021e  0000059a  2**0
+  2 .bss          00000001  0080021e  0080021e  000005aa  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000059a  2**0
+  3 .comment      00000030  00000000  00000000  000005aa  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000005cc  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000005dc  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000f0  00000000  00000000  0000060c  2**0
+  5 .debug_aranges 000000f0  00000000  00000000  0000061c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001d7c  00000000  00000000  000006fc  2**0
+  6 .debug_info   00001d88  00000000  00000000  0000070c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000011ea  00000000  00000000  00002478  2**0
+  7 .debug_abbrev 000011ea  00000000  00000000  00002494  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000006e4  00000000  00000000  00003662  2**0
+  8 .debug_line   000006ea  00000000  00000000  0000367e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000001c8  00000000  00000000  00003d48  2**2
+  9 .debug_frame  000001c8  00000000  00000000  00003d68  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000a2a  00000000  00000000  00003f10  2**0
+ 10 .debug_str    00000a2a  00000000  00000000  00003f30  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000552  00000000  00000000  0000493a  2**0
+ 11 .debug_loc    000005c4  00000000  00000000  0000495a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000b0  00000000  00000000  00004e8c  2**0
+ 12 .debug_ranges 000000b0  00000000  00000000  00004f1e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -162,7 +162,7 @@ Disassembly of section .text:
   f4:	12 e0       	ldi	r17, 0x02	; 2
   f6:	a0 e0       	ldi	r26, 0x00	; 0
   f8:	b2 e0       	ldi	r27, 0x02	; 2
-  fa:	e8 ee       	ldi	r30, 0xE8	; 232
+  fa:	e8 ef       	ldi	r30, 0xF8	; 248
   fc:	f4 e0       	ldi	r31, 0x04	; 4
   fe:	00 e0       	ldi	r16, 0x00	; 0
  100:	0b bf       	out	0x3b, r16	; 59
@@ -186,674 +186,702 @@ Disassembly of section .text:
  118:	af 31       	cpi	r26, 0x1F	; 31
  11a:	b2 07       	cpc	r27, r18
  11c:	e1 f7       	brne	.-8      	; 0x116 <.do_clear_bss_loop>
- 11e:	46 d0       	rcall	.+140    	; 0x1ac <main>
- 120:	e1 c1       	rjmp	.+962    	; 0x4e4 <_exit>
+ 11e:	4e d0       	rcall	.+156    	; 0x1bc <main>
+ 120:	e9 c1       	rjmp	.+978    	; 0x4f4 <_exit>
 
 00000122 <__bad_interrupt>:
  122:	6e cf       	rjmp	.-292    	; 0x0 <__vectors>
 
-00000124 <_ZN19JordfugtighedsensorC1Eii>:
+00000124 <_ZN19Jordfugtighedsensor11GetHumidityEv>:
+	ADC_init(); // Call ADC_init() here
+}
+	
+int Jordfugtighedsensor::GetHumidity(){
+	return humidity;
+}
+ 124:	fc 01       	movw	r30, r24
+ 126:	80 81       	ld	r24, Z
+ 128:	91 81       	ldd	r25, Z+1	; 0x01
+ 12a:	08 95       	ret
+
+0000012c <_ZN19Jordfugtighedsensor12GetThresholdEv>:
+int Jordfugtighedsensor::GetThreshold(){
+	return threshold;
+}
+ 12c:	fc 01       	movw	r30, r24
+ 12e:	82 81       	ldd	r24, Z+2	; 0x02
+ 130:	93 81       	ldd	r25, Z+3	; 0x03
+ 132:	08 95       	ret
+
+00000134 <_ZN19Jordfugtighedsensor12SetThresholdEi>:
+void Jordfugtighedsensor::SetHumidity(){ // Anderledes fra klassediagram, tror klassediagram har en lille fejl her
+	humidity = ADC_readAsPercentage();
+}
+
+void Jordfugtighedsensor::SetThreshold(int NytTreshold){
 	threshold = NytTreshold;
+ 134:	fc 01       	movw	r30, r24
+ 136:	73 83       	std	Z+3, r23	; 0x03
+ 138:	62 83       	std	Z+2, r22	; 0x02
+ 13a:	08 95       	ret
+
+0000013c <_ZN19Jordfugtighedsensor8ADC_initEv>:
 }
 
 void Jordfugtighedsensor::ADC_init() {
 	ADMUX = (1 << REFS0);  // Sætter reference til AVcc (5V)
+ 13c:	80 e4       	ldi	r24, 0x40	; 64
+ 13e:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7c007c>
 	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);  // Aktiverer ADC og sætter prescaler
- 124:	fc 01       	movw	r30, r24
- 126:	11 82       	std	Z+1, r1	; 0x01
- 128:	10 82       	st	Z, r1
- 12a:	73 83       	std	Z+3, r23	; 0x03
- 12c:	62 83       	std	Z+2, r22	; 0x02
- 12e:	55 83       	std	Z+5, r21	; 0x05
- 130:	44 83       	std	Z+4, r20	; 0x04
- 132:	08 95       	ret
+ 142:	87 e8       	ldi	r24, 0x87	; 135
+ 144:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7c007a>
+ 148:	08 95       	ret
 
-00000134 <_ZN19Jordfugtighedsensor11GetHumidityEv>:
- 134:	fc 01       	movw	r30, r24
- 136:	80 81       	ld	r24, Z
- 138:	91 81       	ldd	r25, Z+1	; 0x01
- 13a:	08 95       	ret
+0000014a <_ZN19JordfugtighedsensorC1Eii>:
+#include "Jordfugtighedsensor.h"
 
-0000013c <_ZN19Jordfugtighedsensor12GetThresholdEv>:
- 13c:	fc 01       	movw	r30, r24
- 13e:	82 81       	ldd	r24, Z+2	; 0x02
- 140:	93 81       	ldd	r25, Z+3	; 0x03
- 142:	08 95       	ret
+Jordfugtighedsensor::Jordfugtighedsensor(int NytThreshold, int pin)
+: humidity(0), threshold(NytThreshold), adcPin(pin) {
+ 14a:	fc 01       	movw	r30, r24
+ 14c:	11 82       	std	Z+1, r1	; 0x01
+ 14e:	10 82       	st	Z, r1
+ 150:	73 83       	std	Z+3, r23	; 0x03
+ 152:	62 83       	std	Z+2, r22	; 0x02
+ 154:	55 83       	std	Z+5, r21	; 0x05
+ 156:	44 83       	std	Z+4, r20	; 0x04
+	ADC_init(); // Call ADC_init() here
+ 158:	f1 cf       	rjmp	.-30     	; 0x13c <_ZN19Jordfugtighedsensor8ADC_initEv>
+ 15a:	08 95       	ret
 
-00000144 <_ZN19Jordfugtighedsensor12SetThresholdEi>:
- 144:	fc 01       	movw	r30, r24
- 146:	73 83       	std	Z+3, r23	; 0x03
- 148:	62 83       	std	Z+2, r22	; 0x02
- 14a:	08 95       	ret
-
-0000014c <_ZN19Jordfugtighedsensor20ADC_readAsPercentageEv>:
+0000015c <_ZN19Jordfugtighedsensor20ADC_readAsPercentageEv>:
+	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);  // Aktiverer ADC og sætter prescaler
 }
 	
 double Jordfugtighedsensor::ADC_readAsPercentage(){  // Retunere Humidity som procent
 	
 	ADMUX = (ADMUX & 0xF0) | (adcPin & 0x0F);
- 14c:	ec e7       	ldi	r30, 0x7C	; 124
- 14e:	f0 e0       	ldi	r31, 0x00	; 0
- 150:	20 81       	ld	r18, Z
- 152:	dc 01       	movw	r26, r24
- 154:	14 96       	adiw	r26, 0x04	; 4
- 156:	8c 91       	ld	r24, X
- 158:	20 7f       	andi	r18, 0xF0	; 240
- 15a:	8f 70       	andi	r24, 0x0F	; 15
- 15c:	82 2b       	or	r24, r18
- 15e:	80 83       	st	Z, r24
+ 15c:	ec e7       	ldi	r30, 0x7C	; 124
+ 15e:	f0 e0       	ldi	r31, 0x00	; 0
+ 160:	20 81       	ld	r18, Z
+ 162:	dc 01       	movw	r26, r24
+ 164:	14 96       	adiw	r26, 0x04	; 4
+ 166:	8c 91       	ld	r24, X
+ 168:	20 7f       	andi	r18, 0xF0	; 240
+ 16a:	8f 70       	andi	r24, 0x0F	; 15
+ 16c:	82 2b       	or	r24, r18
+ 16e:	80 83       	st	Z, r24
 	ADCSRA |= (1 << ADSC); // Starter konvertering
- 160:	ea e7       	ldi	r30, 0x7A	; 122
- 162:	f0 e0       	ldi	r31, 0x00	; 0
- 164:	80 81       	ld	r24, Z
- 166:	80 64       	ori	r24, 0x40	; 64
- 168:	80 83       	st	Z, r24
+ 170:	ea e7       	ldi	r30, 0x7A	; 122
+ 172:	f0 e0       	ldi	r31, 0x00	; 0
+ 174:	80 81       	ld	r24, Z
+ 176:	80 64       	ori	r24, 0x40	; 64
+ 178:	80 83       	st	Z, r24
 	while (ADCSRA & (1 << ADSC));  // Venter på, at konvertering er færdig
- 16a:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <__TEXT_REGION_LENGTH__+0x7c007a>
- 16e:	86 fd       	sbrc	r24, 6
- 170:	fc cf       	rjmp	.-8      	; 0x16a <_ZN19Jordfugtighedsensor20ADC_readAsPercentageEv+0x1e>
+ 17a:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <__TEXT_REGION_LENGTH__+0x7c007a>
+ 17e:	86 fd       	sbrc	r24, 6
+ 180:	fc cf       	rjmp	.-8      	; 0x17a <_ZN19Jordfugtighedsensor20ADC_readAsPercentageEv+0x1e>
 	
 	double moisturePercentage = ((1023 - ADC) * 100) / (1023 - 300); // ADC registeret indeholder værdien for det digitale signal 
- 172:	20 91 78 00 	lds	r18, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7c0078>
- 176:	30 91 79 00 	lds	r19, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7c0079>
- 17a:	4c e9       	ldi	r20, 0x9C	; 156
- 17c:	42 03       	mulsu	r20, r18
- 17e:	c0 01       	movw	r24, r0
- 180:	43 9f       	mul	r20, r19
- 182:	90 0d       	add	r25, r0
- 184:	11 24       	eor	r1, r1
- 186:	84 56       	subi	r24, 0x64	; 100
- 188:	90 47       	sbci	r25, 0x70	; 112
- 18a:	63 ed       	ldi	r22, 0xD3	; 211
- 18c:	72 e0       	ldi	r23, 0x02	; 2
- 18e:	63 d1       	rcall	.+710    	; 0x456 <__udivmodhi4>
- 190:	80 e0       	ldi	r24, 0x00	; 0
- 192:	90 e0       	ldi	r25, 0x00	; 0
- 194:	fa c0       	rjmp	.+500    	; 0x38a <__floatunsisf>
+ 182:	20 91 78 00 	lds	r18, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7c0078>
+ 186:	30 91 79 00 	lds	r19, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7c0079>
+ 18a:	4c e9       	ldi	r20, 0x9C	; 156
+ 18c:	42 03       	mulsu	r20, r18
+ 18e:	c0 01       	movw	r24, r0
+ 190:	43 9f       	mul	r20, r19
+ 192:	90 0d       	add	r25, r0
+ 194:	11 24       	eor	r1, r1
+ 196:	84 56       	subi	r24, 0x64	; 100
+ 198:	90 47       	sbci	r25, 0x70	; 112
+ 19a:	63 ed       	ldi	r22, 0xD3	; 211
+ 19c:	72 e0       	ldi	r23, 0x02	; 2
+ 19e:	63 d1       	rcall	.+710    	; 0x466 <__udivmodhi4>
+ 1a0:	80 e0       	ldi	r24, 0x00	; 0
+ 1a2:	90 e0       	ldi	r25, 0x00	; 0
+ 1a4:	fa c0       	rjmp	.+500    	; 0x39a <__floatunsisf>
 return moisturePercentage;
- 196:	08 95       	ret
+ 1a6:	08 95       	ret
 
-00000198 <_ZN19Jordfugtighedsensor11SetHumidityEv>:
+000001a8 <_ZN19Jordfugtighedsensor11SetHumidityEv>:
 	return humidity;
 }
 int Jordfugtighedsensor::GetThreshold(){
 	return threshold;
 }
 void Jordfugtighedsensor::SetHumidity(){ // Anderledes fra klassediagram, tror klassediagram har en lille fejl her
- 198:	cf 93       	push	r28
- 19a:	df 93       	push	r29
- 19c:	ec 01       	movw	r28, r24
+ 1a8:	cf 93       	push	r28
+ 1aa:	df 93       	push	r29
+ 1ac:	ec 01       	movw	r28, r24
 	humidity = ADC_readAsPercentage();
- 19e:	d6 df       	rcall	.-84     	; 0x14c <_ZN19Jordfugtighedsensor20ADC_readAsPercentageEv>
- 1a0:	c3 d0       	rcall	.+390    	; 0x328 <__fixsfsi>
- 1a2:	79 83       	std	Y+1, r23	; 0x01
- 1a4:	68 83       	st	Y, r22
+ 1ae:	d6 df       	rcall	.-84     	; 0x15c <_ZN19Jordfugtighedsensor20ADC_readAsPercentageEv>
+ 1b0:	c3 d0       	rcall	.+390    	; 0x338 <__fixsfsi>
+ 1b2:	79 83       	std	Y+1, r23	; 0x01
+ 1b4:	68 83       	st	Y, r22
 }
- 1a6:	df 91       	pop	r29
- 1a8:	cf 91       	pop	r28
- 1aa:	08 95       	ret
+ 1b6:	df 91       	pop	r29
+ 1b8:	cf 91       	pop	r28
+ 1ba:	08 95       	ret
 
-000001ac <main>:
+000001bc <main>:
+#include <util/delay.h>
 
 
 UART uart;  // Create an instance of the UART class
 
-
 int main(void) {
- 1ac:	cf 93       	push	r28
- 1ae:	df 93       	push	r29
- 1b0:	cd b7       	in	r28, 0x3d	; 61
- 1b2:	de b7       	in	r29, 0x3e	; 62
- 1b4:	62 97       	sbiw	r28, 0x12	; 18
- 1b6:	0f b6       	in	r0, 0x3f	; 63
- 1b8:	f8 94       	cli
- 1ba:	de bf       	out	0x3e, r29	; 62
- 1bc:	0f be       	out	0x3f, r0	; 63
- 1be:	cd bf       	out	0x3d, r28	; 61
+ 1bc:	cf 93       	push	r28
+ 1be:	df 93       	push	r29
+ 1c0:	cd b7       	in	r28, 0x3d	; 61
+ 1c2:	de b7       	in	r29, 0x3e	; 62
+ 1c4:	62 97       	sbiw	r28, 0x12	; 18
+ 1c6:	0f b6       	in	r0, 0x3f	; 63
+ 1c8:	f8 94       	cli
+ 1ca:	de bf       	out	0x3e, r29	; 62
+ 1cc:	0f be       	out	0x3f, r0	; 63
+ 1ce:	cd bf       	out	0x3d, r28	; 61
 	// Initialize UART
 	uart.init(MY_UBRR);
- 1c0:	67 e6       	ldi	r22, 0x67	; 103
- 1c2:	70 e0       	ldi	r23, 0x00	; 0
- 1c4:	8e e1       	ldi	r24, 0x1E	; 30
- 1c6:	92 e0       	ldi	r25, 0x02	; 2
- 1c8:	6d d0       	rcall	.+218    	; 0x2a4 <_ZN4UART4initEj>
+ 1d0:	67 e6       	ldi	r22, 0x67	; 103
+ 1d2:	70 e0       	ldi	r23, 0x00	; 0
+ 1d4:	8e e1       	ldi	r24, 0x1E	; 30
+ 1d6:	92 e0       	ldi	r25, 0x02	; 2
+ 1d8:	6d d0       	rcall	.+218    	; 0x2b4 <_ZN4UART4initEj>
 
 	// Create a Potteplante instance with an ID, Sensor Pin, Humidity Threshold, and Watering Duration
-	Potteplante plant(1, 0, 60, 10);  // Example values
- 1ca:	0a e0       	ldi	r16, 0x0A	; 10
- 1cc:	10 e0       	ldi	r17, 0x00	; 0
- 1ce:	2c e3       	ldi	r18, 0x3C	; 60
- 1d0:	30 e0       	ldi	r19, 0x00	; 0
- 1d2:	40 e0       	ldi	r20, 0x00	; 0
- 1d4:	50 e0       	ldi	r21, 0x00	; 0
- 1d6:	61 e0       	ldi	r22, 0x01	; 1
- 1d8:	70 e0       	ldi	r23, 0x00	; 0
- 1da:	ce 01       	movw	r24, r28
- 1dc:	01 96       	adiw	r24, 0x01	; 1
- 1de:	45 d0       	rcall	.+138    	; 0x26a <_ZN11PotteplanteC1Eiiii>
+	Potteplante plant( 1, 0 , 20 , 5); 
+ 1da:	05 e0       	ldi	r16, 0x05	; 5
+ 1dc:	10 e0       	ldi	r17, 0x00	; 0
+ 1de:	24 e1       	ldi	r18, 0x14	; 20
+ 1e0:	30 e0       	ldi	r19, 0x00	; 0
+ 1e2:	40 e0       	ldi	r20, 0x00	; 0
+ 1e4:	50 e0       	ldi	r21, 0x00	; 0
+ 1e6:	61 e0       	ldi	r22, 0x01	; 1
+ 1e8:	70 e0       	ldi	r23, 0x00	; 0
+ 1ea:	ce 01       	movw	r24, r28
+ 1ec:	01 96       	adiw	r24, 0x01	; 1
+ 1ee:	45 d0       	rcall	.+138    	; 0x27a <_ZN11PotteplanteC1Eiiii>
 	
 
 	// Main loop
 	while (1) {
 		// Update the sensor (this will call SetHumidity in the sensor class)
 		plant.UpdateSensor();
- 1e0:	ce 01       	movw	r24, r28
- 1e2:	01 96       	adiw	r24, 0x01	; 1
- 1e4:	5c d0       	rcall	.+184    	; 0x29e <_ZN11Potteplante12UpdateSensorEv>
+ 1f0:	ce 01       	movw	r24, r28
+ 1f2:	01 96       	adiw	r24, 0x01	; 1
+ 1f4:	5c d0       	rcall	.+184    	; 0x2ae <_ZN11Potteplante12UpdateSensorEv>
 
 		// Send humidity value via UART
 		uart.print("Humidity: ");
- 1e6:	60 e0       	ldi	r22, 0x00	; 0
- 1e8:	72 e0       	ldi	r23, 0x02	; 2
- 1ea:	8e e1       	ldi	r24, 0x1E	; 30
- 1ec:	92 e0       	ldi	r25, 0x02	; 2
+ 1f6:	60 e0       	ldi	r22, 0x00	; 0
+ 1f8:	72 e0       	ldi	r23, 0x02	; 2
+ 1fa:	8e e1       	ldi	r24, 0x1E	; 30
+ 1fc:	92 e0       	ldi	r25, 0x02	; 2
 		uart.printNumber(plant.GetHumidity());
- 1ee:	6c d0       	rcall	.+216    	; 0x2c8 <_ZN4UART5printEPKc>
- 1f0:	ce 01       	movw	r24, r28
- 1f2:	01 96       	adiw	r24, 0x01	; 1
- 1f4:	4b d0       	rcall	.+150    	; 0x28c <_ZN11Potteplante11GetHumidityEv>
- 1f6:	68 2f       	mov	r22, r24
- 1f8:	8e e1       	ldi	r24, 0x1E	; 30
- 1fa:	92 e0       	ldi	r25, 0x02	; 2
+ 1fe:	6c d0       	rcall	.+216    	; 0x2d8 <_ZN4UART5printEPKc>
+ 200:	ce 01       	movw	r24, r28
+ 202:	01 96       	adiw	r24, 0x01	; 1
+ 204:	4b d0       	rcall	.+150    	; 0x29c <_ZN11Potteplante11GetHumidityEv>
+ 206:	68 2f       	mov	r22, r24
+ 208:	8e e1       	ldi	r24, 0x1E	; 30
+ 20a:	92 e0       	ldi	r25, 0x02	; 2
 		uart.print("\r\n");
- 1fc:	77 d0       	rcall	.+238    	; 0x2ec <_ZN4UART11printNumberEh>
- 1fe:	6b e0       	ldi	r22, 0x0B	; 11
- 200:	72 e0       	ldi	r23, 0x02	; 2
- 202:	8e e1       	ldi	r24, 0x1E	; 30
- 204:	92 e0       	ldi	r25, 0x02	; 2
+ 20c:	77 d0       	rcall	.+238    	; 0x2fc <_ZN4UART11printNumberEh>
+ 20e:	6b e0       	ldi	r22, 0x0B	; 11
+ 210:	72 e0       	ldi	r23, 0x02	; 2
+ 212:	8e e1       	ldi	r24, 0x1E	; 30
+ 214:	92 e0       	ldi	r25, 0x02	; 2
 
 		// Send threshold value via UART
 		uart.print("Threshold: ");
- 206:	60 d0       	rcall	.+192    	; 0x2c8 <_ZN4UART5printEPKc>
- 208:	62 e1       	ldi	r22, 0x12	; 18
- 20a:	72 e0       	ldi	r23, 0x02	; 2
- 20c:	8e e1       	ldi	r24, 0x1E	; 30
+ 216:	60 d0       	rcall	.+192    	; 0x2d8 <_ZN4UART5printEPKc>
+ 218:	62 e1       	ldi	r22, 0x12	; 18
+ 21a:	72 e0       	ldi	r23, 0x02	; 2
+ 21c:	8e e1       	ldi	r24, 0x1E	; 30
 		uart.printNumber(plant.GetThreshold());
- 20e:	92 e0       	ldi	r25, 0x02	; 2
- 210:	5b d0       	rcall	.+182    	; 0x2c8 <_ZN4UART5printEPKc>
- 212:	ce 01       	movw	r24, r28
- 214:	01 96       	adiw	r24, 0x01	; 1
- 216:	3d d0       	rcall	.+122    	; 0x292 <_ZN11Potteplante12GetThresholdEv>
- 218:	68 2f       	mov	r22, r24
- 21a:	8e e1       	ldi	r24, 0x1E	; 30
- 21c:	92 e0       	ldi	r25, 0x02	; 2
+ 21e:	92 e0       	ldi	r25, 0x02	; 2
+ 220:	5b d0       	rcall	.+182    	; 0x2d8 <_ZN4UART5printEPKc>
+ 222:	ce 01       	movw	r24, r28
+ 224:	01 96       	adiw	r24, 0x01	; 1
+ 226:	3d d0       	rcall	.+122    	; 0x2a2 <_ZN11Potteplante12GetThresholdEv>
+ 228:	68 2f       	mov	r22, r24
+ 22a:	8e e1       	ldi	r24, 0x1E	; 30
+ 22c:	92 e0       	ldi	r25, 0x02	; 2
 		uart.print("\r\n");
- 21e:	66 d0       	rcall	.+204    	; 0x2ec <_ZN4UART11printNumberEh>
- 220:	6b e0       	ldi	r22, 0x0B	; 11
- 222:	72 e0       	ldi	r23, 0x02	; 2
- 224:	8e e1       	ldi	r24, 0x1E	; 30
- 226:	92 e0       	ldi	r25, 0x02	; 2
+ 22e:	66 d0       	rcall	.+204    	; 0x2fc <_ZN4UART11printNumberEh>
+ 230:	6b e0       	ldi	r22, 0x0B	; 11
+ 232:	72 e0       	ldi	r23, 0x02	; 2
+ 234:	8e e1       	ldi	r24, 0x1E	; 30
+ 236:	92 e0       	ldi	r25, 0x02	; 2
 
 		// Set a new threshold and print it
 		plant.SetThreshold(50);
- 228:	4f d0       	rcall	.+158    	; 0x2c8 <_ZN4UART5printEPKc>
- 22a:	62 e3       	ldi	r22, 0x32	; 50
- 22c:	70 e0       	ldi	r23, 0x00	; 0
- 22e:	ce 01       	movw	r24, r28
- 230:	01 96       	adiw	r24, 0x01	; 1
-		uart.print("New Threshold: ");
- 232:	32 d0       	rcall	.+100    	; 0x298 <_ZN11Potteplante12SetThresholdEi>
- 234:	6e e0       	ldi	r22, 0x0E	; 14
- 236:	72 e0       	ldi	r23, 0x02	; 2
- 238:	8e e1       	ldi	r24, 0x1E	; 30
- 23a:	92 e0       	ldi	r25, 0x02	; 2
-		uart.printNumber(plant.GetThreshold());
- 23c:	45 d0       	rcall	.+138    	; 0x2c8 <_ZN4UART5printEPKc>
+ 238:	4f d0       	rcall	.+158    	; 0x2d8 <_ZN4UART5printEPKc>
+ 23a:	62 e3       	ldi	r22, 0x32	; 50
+ 23c:	70 e0       	ldi	r23, 0x00	; 0
  23e:	ce 01       	movw	r24, r28
  240:	01 96       	adiw	r24, 0x01	; 1
- 242:	27 d0       	rcall	.+78     	; 0x292 <_ZN11Potteplante12GetThresholdEv>
- 244:	68 2f       	mov	r22, r24
- 246:	8e e1       	ldi	r24, 0x1E	; 30
- 248:	92 e0       	ldi	r25, 0x02	; 2
- 24a:	50 d0       	rcall	.+160    	; 0x2ec <_ZN4UART11printNumberEh>
- 24c:	6b e0       	ldi	r22, 0x0B	; 11
+		uart.print("New Threshold: ");
+ 242:	32 d0       	rcall	.+100    	; 0x2a8 <_ZN11Potteplante12SetThresholdEi>
+ 244:	6e e0       	ldi	r22, 0x0E	; 14
+ 246:	72 e0       	ldi	r23, 0x02	; 2
+ 248:	8e e1       	ldi	r24, 0x1E	; 30
+ 24a:	92 e0       	ldi	r25, 0x02	; 2
+		uart.printNumber(plant.GetThreshold());
+ 24c:	45 d0       	rcall	.+138    	; 0x2d8 <_ZN4UART5printEPKc>
+ 24e:	ce 01       	movw	r24, r28
+ 250:	01 96       	adiw	r24, 0x01	; 1
+ 252:	27 d0       	rcall	.+78     	; 0x2a2 <_ZN11Potteplante12GetThresholdEv>
+ 254:	68 2f       	mov	r22, r24
+ 256:	8e e1       	ldi	r24, 0x1E	; 30
+ 258:	92 e0       	ldi	r25, 0x02	; 2
+ 25a:	50 d0       	rcall	.+160    	; 0x2fc <_ZN4UART11printNumberEh>
+ 25c:	6b e0       	ldi	r22, 0x0B	; 11
 		uart.print("\r\n");
- 24e:	72 e0       	ldi	r23, 0x02	; 2
- 250:	8e e1       	ldi	r24, 0x1E	; 30
- 252:	92 e0       	ldi	r25, 0x02	; 2
- 254:	39 d0       	rcall	.+114    	; 0x2c8 <_ZN4UART5printEPKc>
- 256:	2f ef       	ldi	r18, 0xFF	; 255
- 258:	83 ed       	ldi	r24, 0xD3	; 211
+ 25e:	72 e0       	ldi	r23, 0x02	; 2
+ 260:	8e e1       	ldi	r24, 0x1E	; 30
+ 262:	92 e0       	ldi	r25, 0x02	; 2
+ 264:	39 d0       	rcall	.+114    	; 0x2d8 <_ZN4UART5printEPKc>
+ 266:	2f ef       	ldi	r18, 0xFF	; 255
+ 268:	83 ed       	ldi	r24, 0xD3	; 211
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 25a:	90 e3       	ldi	r25, 0x30	; 48
- 25c:	21 50       	subi	r18, 0x01	; 1
- 25e:	80 40       	sbci	r24, 0x00	; 0
- 260:	90 40       	sbci	r25, 0x00	; 0
- 262:	e1 f7       	brne	.-8      	; 0x25c <main+0xb0>
- 264:	00 c0       	rjmp	.+0      	; 0x266 <main+0xba>
- 266:	00 00       	nop
- 268:	bb cf       	rjmp	.-138    	; 0x1e0 <main+0x34>
+ 26a:	90 e3       	ldi	r25, 0x30	; 48
+ 26c:	21 50       	subi	r18, 0x01	; 1
+ 26e:	80 40       	sbci	r24, 0x00	; 0
+ 270:	90 40       	sbci	r25, 0x00	; 0
+ 272:	e1 f7       	brne	.-8      	; 0x26c <main+0xb0>
+ 274:	00 c0       	rjmp	.+0      	; 0x276 <main+0xba>
+ 276:	00 00       	nop
+ 278:	bb cf       	rjmp	.-138    	; 0x1f0 <main+0x34>
 
-0000026a <_ZN11PotteplanteC1Eiiii>:
- 26a:	0f 93       	push	r16
- 26c:	1f 93       	push	r17
+0000027a <_ZN11PotteplanteC1Eiiii>:
+ 27a:	0f 93       	push	r16
+ 27c:	1f 93       	push	r17
+wateringDuration(WateringDuration),
 jordfugtighedsensor(HumidityThreshold, HumiditySensorPin)  // Pass the pin here
 {}
 
-
 	
 void Potteplante::WaterPlant(){
- 26e:	fc 01       	movw	r30, r24
- 270:	71 83       	std	Z+1, r23	; 0x01
- 272:	60 83       	st	Z, r22
- 274:	53 83       	std	Z+3, r21	; 0x03
- 276:	42 83       	std	Z+2, r20	; 0x02
- 278:	35 83       	std	Z+5, r19	; 0x05
- 27a:	24 83       	std	Z+4, r18	; 0x04
- 27c:	17 83       	std	Z+7, r17	; 0x07
- 27e:	06 83       	std	Z+6, r16	; 0x06
- 280:	b9 01       	movw	r22, r18
- 282:	0c 96       	adiw	r24, 0x0c	; 12
- 284:	4f df       	rcall	.-354    	; 0x124 <_ZN19JordfugtighedsensorC1Eii>
- 286:	1f 91       	pop	r17
- 288:	0f 91       	pop	r16
- 28a:	08 95       	ret
+ 27e:	fc 01       	movw	r30, r24
+ 280:	71 83       	std	Z+1, r23	; 0x01
+ 282:	60 83       	st	Z, r22
+ 284:	53 83       	std	Z+3, r21	; 0x03
+ 286:	42 83       	std	Z+2, r20	; 0x02
+ 288:	35 83       	std	Z+5, r19	; 0x05
+ 28a:	24 83       	std	Z+4, r18	; 0x04
+ 28c:	17 83       	std	Z+7, r17	; 0x07
+ 28e:	06 83       	std	Z+6, r16	; 0x06
+ 290:	b9 01       	movw	r22, r18
+ 292:	0c 96       	adiw	r24, 0x0c	; 12
+ 294:	5a df       	rcall	.-332    	; 0x14a <_ZN19JordfugtighedsensorC1Eii>
+ 296:	1f 91       	pop	r17
+ 298:	0f 91       	pop	r16
+ 29a:	08 95       	ret
 
-0000028c <_ZN11Potteplante11GetHumidityEv>:
+0000029c <_ZN11Potteplante11GetHumidityEv>:
 	// vandpumpe.PumpWater();
 }
 
 int Potteplante::GetHumidity(){
 	return jordfugtighedsensor.GetHumidity();
- 28c:	0c 96       	adiw	r24, 0x0c	; 12
- 28e:	52 cf       	rjmp	.-348    	; 0x134 <_ZN19Jordfugtighedsensor11GetHumidityEv>
+ 29c:	0c 96       	adiw	r24, 0x0c	; 12
+ 29e:	42 cf       	rjmp	.-380    	; 0x124 <_ZN19Jordfugtighedsensor11GetHumidityEv>
 }
- 290:	08 95       	ret
+ 2a0:	08 95       	ret
 
-00000292 <_ZN11Potteplante12GetThresholdEv>:
+000002a2 <_ZN11Potteplante12GetThresholdEv>:
 
 
 int Potteplante::GetThreshold(){
 	return jordfugtighedsensor.GetThreshold();
- 292:	0c 96       	adiw	r24, 0x0c	; 12
- 294:	53 cf       	rjmp	.-346    	; 0x13c <_ZN19Jordfugtighedsensor12GetThresholdEv>
+ 2a2:	0c 96       	adiw	r24, 0x0c	; 12
+ 2a4:	43 cf       	rjmp	.-378    	; 0x12c <_ZN19Jordfugtighedsensor12GetThresholdEv>
 }
- 296:	08 95       	ret
+ 2a6:	08 95       	ret
 
-00000298 <_ZN11Potteplante12SetThresholdEi>:
+000002a8 <_ZN11Potteplante12SetThresholdEi>:
 
 void Potteplante::SetThreshold(int NyHumidityTreshold){
 	jordfugtighedsensor.SetThreshold(NyHumidityTreshold);
- 298:	0c 96       	adiw	r24, 0x0c	; 12
- 29a:	54 cf       	rjmp	.-344    	; 0x144 <_ZN19Jordfugtighedsensor12SetThresholdEi>
- 29c:	08 95       	ret
+ 2a8:	0c 96       	adiw	r24, 0x0c	; 12
+ 2aa:	44 cf       	rjmp	.-376    	; 0x134 <_ZN19Jordfugtighedsensor12SetThresholdEi>
+ 2ac:	08 95       	ret
 
-0000029e <_ZN11Potteplante12UpdateSensorEv>:
+000002ae <_ZN11Potteplante12UpdateSensorEv>:
 }
 
 void Potteplante::UpdateSensor(){
 	jordfugtighedsensor.SetHumidity();
- 29e:	0c 96       	adiw	r24, 0x0c	; 12
- 2a0:	7b cf       	rjmp	.-266    	; 0x198 <_ZN19Jordfugtighedsensor11SetHumidityEv>
- 2a2:	08 95       	ret
+ 2ae:	0c 96       	adiw	r24, 0x0c	; 12
+ 2b0:	7b cf       	rjmp	.-266    	; 0x1a8 <_ZN19Jordfugtighedsensor11SetHumidityEv>
+ 2b2:	08 95       	ret
 
-000002a4 <_ZN4UART4initEj>:
+000002b4 <_ZN4UART4initEj>:
 #include "UART.h"
 #include <stdlib.h>  // Inkluderer stdlib.h for itoa funktion
 
 // Initialiserer UART ved hjælp af den angivne UBRR værdi
 void UART::init(uint16_t ubrr) {
 	UBRR0H = (ubrr >> 8);      // Sætter den høje byte af UBRR
- 2a4:	70 93 c5 00 	sts	0x00C5, r23	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7c00c5>
+ 2b4:	70 93 c5 00 	sts	0x00C5, r23	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7c00c5>
 	UBRR0L = ubrr;             // Sætter den lave byte af UBRR
- 2a8:	60 93 c4 00 	sts	0x00C4, r22	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7c00c4>
+ 2b8:	60 93 c4 00 	sts	0x00C4, r22	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7c00c4>
 	UCSR0B = (1 << TXEN0);     // Aktiverer transmitter
- 2ac:	88 e0       	ldi	r24, 0x08	; 8
- 2ae:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7c00c1>
+ 2bc:	88 e0       	ldi	r24, 0x08	; 8
+ 2be:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7c00c1>
 	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); // Sætter 8 data bits og 1 stop bit
- 2b2:	86 e0       	ldi	r24, 0x06	; 6
- 2b4:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7c00c2>
- 2b8:	08 95       	ret
+ 2c2:	86 e0       	ldi	r24, 0x06	; 6
+ 2c4:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7c00c2>
+ 2c8:	08 95       	ret
 
-000002ba <_ZN4UART8transmitEc>:
+000002ca <_ZN4UART8transmitEc>:
 }
 
 void UART::transmit(char data) {
 	while (!(UCSR0A & (1 << UDRE0)));  // Venter på, at transmit-bufferen er klar
- 2ba:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7c00c0>
- 2be:	85 ff       	sbrs	r24, 5
- 2c0:	fc cf       	rjmp	.-8      	; 0x2ba <_ZN4UART8transmitEc>
+ 2ca:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7c00c0>
+ 2ce:	85 ff       	sbrs	r24, 5
+ 2d0:	fc cf       	rjmp	.-8      	; 0x2ca <_ZN4UART8transmitEc>
 	UDR0 = data;                       // Skriver data til transmit-bufferen
- 2c2:	60 93 c6 00 	sts	0x00C6, r22	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
- 2c6:	08 95       	ret
+ 2d2:	60 93 c6 00 	sts	0x00C6, r22	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
+ 2d6:	08 95       	ret
 
-000002c8 <_ZN4UART5printEPKc>:
+000002d8 <_ZN4UART5printEPKc>:
 }
 
 void UART::print(const char* str) {
- 2c8:	0f 93       	push	r16
- 2ca:	1f 93       	push	r17
- 2cc:	cf 93       	push	r28
- 2ce:	df 93       	push	r29
- 2d0:	8c 01       	movw	r16, r24
- 2d2:	eb 01       	movw	r28, r22
+ 2d8:	0f 93       	push	r16
+ 2da:	1f 93       	push	r17
+ 2dc:	cf 93       	push	r28
+ 2de:	df 93       	push	r29
+ 2e0:	8c 01       	movw	r16, r24
+ 2e2:	eb 01       	movw	r28, r22
 	while (*str) {
- 2d4:	68 81       	ld	r22, Y
- 2d6:	66 23       	and	r22, r22
- 2d8:	21 f0       	breq	.+8      	; 0x2e2 <_ZN4UART5printEPKc+0x1a>
+ 2e4:	68 81       	ld	r22, Y
+ 2e6:	66 23       	and	r22, r22
+ 2e8:	21 f0       	breq	.+8      	; 0x2f2 <_ZN4UART5printEPKc+0x1a>
 		transmit(*str++);
- 2da:	21 96       	adiw	r28, 0x01	; 1
- 2dc:	c8 01       	movw	r24, r16
- 2de:	ed df       	rcall	.-38     	; 0x2ba <_ZN4UART8transmitEc>
+ 2ea:	21 96       	adiw	r28, 0x01	; 1
+ 2ec:	c8 01       	movw	r24, r16
+ 2ee:	ed df       	rcall	.-38     	; 0x2ca <_ZN4UART8transmitEc>
 	while (!(UCSR0A & (1 << UDRE0)));  // Venter på, at transmit-bufferen er klar
 	UDR0 = data;                       // Skriver data til transmit-bufferen
 }
 
 void UART::print(const char* str) {
 	while (*str) {
- 2e0:	f9 cf       	rjmp	.-14     	; 0x2d4 <_ZN4UART5printEPKc+0xc>
+ 2f0:	f9 cf       	rjmp	.-14     	; 0x2e4 <_ZN4UART5printEPKc+0xc>
 		transmit(*str++);
 	}
 }
- 2e2:	df 91       	pop	r29
- 2e4:	cf 91       	pop	r28
- 2e6:	1f 91       	pop	r17
- 2e8:	0f 91       	pop	r16
- 2ea:	08 95       	ret
+ 2f2:	df 91       	pop	r29
+ 2f4:	cf 91       	pop	r28
+ 2f6:	1f 91       	pop	r17
+ 2f8:	0f 91       	pop	r16
+ 2fa:	08 95       	ret
 
-000002ec <_ZN4UART11printNumberEh>:
+000002fc <_ZN4UART11printNumberEh>:
 
 void UART::printNumber(uint8_t number) {
- 2ec:	0f 93       	push	r16
- 2ee:	1f 93       	push	r17
- 2f0:	cf 93       	push	r28
- 2f2:	df 93       	push	r29
- 2f4:	00 d0       	rcall	.+0      	; 0x2f6 <_ZN4UART11printNumberEh+0xa>
- 2f6:	1f 92       	push	r1
- 2f8:	cd b7       	in	r28, 0x3d	; 61
- 2fa:	de b7       	in	r29, 0x3e	; 62
- 2fc:	8c 01       	movw	r16, r24
- 2fe:	86 2f       	mov	r24, r22
+ 2fc:	0f 93       	push	r16
+ 2fe:	1f 93       	push	r17
+ 300:	cf 93       	push	r28
+ 302:	df 93       	push	r29
+ 304:	00 d0       	rcall	.+0      	; 0x306 <_ZN4UART11printNumberEh+0xa>
+ 306:	1f 92       	push	r1
+ 308:	cd b7       	in	r28, 0x3d	; 61
+ 30a:	de b7       	in	r29, 0x3e	; 62
+ 30c:	8c 01       	movw	r16, r24
+ 30e:	86 2f       	mov	r24, r22
     } else if (__radix < 2 || __radix > 36) {
 	*__s = 0;
 	return __s;
     } else {
 	extern char *__itoa_ncheck (int, char *, unsigned char);
 	return __itoa_ncheck (__val, __s, __radix);
- 300:	4a e0       	ldi	r20, 0x0A	; 10
- 302:	be 01       	movw	r22, r28
- 304:	6f 5f       	subi	r22, 0xFF	; 255
- 306:	7f 4f       	sbci	r23, 0xFF	; 255
- 308:	90 e0       	ldi	r25, 0x00	; 0
- 30a:	b9 d0       	rcall	.+370    	; 0x47e <__itoa_ncheck>
+ 310:	4a e0       	ldi	r20, 0x0A	; 10
+ 312:	be 01       	movw	r22, r28
+ 314:	6f 5f       	subi	r22, 0xFF	; 255
+ 316:	7f 4f       	sbci	r23, 0xFF	; 255
+ 318:	90 e0       	ldi	r25, 0x00	; 0
+ 31a:	b9 d0       	rcall	.+370    	; 0x48e <__itoa_ncheck>
 	char buffer[4];
 	itoa(number, buffer, 10);  // Konverterer tallet til tekst (decimal-basis)
 	print(buffer);             // Sender tallet som tekst
- 30c:	be 01       	movw	r22, r28
- 30e:	6f 5f       	subi	r22, 0xFF	; 255
- 310:	7f 4f       	sbci	r23, 0xFF	; 255
- 312:	c8 01       	movw	r24, r16
- 314:	d9 df       	rcall	.-78     	; 0x2c8 <_ZN4UART5printEPKc>
+ 31c:	be 01       	movw	r22, r28
+ 31e:	6f 5f       	subi	r22, 0xFF	; 255
+ 320:	7f 4f       	sbci	r23, 0xFF	; 255
+ 322:	c8 01       	movw	r24, r16
+ 324:	d9 df       	rcall	.-78     	; 0x2d8 <_ZN4UART5printEPKc>
 }
- 316:	0f 90       	pop	r0
- 318:	0f 90       	pop	r0
- 31a:	0f 90       	pop	r0
- 31c:	0f 90       	pop	r0
- 31e:	df 91       	pop	r29
- 320:	cf 91       	pop	r28
- 322:	1f 91       	pop	r17
- 324:	0f 91       	pop	r16
- 326:	08 95       	ret
+ 326:	0f 90       	pop	r0
+ 328:	0f 90       	pop	r0
+ 32a:	0f 90       	pop	r0
+ 32c:	0f 90       	pop	r0
+ 32e:	df 91       	pop	r29
+ 330:	cf 91       	pop	r28
+ 332:	1f 91       	pop	r17
+ 334:	0f 91       	pop	r16
+ 336:	08 95       	ret
 
-00000328 <__fixsfsi>:
- 328:	04 d0       	rcall	.+8      	; 0x332 <__fixunssfsi>
- 32a:	68 94       	set
- 32c:	b1 11       	cpse	r27, r1
- 32e:	8d c0       	rjmp	.+282    	; 0x44a <__fp_szero>
- 330:	08 95       	ret
+00000338 <__fixsfsi>:
+ 338:	04 d0       	rcall	.+8      	; 0x342 <__fixunssfsi>
+ 33a:	68 94       	set
+ 33c:	b1 11       	cpse	r27, r1
+ 33e:	8d c0       	rjmp	.+282    	; 0x45a <__fp_szero>
+ 340:	08 95       	ret
 
-00000332 <__fixunssfsi>:
- 332:	70 d0       	rcall	.+224    	; 0x414 <__fp_splitA>
- 334:	88 f0       	brcs	.+34     	; 0x358 <__fixunssfsi+0x26>
- 336:	9f 57       	subi	r25, 0x7F	; 127
- 338:	90 f0       	brcs	.+36     	; 0x35e <__fixunssfsi+0x2c>
- 33a:	b9 2f       	mov	r27, r25
- 33c:	99 27       	eor	r25, r25
- 33e:	b7 51       	subi	r27, 0x17	; 23
- 340:	a0 f0       	brcs	.+40     	; 0x36a <__fixunssfsi+0x38>
- 342:	d1 f0       	breq	.+52     	; 0x378 <__fixunssfsi+0x46>
- 344:	66 0f       	add	r22, r22
- 346:	77 1f       	adc	r23, r23
- 348:	88 1f       	adc	r24, r24
- 34a:	99 1f       	adc	r25, r25
- 34c:	1a f0       	brmi	.+6      	; 0x354 <__fixunssfsi+0x22>
- 34e:	ba 95       	dec	r27
- 350:	c9 f7       	brne	.-14     	; 0x344 <__fixunssfsi+0x12>
- 352:	12 c0       	rjmp	.+36     	; 0x378 <__fixunssfsi+0x46>
- 354:	b1 30       	cpi	r27, 0x01	; 1
- 356:	81 f0       	breq	.+32     	; 0x378 <__fixunssfsi+0x46>
- 358:	77 d0       	rcall	.+238    	; 0x448 <__fp_zero>
- 35a:	b1 e0       	ldi	r27, 0x01	; 1
- 35c:	08 95       	ret
- 35e:	74 c0       	rjmp	.+232    	; 0x448 <__fp_zero>
- 360:	67 2f       	mov	r22, r23
- 362:	78 2f       	mov	r23, r24
- 364:	88 27       	eor	r24, r24
- 366:	b8 5f       	subi	r27, 0xF8	; 248
- 368:	39 f0       	breq	.+14     	; 0x378 <__fixunssfsi+0x46>
- 36a:	b9 3f       	cpi	r27, 0xF9	; 249
- 36c:	cc f3       	brlt	.-14     	; 0x360 <__fixunssfsi+0x2e>
- 36e:	86 95       	lsr	r24
- 370:	77 95       	ror	r23
- 372:	67 95       	ror	r22
- 374:	b3 95       	inc	r27
- 376:	d9 f7       	brne	.-10     	; 0x36e <__fixunssfsi+0x3c>
- 378:	3e f4       	brtc	.+14     	; 0x388 <__fixunssfsi+0x56>
- 37a:	90 95       	com	r25
- 37c:	80 95       	com	r24
- 37e:	70 95       	com	r23
- 380:	61 95       	neg	r22
- 382:	7f 4f       	sbci	r23, 0xFF	; 255
- 384:	8f 4f       	sbci	r24, 0xFF	; 255
- 386:	9f 4f       	sbci	r25, 0xFF	; 255
- 388:	08 95       	ret
+00000342 <__fixunssfsi>:
+ 342:	70 d0       	rcall	.+224    	; 0x424 <__fp_splitA>
+ 344:	88 f0       	brcs	.+34     	; 0x368 <__fixunssfsi+0x26>
+ 346:	9f 57       	subi	r25, 0x7F	; 127
+ 348:	90 f0       	brcs	.+36     	; 0x36e <__fixunssfsi+0x2c>
+ 34a:	b9 2f       	mov	r27, r25
+ 34c:	99 27       	eor	r25, r25
+ 34e:	b7 51       	subi	r27, 0x17	; 23
+ 350:	a0 f0       	brcs	.+40     	; 0x37a <__fixunssfsi+0x38>
+ 352:	d1 f0       	breq	.+52     	; 0x388 <__fixunssfsi+0x46>
+ 354:	66 0f       	add	r22, r22
+ 356:	77 1f       	adc	r23, r23
+ 358:	88 1f       	adc	r24, r24
+ 35a:	99 1f       	adc	r25, r25
+ 35c:	1a f0       	brmi	.+6      	; 0x364 <__fixunssfsi+0x22>
+ 35e:	ba 95       	dec	r27
+ 360:	c9 f7       	brne	.-14     	; 0x354 <__fixunssfsi+0x12>
+ 362:	12 c0       	rjmp	.+36     	; 0x388 <__fixunssfsi+0x46>
+ 364:	b1 30       	cpi	r27, 0x01	; 1
+ 366:	81 f0       	breq	.+32     	; 0x388 <__fixunssfsi+0x46>
+ 368:	77 d0       	rcall	.+238    	; 0x458 <__fp_zero>
+ 36a:	b1 e0       	ldi	r27, 0x01	; 1
+ 36c:	08 95       	ret
+ 36e:	74 c0       	rjmp	.+232    	; 0x458 <__fp_zero>
+ 370:	67 2f       	mov	r22, r23
+ 372:	78 2f       	mov	r23, r24
+ 374:	88 27       	eor	r24, r24
+ 376:	b8 5f       	subi	r27, 0xF8	; 248
+ 378:	39 f0       	breq	.+14     	; 0x388 <__fixunssfsi+0x46>
+ 37a:	b9 3f       	cpi	r27, 0xF9	; 249
+ 37c:	cc f3       	brlt	.-14     	; 0x370 <__fixunssfsi+0x2e>
+ 37e:	86 95       	lsr	r24
+ 380:	77 95       	ror	r23
+ 382:	67 95       	ror	r22
+ 384:	b3 95       	inc	r27
+ 386:	d9 f7       	brne	.-10     	; 0x37e <__fixunssfsi+0x3c>
+ 388:	3e f4       	brtc	.+14     	; 0x398 <__fixunssfsi+0x56>
+ 38a:	90 95       	com	r25
+ 38c:	80 95       	com	r24
+ 38e:	70 95       	com	r23
+ 390:	61 95       	neg	r22
+ 392:	7f 4f       	sbci	r23, 0xFF	; 255
+ 394:	8f 4f       	sbci	r24, 0xFF	; 255
+ 396:	9f 4f       	sbci	r25, 0xFF	; 255
+ 398:	08 95       	ret
 
-0000038a <__floatunsisf>:
- 38a:	e8 94       	clt
- 38c:	09 c0       	rjmp	.+18     	; 0x3a0 <__floatsisf+0x12>
+0000039a <__floatunsisf>:
+ 39a:	e8 94       	clt
+ 39c:	09 c0       	rjmp	.+18     	; 0x3b0 <__floatsisf+0x12>
 
-0000038e <__floatsisf>:
- 38e:	97 fb       	bst	r25, 7
- 390:	3e f4       	brtc	.+14     	; 0x3a0 <__floatsisf+0x12>
- 392:	90 95       	com	r25
- 394:	80 95       	com	r24
- 396:	70 95       	com	r23
- 398:	61 95       	neg	r22
- 39a:	7f 4f       	sbci	r23, 0xFF	; 255
- 39c:	8f 4f       	sbci	r24, 0xFF	; 255
- 39e:	9f 4f       	sbci	r25, 0xFF	; 255
- 3a0:	99 23       	and	r25, r25
- 3a2:	a9 f0       	breq	.+42     	; 0x3ce <__floatsisf+0x40>
- 3a4:	f9 2f       	mov	r31, r25
- 3a6:	96 e9       	ldi	r25, 0x96	; 150
- 3a8:	bb 27       	eor	r27, r27
- 3aa:	93 95       	inc	r25
- 3ac:	f6 95       	lsr	r31
- 3ae:	87 95       	ror	r24
- 3b0:	77 95       	ror	r23
- 3b2:	67 95       	ror	r22
- 3b4:	b7 95       	ror	r27
- 3b6:	f1 11       	cpse	r31, r1
- 3b8:	f8 cf       	rjmp	.-16     	; 0x3aa <__floatsisf+0x1c>
- 3ba:	fa f4       	brpl	.+62     	; 0x3fa <__floatsisf+0x6c>
- 3bc:	bb 0f       	add	r27, r27
- 3be:	11 f4       	brne	.+4      	; 0x3c4 <__floatsisf+0x36>
- 3c0:	60 ff       	sbrs	r22, 0
- 3c2:	1b c0       	rjmp	.+54     	; 0x3fa <__floatsisf+0x6c>
- 3c4:	6f 5f       	subi	r22, 0xFF	; 255
- 3c6:	7f 4f       	sbci	r23, 0xFF	; 255
- 3c8:	8f 4f       	sbci	r24, 0xFF	; 255
- 3ca:	9f 4f       	sbci	r25, 0xFF	; 255
- 3cc:	16 c0       	rjmp	.+44     	; 0x3fa <__floatsisf+0x6c>
- 3ce:	88 23       	and	r24, r24
- 3d0:	11 f0       	breq	.+4      	; 0x3d6 <__floatsisf+0x48>
- 3d2:	96 e9       	ldi	r25, 0x96	; 150
- 3d4:	11 c0       	rjmp	.+34     	; 0x3f8 <__floatsisf+0x6a>
- 3d6:	77 23       	and	r23, r23
- 3d8:	21 f0       	breq	.+8      	; 0x3e2 <__floatsisf+0x54>
- 3da:	9e e8       	ldi	r25, 0x8E	; 142
- 3dc:	87 2f       	mov	r24, r23
- 3de:	76 2f       	mov	r23, r22
- 3e0:	05 c0       	rjmp	.+10     	; 0x3ec <__floatsisf+0x5e>
- 3e2:	66 23       	and	r22, r22
- 3e4:	71 f0       	breq	.+28     	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
- 3e6:	96 e8       	ldi	r25, 0x86	; 134
- 3e8:	86 2f       	mov	r24, r22
- 3ea:	70 e0       	ldi	r23, 0x00	; 0
- 3ec:	60 e0       	ldi	r22, 0x00	; 0
- 3ee:	2a f0       	brmi	.+10     	; 0x3fa <__floatsisf+0x6c>
- 3f0:	9a 95       	dec	r25
- 3f2:	66 0f       	add	r22, r22
- 3f4:	77 1f       	adc	r23, r23
- 3f6:	88 1f       	adc	r24, r24
- 3f8:	da f7       	brpl	.-10     	; 0x3f0 <__floatsisf+0x62>
- 3fa:	88 0f       	add	r24, r24
- 3fc:	96 95       	lsr	r25
- 3fe:	87 95       	ror	r24
- 400:	97 f9       	bld	r25, 7
- 402:	08 95       	ret
+0000039e <__floatsisf>:
+ 39e:	97 fb       	bst	r25, 7
+ 3a0:	3e f4       	brtc	.+14     	; 0x3b0 <__floatsisf+0x12>
+ 3a2:	90 95       	com	r25
+ 3a4:	80 95       	com	r24
+ 3a6:	70 95       	com	r23
+ 3a8:	61 95       	neg	r22
+ 3aa:	7f 4f       	sbci	r23, 0xFF	; 255
+ 3ac:	8f 4f       	sbci	r24, 0xFF	; 255
+ 3ae:	9f 4f       	sbci	r25, 0xFF	; 255
+ 3b0:	99 23       	and	r25, r25
+ 3b2:	a9 f0       	breq	.+42     	; 0x3de <__floatsisf+0x40>
+ 3b4:	f9 2f       	mov	r31, r25
+ 3b6:	96 e9       	ldi	r25, 0x96	; 150
+ 3b8:	bb 27       	eor	r27, r27
+ 3ba:	93 95       	inc	r25
+ 3bc:	f6 95       	lsr	r31
+ 3be:	87 95       	ror	r24
+ 3c0:	77 95       	ror	r23
+ 3c2:	67 95       	ror	r22
+ 3c4:	b7 95       	ror	r27
+ 3c6:	f1 11       	cpse	r31, r1
+ 3c8:	f8 cf       	rjmp	.-16     	; 0x3ba <__floatsisf+0x1c>
+ 3ca:	fa f4       	brpl	.+62     	; 0x40a <__LOCK_REGION_LENGTH__+0xa>
+ 3cc:	bb 0f       	add	r27, r27
+ 3ce:	11 f4       	brne	.+4      	; 0x3d4 <__floatsisf+0x36>
+ 3d0:	60 ff       	sbrs	r22, 0
+ 3d2:	1b c0       	rjmp	.+54     	; 0x40a <__LOCK_REGION_LENGTH__+0xa>
+ 3d4:	6f 5f       	subi	r22, 0xFF	; 255
+ 3d6:	7f 4f       	sbci	r23, 0xFF	; 255
+ 3d8:	8f 4f       	sbci	r24, 0xFF	; 255
+ 3da:	9f 4f       	sbci	r25, 0xFF	; 255
+ 3dc:	16 c0       	rjmp	.+44     	; 0x40a <__LOCK_REGION_LENGTH__+0xa>
+ 3de:	88 23       	and	r24, r24
+ 3e0:	11 f0       	breq	.+4      	; 0x3e6 <__floatsisf+0x48>
+ 3e2:	96 e9       	ldi	r25, 0x96	; 150
+ 3e4:	11 c0       	rjmp	.+34     	; 0x408 <__LOCK_REGION_LENGTH__+0x8>
+ 3e6:	77 23       	and	r23, r23
+ 3e8:	21 f0       	breq	.+8      	; 0x3f2 <__floatsisf+0x54>
+ 3ea:	9e e8       	ldi	r25, 0x8E	; 142
+ 3ec:	87 2f       	mov	r24, r23
+ 3ee:	76 2f       	mov	r23, r22
+ 3f0:	05 c0       	rjmp	.+10     	; 0x3fc <__floatsisf+0x5e>
+ 3f2:	66 23       	and	r22, r22
+ 3f4:	71 f0       	breq	.+28     	; 0x412 <__LOCK_REGION_LENGTH__+0x12>
+ 3f6:	96 e8       	ldi	r25, 0x86	; 134
+ 3f8:	86 2f       	mov	r24, r22
+ 3fa:	70 e0       	ldi	r23, 0x00	; 0
+ 3fc:	60 e0       	ldi	r22, 0x00	; 0
+ 3fe:	2a f0       	brmi	.+10     	; 0x40a <__LOCK_REGION_LENGTH__+0xa>
+ 400:	9a 95       	dec	r25
+ 402:	66 0f       	add	r22, r22
+ 404:	77 1f       	adc	r23, r23
+ 406:	88 1f       	adc	r24, r24
+ 408:	da f7       	brpl	.-10     	; 0x400 <__LOCK_REGION_LENGTH__>
+ 40a:	88 0f       	add	r24, r24
+ 40c:	96 95       	lsr	r25
+ 40e:	87 95       	ror	r24
+ 410:	97 f9       	bld	r25, 7
+ 412:	08 95       	ret
 
-00000404 <__fp_split3>:
- 404:	57 fd       	sbrc	r21, 7
- 406:	90 58       	subi	r25, 0x80	; 128
- 408:	44 0f       	add	r20, r20
- 40a:	55 1f       	adc	r21, r21
- 40c:	59 f0       	breq	.+22     	; 0x424 <__fp_splitA+0x10>
- 40e:	5f 3f       	cpi	r21, 0xFF	; 255
- 410:	71 f0       	breq	.+28     	; 0x42e <__fp_splitA+0x1a>
- 412:	47 95       	ror	r20
+00000414 <__fp_split3>:
+ 414:	57 fd       	sbrc	r21, 7
+ 416:	90 58       	subi	r25, 0x80	; 128
+ 418:	44 0f       	add	r20, r20
+ 41a:	55 1f       	adc	r21, r21
+ 41c:	59 f0       	breq	.+22     	; 0x434 <__fp_splitA+0x10>
+ 41e:	5f 3f       	cpi	r21, 0xFF	; 255
+ 420:	71 f0       	breq	.+28     	; 0x43e <__fp_splitA+0x1a>
+ 422:	47 95       	ror	r20
 
-00000414 <__fp_splitA>:
- 414:	88 0f       	add	r24, r24
- 416:	97 fb       	bst	r25, 7
- 418:	99 1f       	adc	r25, r25
- 41a:	61 f0       	breq	.+24     	; 0x434 <__fp_splitA+0x20>
- 41c:	9f 3f       	cpi	r25, 0xFF	; 255
- 41e:	79 f0       	breq	.+30     	; 0x43e <__fp_splitA+0x2a>
- 420:	87 95       	ror	r24
- 422:	08 95       	ret
- 424:	12 16       	cp	r1, r18
- 426:	13 06       	cpc	r1, r19
- 428:	14 06       	cpc	r1, r20
- 42a:	55 1f       	adc	r21, r21
- 42c:	f2 cf       	rjmp	.-28     	; 0x412 <__fp_split3+0xe>
- 42e:	46 95       	lsr	r20
- 430:	f1 df       	rcall	.-30     	; 0x414 <__fp_splitA>
- 432:	08 c0       	rjmp	.+16     	; 0x444 <__fp_splitA+0x30>
- 434:	16 16       	cp	r1, r22
- 436:	17 06       	cpc	r1, r23
- 438:	18 06       	cpc	r1, r24
- 43a:	99 1f       	adc	r25, r25
- 43c:	f1 cf       	rjmp	.-30     	; 0x420 <__fp_splitA+0xc>
- 43e:	86 95       	lsr	r24
- 440:	71 05       	cpc	r23, r1
- 442:	61 05       	cpc	r22, r1
- 444:	08 94       	sec
- 446:	08 95       	ret
+00000424 <__fp_splitA>:
+ 424:	88 0f       	add	r24, r24
+ 426:	97 fb       	bst	r25, 7
+ 428:	99 1f       	adc	r25, r25
+ 42a:	61 f0       	breq	.+24     	; 0x444 <__fp_splitA+0x20>
+ 42c:	9f 3f       	cpi	r25, 0xFF	; 255
+ 42e:	79 f0       	breq	.+30     	; 0x44e <__fp_splitA+0x2a>
+ 430:	87 95       	ror	r24
+ 432:	08 95       	ret
+ 434:	12 16       	cp	r1, r18
+ 436:	13 06       	cpc	r1, r19
+ 438:	14 06       	cpc	r1, r20
+ 43a:	55 1f       	adc	r21, r21
+ 43c:	f2 cf       	rjmp	.-28     	; 0x422 <__fp_split3+0xe>
+ 43e:	46 95       	lsr	r20
+ 440:	f1 df       	rcall	.-30     	; 0x424 <__fp_splitA>
+ 442:	08 c0       	rjmp	.+16     	; 0x454 <__fp_splitA+0x30>
+ 444:	16 16       	cp	r1, r22
+ 446:	17 06       	cpc	r1, r23
+ 448:	18 06       	cpc	r1, r24
+ 44a:	99 1f       	adc	r25, r25
+ 44c:	f1 cf       	rjmp	.-30     	; 0x430 <__fp_splitA+0xc>
+ 44e:	86 95       	lsr	r24
+ 450:	71 05       	cpc	r23, r1
+ 452:	61 05       	cpc	r22, r1
+ 454:	08 94       	sec
+ 456:	08 95       	ret
 
-00000448 <__fp_zero>:
- 448:	e8 94       	clt
+00000458 <__fp_zero>:
+ 458:	e8 94       	clt
 
-0000044a <__fp_szero>:
- 44a:	bb 27       	eor	r27, r27
- 44c:	66 27       	eor	r22, r22
- 44e:	77 27       	eor	r23, r23
- 450:	cb 01       	movw	r24, r22
- 452:	97 f9       	bld	r25, 7
- 454:	08 95       	ret
+0000045a <__fp_szero>:
+ 45a:	bb 27       	eor	r27, r27
+ 45c:	66 27       	eor	r22, r22
+ 45e:	77 27       	eor	r23, r23
+ 460:	cb 01       	movw	r24, r22
+ 462:	97 f9       	bld	r25, 7
+ 464:	08 95       	ret
 
-00000456 <__udivmodhi4>:
- 456:	aa 1b       	sub	r26, r26
- 458:	bb 1b       	sub	r27, r27
- 45a:	51 e1       	ldi	r21, 0x11	; 17
- 45c:	07 c0       	rjmp	.+14     	; 0x46c <__udivmodhi4_ep>
+00000466 <__udivmodhi4>:
+ 466:	aa 1b       	sub	r26, r26
+ 468:	bb 1b       	sub	r27, r27
+ 46a:	51 e1       	ldi	r21, 0x11	; 17
+ 46c:	07 c0       	rjmp	.+14     	; 0x47c <__udivmodhi4_ep>
 
-0000045e <__udivmodhi4_loop>:
- 45e:	aa 1f       	adc	r26, r26
- 460:	bb 1f       	adc	r27, r27
- 462:	a6 17       	cp	r26, r22
- 464:	b7 07       	cpc	r27, r23
- 466:	10 f0       	brcs	.+4      	; 0x46c <__udivmodhi4_ep>
- 468:	a6 1b       	sub	r26, r22
- 46a:	b7 0b       	sbc	r27, r23
+0000046e <__udivmodhi4_loop>:
+ 46e:	aa 1f       	adc	r26, r26
+ 470:	bb 1f       	adc	r27, r27
+ 472:	a6 17       	cp	r26, r22
+ 474:	b7 07       	cpc	r27, r23
+ 476:	10 f0       	brcs	.+4      	; 0x47c <__udivmodhi4_ep>
+ 478:	a6 1b       	sub	r26, r22
+ 47a:	b7 0b       	sbc	r27, r23
 
-0000046c <__udivmodhi4_ep>:
- 46c:	88 1f       	adc	r24, r24
- 46e:	99 1f       	adc	r25, r25
- 470:	5a 95       	dec	r21
- 472:	a9 f7       	brne	.-22     	; 0x45e <__udivmodhi4_loop>
- 474:	80 95       	com	r24
- 476:	90 95       	com	r25
- 478:	bc 01       	movw	r22, r24
- 47a:	cd 01       	movw	r24, r26
- 47c:	08 95       	ret
+0000047c <__udivmodhi4_ep>:
+ 47c:	88 1f       	adc	r24, r24
+ 47e:	99 1f       	adc	r25, r25
+ 480:	5a 95       	dec	r21
+ 482:	a9 f7       	brne	.-22     	; 0x46e <__udivmodhi4_loop>
+ 484:	80 95       	com	r24
+ 486:	90 95       	com	r25
+ 488:	bc 01       	movw	r22, r24
+ 48a:	cd 01       	movw	r24, r26
+ 48c:	08 95       	ret
 
-0000047e <__itoa_ncheck>:
- 47e:	bb 27       	eor	r27, r27
- 480:	4a 30       	cpi	r20, 0x0A	; 10
- 482:	31 f4       	brne	.+12     	; 0x490 <__itoa_ncheck+0x12>
- 484:	99 23       	and	r25, r25
- 486:	22 f4       	brpl	.+8      	; 0x490 <__itoa_ncheck+0x12>
- 488:	bd e2       	ldi	r27, 0x2D	; 45
- 48a:	90 95       	com	r25
- 48c:	81 95       	neg	r24
- 48e:	9f 4f       	sbci	r25, 0xFF	; 255
- 490:	01 c0       	rjmp	.+2      	; 0x494 <__utoa_common>
+0000048e <__itoa_ncheck>:
+ 48e:	bb 27       	eor	r27, r27
+ 490:	4a 30       	cpi	r20, 0x0A	; 10
+ 492:	31 f4       	brne	.+12     	; 0x4a0 <__itoa_ncheck+0x12>
+ 494:	99 23       	and	r25, r25
+ 496:	22 f4       	brpl	.+8      	; 0x4a0 <__itoa_ncheck+0x12>
+ 498:	bd e2       	ldi	r27, 0x2D	; 45
+ 49a:	90 95       	com	r25
+ 49c:	81 95       	neg	r24
+ 49e:	9f 4f       	sbci	r25, 0xFF	; 255
+ 4a0:	01 c0       	rjmp	.+2      	; 0x4a4 <__utoa_common>
 
-00000492 <__utoa_ncheck>:
- 492:	bb 27       	eor	r27, r27
+000004a2 <__utoa_ncheck>:
+ 4a2:	bb 27       	eor	r27, r27
 
-00000494 <__utoa_common>:
- 494:	fb 01       	movw	r30, r22
- 496:	55 27       	eor	r21, r21
- 498:	aa 27       	eor	r26, r26
- 49a:	88 0f       	add	r24, r24
- 49c:	99 1f       	adc	r25, r25
- 49e:	aa 1f       	adc	r26, r26
- 4a0:	a4 17       	cp	r26, r20
- 4a2:	10 f0       	brcs	.+4      	; 0x4a8 <__utoa_common+0x14>
- 4a4:	a4 1b       	sub	r26, r20
- 4a6:	83 95       	inc	r24
- 4a8:	50 51       	subi	r21, 0x10	; 16
- 4aa:	b9 f7       	brne	.-18     	; 0x49a <__utoa_common+0x6>
- 4ac:	a0 5d       	subi	r26, 0xD0	; 208
- 4ae:	aa 33       	cpi	r26, 0x3A	; 58
- 4b0:	08 f0       	brcs	.+2      	; 0x4b4 <__utoa_common+0x20>
- 4b2:	a9 5d       	subi	r26, 0xD9	; 217
- 4b4:	a1 93       	st	Z+, r26
- 4b6:	00 97       	sbiw	r24, 0x00	; 0
- 4b8:	79 f7       	brne	.-34     	; 0x498 <__utoa_common+0x4>
- 4ba:	b1 11       	cpse	r27, r1
- 4bc:	b1 93       	st	Z+, r27
- 4be:	11 92       	st	Z+, r1
- 4c0:	cb 01       	movw	r24, r22
- 4c2:	00 c0       	rjmp	.+0      	; 0x4c4 <strrev>
+000004a4 <__utoa_common>:
+ 4a4:	fb 01       	movw	r30, r22
+ 4a6:	55 27       	eor	r21, r21
+ 4a8:	aa 27       	eor	r26, r26
+ 4aa:	88 0f       	add	r24, r24
+ 4ac:	99 1f       	adc	r25, r25
+ 4ae:	aa 1f       	adc	r26, r26
+ 4b0:	a4 17       	cp	r26, r20
+ 4b2:	10 f0       	brcs	.+4      	; 0x4b8 <__utoa_common+0x14>
+ 4b4:	a4 1b       	sub	r26, r20
+ 4b6:	83 95       	inc	r24
+ 4b8:	50 51       	subi	r21, 0x10	; 16
+ 4ba:	b9 f7       	brne	.-18     	; 0x4aa <__utoa_common+0x6>
+ 4bc:	a0 5d       	subi	r26, 0xD0	; 208
+ 4be:	aa 33       	cpi	r26, 0x3A	; 58
+ 4c0:	08 f0       	brcs	.+2      	; 0x4c4 <__utoa_common+0x20>
+ 4c2:	a9 5d       	subi	r26, 0xD9	; 217
+ 4c4:	a1 93       	st	Z+, r26
+ 4c6:	00 97       	sbiw	r24, 0x00	; 0
+ 4c8:	79 f7       	brne	.-34     	; 0x4a8 <__utoa_common+0x4>
+ 4ca:	b1 11       	cpse	r27, r1
+ 4cc:	b1 93       	st	Z+, r27
+ 4ce:	11 92       	st	Z+, r1
+ 4d0:	cb 01       	movw	r24, r22
+ 4d2:	00 c0       	rjmp	.+0      	; 0x4d4 <strrev>
 
-000004c4 <strrev>:
- 4c4:	dc 01       	movw	r26, r24
- 4c6:	fc 01       	movw	r30, r24
- 4c8:	67 2f       	mov	r22, r23
- 4ca:	71 91       	ld	r23, Z+
- 4cc:	77 23       	and	r23, r23
- 4ce:	e1 f7       	brne	.-8      	; 0x4c8 <strrev+0x4>
- 4d0:	32 97       	sbiw	r30, 0x02	; 2
- 4d2:	04 c0       	rjmp	.+8      	; 0x4dc <strrev+0x18>
- 4d4:	7c 91       	ld	r23, X
- 4d6:	6d 93       	st	X+, r22
- 4d8:	70 83       	st	Z, r23
- 4da:	62 91       	ld	r22, -Z
- 4dc:	ae 17       	cp	r26, r30
- 4de:	bf 07       	cpc	r27, r31
- 4e0:	c8 f3       	brcs	.-14     	; 0x4d4 <strrev+0x10>
- 4e2:	08 95       	ret
+000004d4 <strrev>:
+ 4d4:	dc 01       	movw	r26, r24
+ 4d6:	fc 01       	movw	r30, r24
+ 4d8:	67 2f       	mov	r22, r23
+ 4da:	71 91       	ld	r23, Z+
+ 4dc:	77 23       	and	r23, r23
+ 4de:	e1 f7       	brne	.-8      	; 0x4d8 <strrev+0x4>
+ 4e0:	32 97       	sbiw	r30, 0x02	; 2
+ 4e2:	04 c0       	rjmp	.+8      	; 0x4ec <strrev+0x18>
+ 4e4:	7c 91       	ld	r23, X
+ 4e6:	6d 93       	st	X+, r22
+ 4e8:	70 83       	st	Z, r23
+ 4ea:	62 91       	ld	r22, -Z
+ 4ec:	ae 17       	cp	r26, r30
+ 4ee:	bf 07       	cpc	r27, r31
+ 4f0:	c8 f3       	brcs	.-14     	; 0x4e4 <strrev+0x10>
+ 4f2:	08 95       	ret
 
-000004e4 <_exit>:
- 4e4:	f8 94       	cli
+000004f4 <_exit>:
+ 4f4:	f8 94       	cli
 
-000004e6 <__stop_program>:
- 4e6:	ff cf       	rjmp	.-2      	; 0x4e6 <__stop_program>
+000004f6 <__stop_program>:
+ 4f6:	ff cf       	rjmp	.-2      	; 0x4f6 <__stop_program>

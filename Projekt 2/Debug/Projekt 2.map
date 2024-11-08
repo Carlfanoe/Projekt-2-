@@ -32,8 +32,6 @@ Discarded input sections
  .text          0x00000000        0x0 Jordfugtighedsensor.o
  .data          0x00000000        0x0 Jordfugtighedsensor.o
  .bss           0x00000000        0x0 Jordfugtighedsensor.o
- .text._ZN19Jordfugtighedsensor8ADC_initEv
-                0x00000000        0xe Jordfugtighedsensor.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -263,7 +261,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x4e8
+.text           0x00000000      0x4f8
  *(.vectors)
  .vectors       0x00000000       0xe4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
                 0x00000000                __vector_default
@@ -381,91 +379,94 @@ END GROUP
                 0x00000122                __vector_42
                 0x00000124                . = ALIGN (0x2)
  *(.text.*)
- .text._ZN19JordfugtighedsensorC2Eii
-                0x00000124       0x10 Jordfugtighedsensor.o
-                0x00000124                _ZN19JordfugtighedsensorC1Eii
-                0x00000124                _ZN19JordfugtighedsensorC2Eii
  .text._ZN19Jordfugtighedsensor11GetHumidityEv
-                0x00000134        0x8 Jordfugtighedsensor.o
-                0x00000134                _ZN19Jordfugtighedsensor11GetHumidityEv
+                0x00000124        0x8 Jordfugtighedsensor.o
+                0x00000124                _ZN19Jordfugtighedsensor11GetHumidityEv
  .text._ZN19Jordfugtighedsensor12GetThresholdEv
-                0x0000013c        0x8 Jordfugtighedsensor.o
-                0x0000013c                _ZN19Jordfugtighedsensor12GetThresholdEv
+                0x0000012c        0x8 Jordfugtighedsensor.o
+                0x0000012c                _ZN19Jordfugtighedsensor12GetThresholdEv
  .text._ZN19Jordfugtighedsensor12SetThresholdEi
-                0x00000144        0x8 Jordfugtighedsensor.o
-                0x00000144                _ZN19Jordfugtighedsensor12SetThresholdEi
+                0x00000134        0x8 Jordfugtighedsensor.o
+                0x00000134                _ZN19Jordfugtighedsensor12SetThresholdEi
+ .text._ZN19Jordfugtighedsensor8ADC_initEv
+                0x0000013c        0xe Jordfugtighedsensor.o
+                0x0000013c                _ZN19Jordfugtighedsensor8ADC_initEv
+ .text._ZN19JordfugtighedsensorC2Eii
+                0x0000014a       0x12 Jordfugtighedsensor.o
+                0x0000014a                _ZN19JordfugtighedsensorC1Eii
+                0x0000014a                _ZN19JordfugtighedsensorC2Eii
  .text._ZN19Jordfugtighedsensor20ADC_readAsPercentageEv
-                0x0000014c       0x4c Jordfugtighedsensor.o
-                0x0000014c                _ZN19Jordfugtighedsensor20ADC_readAsPercentageEv
+                0x0000015c       0x4c Jordfugtighedsensor.o
+                0x0000015c                _ZN19Jordfugtighedsensor20ADC_readAsPercentageEv
  .text._ZN19Jordfugtighedsensor11SetHumidityEv
-                0x00000198       0x14 Jordfugtighedsensor.o
-                0x00000198                _ZN19Jordfugtighedsensor11SetHumidityEv
- .text.main     0x000001ac       0xbe main.o
-                0x000001ac                main
+                0x000001a8       0x14 Jordfugtighedsensor.o
+                0x000001a8                _ZN19Jordfugtighedsensor11SetHumidityEv
+ .text.main     0x000001bc       0xbe main.o
+                0x000001bc                main
  .text._ZN11PotteplanteC2Eiiii
-                0x0000026a       0x22 Potteplante.o
-                0x0000026a                _ZN11PotteplanteC1Eiiii
-                0x0000026a                _ZN11PotteplanteC2Eiiii
+                0x0000027a       0x22 Potteplante.o
+                0x0000027a                _ZN11PotteplanteC1Eiiii
+                0x0000027a                _ZN11PotteplanteC2Eiiii
  .text._ZN11Potteplante11GetHumidityEv
-                0x0000028c        0x6 Potteplante.o
-                0x0000028c                _ZN11Potteplante11GetHumidityEv
+                0x0000029c        0x6 Potteplante.o
+                0x0000029c                _ZN11Potteplante11GetHumidityEv
  .text._ZN11Potteplante12GetThresholdEv
-                0x00000292        0x6 Potteplante.o
-                0x00000292                _ZN11Potteplante12GetThresholdEv
+                0x000002a2        0x6 Potteplante.o
+                0x000002a2                _ZN11Potteplante12GetThresholdEv
  .text._ZN11Potteplante12SetThresholdEi
-                0x00000298        0x6 Potteplante.o
-                0x00000298                _ZN11Potteplante12SetThresholdEi
+                0x000002a8        0x6 Potteplante.o
+                0x000002a8                _ZN11Potteplante12SetThresholdEi
  .text._ZN11Potteplante12UpdateSensorEv
-                0x0000029e        0x6 Potteplante.o
-                0x0000029e                _ZN11Potteplante12UpdateSensorEv
+                0x000002ae        0x6 Potteplante.o
+                0x000002ae                _ZN11Potteplante12UpdateSensorEv
  .text._ZN4UART4initEj
-                0x000002a4       0x16 UART.o
-                0x000002a4                _ZN4UART4initEj
+                0x000002b4       0x16 UART.o
+                0x000002b4                _ZN4UART4initEj
  .text._ZN4UART8transmitEc
-                0x000002ba        0xe UART.o
-                0x000002ba                _ZN4UART8transmitEc
+                0x000002ca        0xe UART.o
+                0x000002ca                _ZN4UART8transmitEc
  .text._ZN4UART5printEPKc
-                0x000002c8       0x24 UART.o
-                0x000002c8                _ZN4UART5printEPKc
+                0x000002d8       0x24 UART.o
+                0x000002d8                _ZN4UART5printEPKc
  .text._ZN4UART11printNumberEh
-                0x000002ec       0x3c UART.o
-                0x000002ec                _ZN4UART11printNumberEh
+                0x000002fc       0x3c UART.o
+                0x000002fc                _ZN4UART11printNumberEh
  .text.avr-libc.fplib
-                0x00000328        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fixsfsi.o)
-                0x00000328                __fixsfsi
+                0x00000338        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fixsfsi.o)
+                0x00000338                __fixsfsi
  .text.avr-libc.fplib
-                0x00000332       0x58 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fixunssfsi.o)
-                0x00000332                __fixunssfsi
+                0x00000342       0x58 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fixunssfsi.o)
+                0x00000342                __fixunssfsi
  .text.avr-libc.fplib
-                0x0000038a       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(floatsisf.o)
-                0x0000038a                __floatunsisf
-                0x0000038e                __floatsisf
+                0x0000039a       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(floatsisf.o)
+                0x0000039a                __floatunsisf
+                0x0000039e                __floatsisf
  .text.avr-libc.fplib
-                0x00000404       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_split3.o)
-                0x00000404                __fp_split3
-                0x00000414                __fp_splitA
+                0x00000414       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_split3.o)
+                0x00000414                __fp_split3
+                0x00000424                __fp_splitA
  .text.avr-libc.fplib
-                0x00000448        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_zero.o)
-                0x00000448                __fp_zero
-                0x0000044a                __fp_szero
+                0x00000458        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_zero.o)
+                0x00000458                __fp_zero
+                0x0000045a                __fp_szero
  .text.libgcc.div
-                0x00000456       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
-                0x00000456                __udivmodhi4
+                0x00000466       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+                0x00000466                __udivmodhi4
  .text.avr-libc
-                0x0000047e       0x14 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(itoa_ncheck.o)
-                0x0000047e                __itoa_ncheck
+                0x0000048e       0x14 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(itoa_ncheck.o)
+                0x0000048e                __itoa_ncheck
  .text.avr-libc
-                0x00000492       0x32 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(utoa_ncheck.o)
-                0x00000492                __utoa_ncheck
-                0x00000494                __utoa_common
+                0x000004a2       0x32 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(utoa_ncheck.o)
+                0x000004a2                __utoa_ncheck
+                0x000004a4                __utoa_common
  .text.avr-libc
-                0x000004c4       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(strrev.o)
-                0x000004c4                strrev
-                0x000004e4                . = ALIGN (0x2)
+                0x000004d4       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(strrev.o)
+                0x000004d4                strrev
+                0x000004f4                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000004e4        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
-                0x000004e4                _exit
-                0x000004e4                exit
+ .fini9         0x000004f4        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+                0x000004f4                _exit
+                0x000004f4                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -484,11 +485,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000004e4        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .fini0         0x000004f4        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
  *(.fini0)
-                0x000004e8                _etext = .
+                0x000004f8                _etext = .
 
-.data           0x00800200       0x1e load address 0x000004e8
+.data           0x00800200       0x1e load address 0x000004f8
                 0x00800200                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -511,8 +512,8 @@ END GROUP
                 0x0080021e                uart
  *(COMMON)
                 0x0080021f                PROVIDE (__bss_end, .)
-                0x000004e8                __data_load_start = LOADADDR (.data)
-                0x00000506                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000004f8                __data_load_start = LOADADDR (.data)
+                0x00000516                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080021f        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -600,13 +601,13 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1d7c
+.debug_info     0x00000000     0x1d88
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xbbc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_info    0x00000bbc      0x33b Jordfugtighedsensor.o
- .debug_info    0x00000ef7      0x67c main.o
- .debug_info    0x00001573      0x4c9 Potteplante.o
- .debug_info    0x00001a3c      0x340 UART.o
+ .debug_info    0x00000bbc      0x348 Jordfugtighedsensor.o
+ .debug_info    0x00000f04      0x67b main.o
+ .debug_info    0x0000157f      0x4c9 Potteplante.o
+ .debug_info    0x00001a48      0x340 UART.o
 
 .debug_abbrev   0x00000000     0x11ea
  *(.debug_abbrev)
@@ -616,13 +617,13 @@ END GROUP
  .debug_abbrev  0x00000e91      0x1a2 Potteplante.o
  .debug_abbrev  0x00001033      0x1b7 UART.o
 
-.debug_line     0x00000000      0x6e4
+.debug_line     0x00000000      0x6ea
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x1fa C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_line    0x000001fa      0x10d Jordfugtighedsensor.o
- .debug_line    0x00000307      0x1be main.o
- .debug_line    0x000004c5       0xea Potteplante.o
- .debug_line    0x000005af      0x135 UART.o
+ .debug_line    0x000001fa      0x113 Jordfugtighedsensor.o
+ .debug_line    0x0000030d      0x1be main.o
+ .debug_line    0x000004cb       0xea Potteplante.o
+ .debug_line    0x000005b5      0x135 UART.o
 
 .debug_frame    0x00000000      0x1c8
  *(.debug_frame)
@@ -643,12 +644,12 @@ END GROUP
  .debug_str     0x000009d8       0x52 UART.o
                                 0x279 (size before relaxing)
 
-.debug_loc      0x00000000      0x552
+.debug_loc      0x00000000      0x5c4
  *(.debug_loc)
- .debug_loc     0x00000000      0x111 Jordfugtighedsensor.o
- .debug_loc     0x00000111       0x47 main.o
- .debug_loc     0x00000158      0x207 Potteplante.o
- .debug_loc     0x0000035f      0x1f3 UART.o
+ .debug_loc     0x00000000      0x183 Jordfugtighedsensor.o
+ .debug_loc     0x00000183       0x47 main.o
+ .debug_loc     0x000001ca      0x207 Potteplante.o
+ .debug_loc     0x000003d1      0x1f3 UART.o
 
 .debug_macinfo
  *(.debug_macinfo)

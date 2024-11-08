@@ -31,3 +31,4 @@ void Potteplante::SetThreshold(int NyHumidityTreshold){
 void Potteplante::UpdateSensor(){
 	jordfugtighedsensor.SetHumidity();
 }
+ 

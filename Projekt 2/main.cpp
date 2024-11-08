@@ -12,13 +12,12 @@
 
 UART uart;  // Create an instance of the UART class
 
-
 int main(void) {
 	// Initialize UART
 	uart.init(MY_UBRR);
 
 	// Create a Potteplante instance with an ID, Sensor Pin, Humidity Threshold, and Watering Duration
-	Potteplante plant1( 1, 0 , 20 , 5);
+	Potteplante plant( 1, 0 , 20 , 5); 
 
 	
 

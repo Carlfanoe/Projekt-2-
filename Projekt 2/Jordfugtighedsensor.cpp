@@ -1,9 +1,9 @@
 #include "Jordfugtighedsensor.h"
 
- Jordfugtighedsensor::Jordfugtighedsensor(int NytThreshold, int pin)
- : humidity(0), threshold(NytThreshold), adcPin(pin) {}
-
-
+Jordfugtighedsensor::Jordfugtighedsensor(int NytThreshold, int pin)
+: humidity(0), threshold(NytThreshold), adcPin(pin) {
+	ADC_init(); // Call ADC_init() here
+}
 	
 int Jordfugtighedsensor::GetHumidity(){
 	return humidity;

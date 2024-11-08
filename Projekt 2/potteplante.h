@@ -12,6 +12,8 @@ class Potteplante{
 	Jordfugtighedsensor jordfugtighedsensor;
 	
 	public:
+	
+	// HumiditySensorPin(0) = ADC0, HumiditySensorPin(1) = ADC1 osv....
 Potteplante(int ID, int HumiditySensorPin, int HumidityThreshold, int WateringDuration);
 	void WaterPlant();
 	int GetHumidity();
