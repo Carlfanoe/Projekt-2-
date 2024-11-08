@@ -150,6 +150,9 @@
     <Compile Include="Jordfugtighedsensor.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Koer_automatisk_plantepleje.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
