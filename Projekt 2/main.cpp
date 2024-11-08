@@ -17,33 +17,41 @@ int main(void) {
 	uart.init(MY_UBRR);
 
 	// Create a Potteplante instance with an ID, Sensor Pin, Humidity Threshold, and Watering Duration
-	Potteplante plant( 1, 0 , 20 , 5); 
-
-	
+	Potteplante plant1( 1, 0 , 20 , 5); 
+	Potteplante plant2( 2, 0 , 20 , 5);
 
 	// Main loop
 	while (1) {
 		// Update the sensor (this will call SetHumidity in the sensor class)
-		plant.UpdateSensor();
-
+		plant1.UpdateSensor();
 		// Send humidity value via UART
-		uart.print("Humidity: ");
-		uart.printNumber(plant.GetHumidity());
+		uart.print("Humidity for plant 1: ");
+		uart.printNumber(plant1.GetHumidity());
 		uart.print("\r\n");
-
 		// Send threshold value via UART
-		uart.print("Threshold: ");
-		uart.printNumber(plant.GetThreshold());
+		uart.print("Threshold for plant 1: ");
+		uart.printNumber(plant1.GetThreshold());
+		uart.print("\r\n");
+		uart.print("\r\n");
+		uart.print("\r\n");
+		
+		_delay_ms(500);
+
+		plant2.UpdateSensor();
+		// Send humidity value via UART
+		uart.print("Humidity for plant 2: ");
+		uart.printNumber(plant2.GetHumidity());
+		uart.print("\r\n");
+		// Send threshold value via UART
+		uart.print("Threshold for plant 2: ");
+		uart.printNumber(plant2.GetThreshold());
+		uart.print("\r\n");
+		uart.print("\r\n");
 		uart.print("\r\n");
 
-		// Set a new threshold and print it
-		plant.SetThreshold(50);
-		uart.print("New Threshold: ");
-		uart.printNumber(plant.GetThreshold());
-		uart.print("\r\n");
-
+	
 		// Delay 1 second (1000 milliseconds)
-		_delay_ms(1000);
+		_delay_ms(6000);
 	}
 
 	return 0;
