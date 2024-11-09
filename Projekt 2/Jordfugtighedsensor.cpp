@@ -1,23 +1,18 @@
 #include "Jordfugtighedsensor.h"
 
-Jordfugtighedsensor::Jordfugtighedsensor(int NytThreshold, int pin)
-: humidity(0), threshold(NytThreshold), adcPin(pin) {
+Jordfugtighedsensor::Jordfugtighedsensor( int pin)
+: humidity(0), adcPin(pin) {
 	ADC_init(); // Call ADC_init() here
 }
 	
 int Jordfugtighedsensor::GetHumidity(){
 	return humidity;
 }
-int Jordfugtighedsensor::GetThreshold(){
-	return threshold;
-}
+
 void Jordfugtighedsensor::SetHumidity(){ // Anderledes fra klassediagram, tror klassediagram har en lille fejl her
 	humidity = ADC_readAsPercentage();
 }
 
-void Jordfugtighedsensor::SetThreshold(int NytTreshold){
-	threshold = NytTreshold;
-}
 
 void Jordfugtighedsensor::ADC_init() {
 	ADMUX = (1 << REFS0);  // Sætter reference til AVcc (5V)

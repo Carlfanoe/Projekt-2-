@@ -7,7 +7,7 @@ Potteplante::Potteplante(int ID, int HumiditySensorPin, int HumidityThreshold, i
 humiditySensorPin(HumiditySensorPin),
 humidityTreshold(HumidityThreshold),
 wateringDuration(WateringDuration),
-jordfugtighedsensor(HumidityThreshold, HumiditySensorPin)  // Pass the pin here
+jordfugtighedsensor(HumiditySensorPin)  // Pass the pin here
 {}
 
 	
@@ -21,11 +21,11 @@ int Potteplante::GetHumidity(){
 
 
 int Potteplante::GetThreshold(){
-	return jordfugtighedsensor.GetThreshold();
+	return humidityTreshold;
 }
 
 void Potteplante::SetThreshold(int NyHumidityTreshold){
-	jordfugtighedsensor.SetThreshold(NyHumidityTreshold);
+	humidityTreshold = NyHumidityTreshold;
 }
 
 void Potteplante::UpdateSensor(){

@@ -13,9 +13,7 @@
 UART uart;  // Create an instance of the UART class
 
 int main(void) {
-	
-	// Test kommentar, slet det her!!!
-	
+		
 	// Initialize UART
 	uart.init(MY_UBRR);
 
@@ -49,10 +47,7 @@ int main(void) {
 		uart.printNumber(plant2.GetThreshold());
 		uart.print("\r\n");
 		uart.print("\r\n");
-
 	
-		// Delay 1 second (1000 milliseconds)
-		_delay_ms(10000);
 	}
 
 	return 0;
