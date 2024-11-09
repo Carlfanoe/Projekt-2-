@@ -221,7 +221,7 @@ void Jordfugtighedsensor::ADC_init() {
 0000013a <_ZN19JordfugtighedsensorC1Ei>:
 #include "Jordfugtighedsensor.h"
 
-Jordfugtighedsensor::Jordfugtighedsensor( int pin)
+Jordfugtighedsensor::Jordfugtighedsensor(int pin)
 : humidity(0), adcPin(pin) {
  13a:	fc 01       	movw	r30, r24
  13c:	11 82       	std	Z+1, r1	; 0x01

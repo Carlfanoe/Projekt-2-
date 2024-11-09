@@ -1,6 +1,6 @@
 #include "Jordfugtighedsensor.h"
 
-Jordfugtighedsensor::Jordfugtighedsensor( int pin)
+Jordfugtighedsensor::Jordfugtighedsensor(int pin)
 : humidity(0), adcPin(pin) {
 	ADC_init(); // Call ADC_init() here
 }
