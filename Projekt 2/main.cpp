@@ -13,6 +13,9 @@
 UART uart;  // Create an instance of the UART class
 
 int main(void) {
+	
+	// Test kommentar, slet det her!!!
+	
 	// Initialize UART
 	uart.init(MY_UBRR);
 
