@@ -9,7 +9,7 @@
 
 #include <util/delay.h>
 
-
+// testér 
 UART uart;  // Create an instance of the UART class
 
 int main(void) {
