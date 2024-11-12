@@ -1,19 +1,35 @@
+#include <avr/io.h>
 
-/*
-class Brugergreanseflade {
+// Define the UART baud rate for 9600 (adjust depending on your system clock)
+#define F_CPU 16000000UL  // Assuming a 16MHz clock (adjust if different)
+#define BAUD 9600
+#define MY_UBRR F_CPU/16/BAUD-1
+
+class brugergraenseflade {
 	private:
-	bool IsMessageReady_ = false;  // This is the flag for UART readiness.
+	uint32_t baudrate_;  // Baudrate attribute
 
+	
 	public:
-	// Method called when UART interrupt occurs
-	void IsMessageReady();
+	// Send a single character via UART1
+	void sendChar(char c);
 
-	// Method to read UART data
-	void ReadUart();
+	// Receive a single character from UART1
+	char receiveChar();
 
-	// Method to check if UART is ready
-	bool getUartReady();
+	
+	// Constructor: Initialize with a given baudrate
+	brugergraenseflade(uint32_t baudrate);
+
+	// Initialize or reinitialize UART1
+	void initUART();
+
+	// Check if a message is ready to be read
+	bool IsMessageReady();
+
+	// Read a message from Bluetooth as a C-style string
+	void ReadMessage(char* message, uint8_t maxLength);
+
+	// Send a message via Bluetooth (C-style string)
+	void SendMessage(const char* message);
 };
-
-#endif  // BRUGERGRÆNSEFLADE_H
-*/
