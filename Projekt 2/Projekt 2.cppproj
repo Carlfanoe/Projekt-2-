@@ -144,10 +144,19 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Brugergreanseflade.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Brugergreanseflade.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Jordfugtighedsensor.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Jordfugtighedsensor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Koer_automatisk_plantepleje.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Koer_automatisk_plantepleje.h">

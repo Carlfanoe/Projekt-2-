@@ -29,9 +29,25 @@ Discarded input sections
 
  .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .text          0x00000000        0x0 Brugergreanseflade.o
+ .data          0x00000000        0x0 Brugergreanseflade.o
+ .bss           0x00000000        0x0 Brugergreanseflade.o
+ .debug_line    0x00000000        0x0 Brugergreanseflade.o
+ .debug_str     0x00000000      0x148 Brugergreanseflade.o
+ .comment       0x00000000       0x31 Brugergreanseflade.o
  .text          0x00000000        0x0 Jordfugtighedsensor.o
  .data          0x00000000        0x0 Jordfugtighedsensor.o
  .bss           0x00000000        0x0 Jordfugtighedsensor.o
+ .text          0x00000000        0x0 Koer_automatisk_plantepleje.o
+ .data          0x00000000        0x0 Koer_automatisk_plantepleje.o
+ .bss           0x00000000        0x0 Koer_automatisk_plantepleje.o
+ .debug_info    0x00000000       0x5d Koer_automatisk_plantepleje.o
+ .debug_abbrev  0x00000000       0x26 Koer_automatisk_plantepleje.o
+ .debug_aranges
+                0x00000000       0x18 Koer_automatisk_plantepleje.o
+ .debug_line    0x00000000       0x1a Koer_automatisk_plantepleje.o
+ .debug_str     0x00000000      0x1bd Koer_automatisk_plantepleje.o
+ .comment       0x00000000       0x31 Koer_automatisk_plantepleje.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -148,7 +164,9 @@ Linker script and memory map
 
 Address of section .data set to 0x800200
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
+LOAD Brugergreanseflade.o
 LOAD Jordfugtighedsensor.o
+LOAD Koer_automatisk_plantepleje.o
 LOAD main.o
 LOAD Potteplante.o
 LOAD UART.o

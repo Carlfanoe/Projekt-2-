@@ -303,7 +303,7 @@ void Jordfugtighedsensor::SetHumidity(){ // Anderledes fra klassediagram, tror k
 000001a8 <main>:
 #include <util/delay.h>
 
-
+// testér 
 UART uart;  // Create an instance of the UART class
 
 int main(void) {
