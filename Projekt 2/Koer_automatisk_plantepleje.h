@@ -4,7 +4,6 @@
 // #include <string> - kan ikke finde string
 
 
-// 
 class Koer_automatisk_plantepleje{
 	
 	/* 
