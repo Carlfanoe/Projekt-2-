@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include "Potteplante.h"
 #include "Brugergreanseflade.h"
+#include "Vandbeholder.h"
 
 // Define the UART baud rate for 9600 (adjust depending on your system clock)
 #define F_CPU 16000000UL  // Assuming a 16MHz clock (adjust if different)
@@ -11,11 +12,17 @@
 #include <util/delay.h>
 
 brugergraenseflade btInterface(9600);  // Baudrate s�ttes til 9600
+Vandbeholder waterContainer = {
+	22,	// trigPin
+	23,	// echoPin
+	20,	// threshold (Procent)
+	3,	// Afstand ved fyldt beholder
+	30	// Afstand ved tom beholder
+};
+Potteplante plant1(1, 0, 20, 5); // Brug ADC0 til plant1
+Potteplante plant2(2, 1, 20, 5); // Brug ADC1 til plant2
 
 int main(void) {
-
-	Potteplante plant1(1, 0, 20, 5); // Brug ADC0 til plant1
-	Potteplante plant2(2, 1, 20, 5); // Brug ADC1 til plant2
 
 	while (1) {
 		
