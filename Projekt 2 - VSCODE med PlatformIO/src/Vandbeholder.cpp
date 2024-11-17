@@ -17,21 +17,20 @@ Vandbeholder::Vandbeholder(
 }
 
 int Vandbeholder::ReadWaterLevel() {
-    // Nulstiller trigPin
+    // Clears the trigPin
     digitalWrite(trigPin_, LOW);
     delayMicroseconds(2);
 
-    // Sætter trigPin høj i 10 mikrosekunder
+    // Sets the trigPin on HIGH state for 10 micro seconds
     digitalWrite(trigPin_, HIGH);
     delayMicroseconds(10);
     digitalWrite(trigPin_, LOW);
 
-    // Læser fra echoPin: Lydbølgens rejsetid i mikrosekunder 
+    // Reads the echoPin, returns the sound wave travel time in microseconds
     long duration = pulseIn(echoPin_, HIGH);
 
-    // Distance-beregning i centimeter ud fra lydens hastighed
-    float soundSpeed = 0.034; // centimeter pr. mikrosekund
-    int distance = (duration * soundSpeed) / 2; //Division med 2 giver envejs-distance
+    // Calculating the distance
+    int distance = duration * 0.034 / 2; // Centimeters
 
     return TranslateToPercentage(distance);
 }

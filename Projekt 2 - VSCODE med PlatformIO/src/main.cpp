@@ -2,58 +2,45 @@
 #include "Arduino.h"
 #include "Jordfugtighedsensor.h"
 
-int main(void) {
-
 /*
-Potteplante plant1(A0, 0, 20, 5); // Brug ADC0 til plant1
-	Potteplante plant2(A1, 1, 20, 5); // Brug ADC1 til plant2
-
-*/
-/*
-
-Jordfugtighedsensor test(A0);
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+Grunden til setup() og loop(): 
+	Efter at have været frustreret i 2 timer er jeg kommet frem til: 
+	Arduino funktioner så som delay() og serial.print() afhænger simpelthen af setup() og loop(). 
+	Dvs. at vi ikke kan bruge int main(). - Dette skal vi nok forklarer i rapporten.
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 */
 
-	// Initialize serial communication at 9600 baud with 5V refernce
-	analogReference(DEFAULT); 
-  	Serial.begin(9600);  
+// Man skal have objekter uden for setup() loopet
+Potteplante plante1(1, A0, 20, 4); // (ID, PIN, HumidityTreshold, WateringDuration)
+Potteplante plante2(2, A1, 20, 4); // (ID, PIN, HumidityTreshold, WateringDuration)
+
+
+void setup() {
+    Serial.begin(9600); // initiere Serial kommunikation med 9600 baurdrate
+	analogReference(DEFAULT); // Sætter "Reference voltage til 5v(deafult)"
+
+}
+
+void loop() {
    
+   	// opdater sensorer
+	plante1.UpdateSensor();
+	plante2.UpdateSensor();
 
-	while(!Serial) { 
-        // Wait for the Serial connection to be established
-    }
 
+	// Plante 1
+	Serial.print("Fugtighed for Plante 1: ");
+	Serial.print(plante1.GetHumidity());
+	Serial.print("%");
+	Serial.println(); // ny linje
 
-	while (1) {
-		/*
-		plant1.UpdateSensor();
-		plant2.UpdateSensor();
+	// Plante 2
+	Serial.print("Fugtighed for Plante 2: ");
+	Serial.print(plante2.GetHumidity());
+	Serial.print("%");
+	Serial.println(); // ny linje
 
-		Serial.print("Humidity plant1: ");
-		Serial.print(plant1.GetHumidity());
-		Serial.println("%");
-
-		Serial.print("Humidity plant2: ");
-		Serial.print(plant2.GetHumidity());
-		Serial.println("%");
-
-		delay(4000);
-		
-		*/
-		// Update the sensor (this will call SetHumidity in the sensor class)
-		
-		/*
-			
-		test.SetHumidity();
-		Serial.print("Humidity test: ");
-		Serial.print(test.GetHumidity());
-		Serial.println("%");		
-		delay(4000);
-		*/
-		Serial.print("Humidity test: ");
-
-		delay(4000);
-	}
-
-	return 0;
+	delay(1000);
 }
