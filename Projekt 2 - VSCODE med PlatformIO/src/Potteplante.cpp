@@ -46,7 +46,7 @@ void Potteplante::setSelected(bool value) {
     selected = value;  // Set the selected status
 }
 
+// Sætter varigheden for vanding
 void Potteplante::SetDuration(int NewDuration){
 	wateringDuration = NewDuration;
 }
-

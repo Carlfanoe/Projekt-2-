@@ -19,8 +19,6 @@ Brugergraenseflade brugerInterface(planter, antalPlanter);
 void serialEvent() {
     // Læser data fra den serielle port og sender det til brugerInterface
     brugerInterface.read();
-
-
 }
 
 void setup() {
@@ -61,5 +59,4 @@ Dokumentation på ALLE arduino.h funktioner: https://docs.arduino.cc/language-re
 	deafulter til rx1 og tx1.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-
 */

@@ -22,55 +22,68 @@ void Brugergraenseflade::read() {
                     }
                     // Sæt den valgte plante som valgt
                     planter[i].setSelected(true);
-                    write("Plante fundet! Angiv Threshold eller Duration.");
+                    write("Plante valgt: " + String(plantID));
                     found = true;
-                    break; // Afslut efter plantens ID er fundet
+                    break;
                 }
             }
             if (!found) {
-                write("Plante ikke fundet. Prøv igen.");
+                write("Plante ikke fundet");
             }
-        } 
-        // Håndtering af "Threshold = X"-kommando
-        else if (input.startsWith("Threshold =")) {
-            int threshold = input.substring(11).toInt(); // Uddrager værdi
-            bool updated = false;
+        }
+        // Håndtering af "set threshold plantX Y"-kommando
+        else if (input.startsWith("set threshold plant")) {
+            int plantID = input.substring(18, 19).toInt(); // Uddrager ID
+            int newThreshold = input.substring(20).toInt(); // Uddrager ny grænseværdi
+            bool found = false;
             for (int i = 0; i < antalPlanter; i++) {
-                if (planter[i].isSelected()) { // Kontroller om planten er valgt
-                    planter[i].SetThreshold(threshold);
-                    write("Threshold opdateret.");
-                    updated = true;
+                if (planter[i].GetID() == plantID) {
+                    planter[i].SetThreshold(newThreshold); // Sætter ny grænseværdi
+                    write("Grænseværdi opdateret for plante " + String(plantID) + ": " + String(newThreshold));
+                    found = true;
                     break;
                 }
             }
-            if (!updated) {
-                write("Ingen plante valgt. Brug 'select plantX' først.");
+            if (!found) {
+                write("Plante ikke fundet");
             }
-        } 
-        // Håndtering af "Duration = X"-kommando
-        else if (input.startsWith("Duration =")) {
-            int duration = input.substring(10).toInt(); // Uddrager værdi
-            bool updated = false;
+        }
+        // Håndtering af "water plantX"-kommando
+        else if (input.startsWith("water plant")) {
+            int plantID = input.substring(12).toInt(); // Uddrager ID
+            bool found = false;
             for (int i = 0; i < antalPlanter; i++) {
-                if (planter[i].isSelected()) { // Kontroller om planten er valgt
-                    planter[i].SetDuration(duration);
-                    write("Duration opdateret.");
-                    updated = true;
+                if (planter[i].GetID() == plantID) {
+                    planter[i].WaterPlant(); // Vand planten
+                    write("Plante " + String(plantID) + " bliver vandet");
+                    found = true;
                     break;
                 }
             }
-            if (!updated) {
-                write("Ingen plante valgt. Brug 'select plantX' først.");
+            if (!found) {
+                write("Plante ikke fundet");
             }
-        } 
-        // Ugyldig kommando
-        else {
-            write("Ugyldigt input. Prøv igen.");
+        }
+        // Håndtering af "status plantX"-kommando
+        else if (input.startsWith("status plant")) {
+            int plantID = input.substring(13).toInt(); // Uddrager ID
+            bool found = false;
+            for (int i = 0; i < antalPlanter; i++) {
+                if (planter[i].GetID() == plantID) {
+                    String statusMessage = "Plante " + String(plantID) + " status: Fugtighed - " + String(planter[i].GetHumidity()) + "%";
+                    write(statusMessage);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                write("Plante ikke fundet");
+            }
         }
     }
 }
 
-// Sender feedback til brugeren
+// Skriver besked til brugeren
 void Brugergraenseflade::write(const String& besked) {
-    Serial.println(besked); // Skriver besked til den serielle port
+    Serial.println(besked);
 }

@@ -31,6 +31,7 @@ public:
     // Method to update sensor
     void UpdateSensor();
 
+    // Sætter en ny varighed for vanding
 	void SetDuration(int NewDuration);
     
     // Method to get the plant ID
@@ -41,4 +42,4 @@ public:
     
     // Method to set plant's selected status
     void setSelected(bool value);  
-};
+}; 
