@@ -1,6 +1,6 @@
 #pragma once
 #include <avr/io.h>
-// #include <vector> - den kan ikke finde vector library? måske bruge array?
+// #include <vector> - den kan ikke finde vector library? mï¿½ske bruge array?
 // #include <string> - kan ikke finde string
 
 
@@ -8,7 +8,7 @@ class Koer_automatisk_plantepleje{
 	
 	/* 
 	
-	ALT nedenstående er tænkte funktioner, men man kan ALTID gå tilbage og ændre funktioner, 
+	ALT nedenstï¿½ende er tï¿½nkte funktioner, men man kan ALTID gï¿½ tilbage og ï¿½ndre funktioner, 
 	hvis det ender med ikke at give mening i designfasen!
 	
 	*/
