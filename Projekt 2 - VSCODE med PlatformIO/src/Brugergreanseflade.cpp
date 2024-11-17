@@ -1,55 +1,76 @@
-#include "Brugergreanseflade.h"
+#include "Brugergraenseflade.h"
 
-// Constructor: Initialize with a given baudrate
-brugergraenseflade::brugergraenseflade(uint32_t baudrate) : baudrate_(baudrate) {
-	initUART();  // Initialize UART
+// Constructor
+Brugergraenseflade::Brugergraenseflade(Potteplante* planter, int antalPlanter)
+    : planter(planter), antalPlanter(antalPlanter) {}
+
+// Læser serielle data og håndterer kommandoer
+void Brugergraenseflade::read() {
+    if (Serial.available()) {
+        String input = Serial.readStringUntil('\n'); // Læser hele kommandoen
+        input.trim(); // Fjerner unødvendige mellemrum
+
+        // Håndtering af "select plantX"-kommando
+        if (input.startsWith("select plant")) {
+            int plantID = input.substring(12).toInt(); // Uddrager ID
+            bool found = false;
+            for (int i = 0; i < antalPlanter; i++) {
+                if (planter[i].GetID() == plantID) {
+                    // Nulstil alle planter til ikke-valgt
+                    for (int j = 0; j < antalPlanter; j++) {
+                        planter[j].setSelected(false);
+                    }
+                    // Sæt den valgte plante som valgt
+                    planter[i].setSelected(true);
+                    write("Plante fundet! Angiv Threshold eller Duration.");
+                    found = true;
+                    break; // Afslut efter plantens ID er fundet
+                }
+            }
+            if (!found) {
+                write("Plante ikke fundet. Prøv igen.");
+            }
+        } 
+        // Håndtering af "Threshold = X"-kommando
+        else if (input.startsWith("Threshold =")) {
+            int threshold = input.substring(11).toInt(); // Uddrager værdi
+            bool updated = false;
+            for (int i = 0; i < antalPlanter; i++) {
+                if (planter[i].isSelected()) { // Kontroller om planten er valgt
+                    planter[i].SetThreshold(threshold);
+                    write("Threshold opdateret.");
+                    updated = true;
+                    break;
+                }
+            }
+            if (!updated) {
+                write("Ingen plante valgt. Brug 'select plantX' først.");
+            }
+        } 
+        // Håndtering af "Duration = X"-kommando
+        else if (input.startsWith("Duration =")) {
+            int duration = input.substring(10).toInt(); // Uddrager værdi
+            bool updated = false;
+            for (int i = 0; i < antalPlanter; i++) {
+                if (planter[i].isSelected()) { // Kontroller om planten er valgt
+                    planter[i].SetDuration(duration);
+                    write("Duration opdateret.");
+                    updated = true;
+                    break;
+                }
+            }
+            if (!updated) {
+                write("Ingen plante valgt. Brug 'select plantX' først.");
+            }
+        } 
+        // Ugyldig kommando
+        else {
+            write("Ugyldigt input. Prøv igen.");
+        }
+    }
 }
 
-// Initialize or reinitialize UART1
-void brugergraenseflade::initUART() {
-	uint16_t ubrr = F_CPU / 16 / baudrate_ - 1;
-
-	UBRR1H = (ubrr >> 8);  // Set the upper 8 bits of the baudrate
-	UBRR1L = ubrr;         // Set the lower 8 bits of the baudrate
-
-	UCSR1B = (1 << TXEN1) | (1 << RXEN1);  // Enable TX and RX
-	UCSR1C = (1 << UCSZ11) | (1 << UCSZ10);  // Set data format to 8N1
-}
-
-// Check if a message is ready to be read
-bool brugergraenseflade::IsMessageReady() {
-	return (UCSR1A & (1 << RXC1));  // Check if there is data in the RX buffer
-}
-
-// Read a message from Bluetooth as a C-style string
-void brugergraenseflade::ReadMessage(char* message, uint8_t maxLength) {
-	uint8_t index = 0;
-	while (IsMessageReady() && index < maxLength - 1) {
-		char received = receiveChar();  // Receive one character at a time
-		if (received == '\n' || received == '\r') {
-			break;  // Stop reading at a newline or carriage return
-		}
-		message[index++] = received;  // Store the character
-	}
-	message[index] = '\0';  // Null-terminate the string
-}
-
-// Send a message via Bluetooth (C-style string)
-void brugergraenseflade::SendMessage(const char* message) {
-	while (*message) {           // Loop through each character of the string
-		sendChar(*message++);    // Transmit each character and move to the next
-	}
-	sendChar('\n');  // End with a newline character
-}
-
-// Send a single character via UART1
-void brugergraenseflade::sendChar(char c) {
-	while (!(UCSR1A & (1 << UDRE1)));  // Wait for the transmit buffer to be empty
-	UDR1 = c;  // Send the character
-}
-
-// Receive a single character from UART1
-char brugergraenseflade::receiveChar() {
-	while (!(UCSR1A & (1 << RXC1)));  // Wait for data to be received
-	return UDR1;  // Return the received character
+// Sender feedback til brugeren
+void Brugergraenseflade::write(const String& besked) {
+    Serial.println(besked); // Skriver besked til den serielle port
 }
