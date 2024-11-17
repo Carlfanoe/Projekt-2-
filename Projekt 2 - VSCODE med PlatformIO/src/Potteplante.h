@@ -1,9 +1,10 @@
 #include "Jordfugtighedsensor.h"
 
+
 class Potteplante{
 	private:
 	int id;
-	int humiditySensorPin;
+	uint8_t humiditySensorPin;
 	int humidityTreshold;
 	int wateringDuration;
 	double HumidityPercent;
@@ -14,7 +15,7 @@ class Potteplante{
 	public:
 	
 	// HumiditySensorPin(0) = ADC0, HumiditySensorPin(1) = ADC1 osv....
-Potteplante(int ID, int HumiditySensorPin, int HumidityThreshold, int WateringDuration);
+Potteplante(int ID, uint8_t HumiditySensorPin, int HumidityThreshold, int WateringDuration);
 	void WaterPlant();
 	int GetHumidity();
 	int GetThreshold();

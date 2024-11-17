@@ -1,9 +1,6 @@
 #include <avr/io.h>
 
-// Define the UART baud rate for 9600 (adjust depending on your system clock)
-#define F_CPU 16000000UL  // Assuming a 16MHz clock (adjust if different)
-#define BAUD 9600
-#define MY_UBRR F_CPU/16/BAUD-1
+
 
 class brugergraenseflade {
 	private:

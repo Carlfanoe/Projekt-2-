@@ -2,7 +2,7 @@
 
 
 	
-Potteplante::Potteplante(int ID, int HumiditySensorPin, int HumidityThreshold, int WateringDuration)
+Potteplante::Potteplante(int ID, uint8_t HumiditySensorPin, int HumidityThreshold, int WateringDuration)
 : id(ID),
 humiditySensorPin(HumiditySensorPin),
 humidityTreshold(HumidityThreshold),
