@@ -31,6 +31,12 @@ void Potteplante::UpdateSensor() {
     jordfugtighedsensor.SetHumidity();  // Assuming SetHumidity updates sensor reading
 }
 
+int Potteplante::GetDuration(){
+return wateringDuration;
+
+}
+
+
 // Method to get the plant's ID
 int Potteplante::GetID() {
     return id;  // Return the plant's ID

@@ -33,6 +33,8 @@ public:
 
     // Sætter en ny varighed for vanding
 	void SetDuration(int NewDuration);
+
+    int GetDuration();
     
     // Method to get the plant ID
     int GetID();
