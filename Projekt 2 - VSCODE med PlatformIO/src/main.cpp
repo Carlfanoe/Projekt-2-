@@ -11,7 +11,7 @@ koer_automatisk_plantepleje Automatiser(planter, 2);
 
 // Interrupt der kaldes når der er noget på UART buffer
 void serialEvent() {
-    Automatiser.read();  
+    Automatiser.InterpretUserInput();  
 }
 
 void setup() {

@@ -52,7 +52,7 @@ void koer_automatisk_plantepleje::ToggleAutomaticPlantCare() {
 }
 
 
-void koer_automatisk_plantepleje::read() {
+void koer_automatisk_plantepleje::InterpretUserInput () {
     if (brugergraenseflade.IsMessageReady()) {  // Check if there's a message ready
         String input = brugergraenseflade.ReadMessage();  // Read the input message
         input.trim();  // Remove leading/trailing spaces

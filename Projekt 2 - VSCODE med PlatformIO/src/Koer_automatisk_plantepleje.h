@@ -14,7 +14,7 @@ private:
 public:
     koer_automatisk_plantepleje(Potteplante* planter, int antalPlanter);
 
-    void read();
+    void InterpretUserInput();
     void selectPlant(int plantID);
     void ToggleAutomaticPlantCare();
 };
