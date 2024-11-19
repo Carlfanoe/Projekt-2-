@@ -1,58 +1,53 @@
 #include "Potteplante.h"
 
-// Constructor
+// Konstruktor
 Potteplante::Potteplante(int ID, uint8_t HumiditySensorPin, int HumidityThreshold, int WateringDuration)
-    : selected(false), jordfugtighedsensor(HumiditySensorPin), id(ID), humidityThreshold(HumidityThreshold), wateringDuration(WateringDuration) {
-    // Constructor initializes variables and the Jordfugtighedsensor object
-}
+    : jordfugtighedsensor(HumiditySensorPin), id(ID), humidityThreshold(HumidityThreshold), wateringDuration(WateringDuration), selected(false) {}
 
-// Method to water the plant (example, currently a placeholder for actual water pump control)
+// Metode til at vande planten
 void Potteplante::WaterPlant() {
-    // Example action: Control a water pump, e.g. pump.PumpWater();
+    // Placeholder for vandingens funktionalitet
 }
 
-// Method to get current humidity value
+// Metode til at hente den aktuelle Jordfugtighed
 int Potteplante::GetHumidity() {
-    return jordfugtighedsensor.GetHumidity();  // Assuming GetHumidity is a method of Jordfugtighedsensor
+    jordfugtighedsensor.UpdateSensor();  // Sørg for at opdatere sensorens værdi først
+    int rawHumidity = jordfugtighedsensor.GetHumidity();  // Hent den opdaterede værdi
+    int humidityPercent = map(rawHumidity, 0, 1023, 0, 100);  // Konverter til procent
+    return humidityPercent;  // Returner den beregnede luftfugtighed i procent
 }
 
-// Method to get the threshold value
+
 int Potteplante::GetThreshold() {
-    return humidityThreshold;  // Return the current humidity threshold
+    return humidityThreshold;
 }
 
-// Method to set a new threshold value
 void Potteplante::SetThreshold(int NewHumidityThreshold) {
-    humidityThreshold = NewHumidityThreshold;  // Update the threshold
+    humidityThreshold = NewHumidityThreshold;
 }
 
-// Method to update the sensor reading
 void Potteplante::UpdateSensor() {
-    jordfugtighedsensor.SetHumidity();  // Assuming SetHumidity updates sensor reading
+    jordfugtighedsensor.UpdateSensor();
 }
 
-int Potteplante::GetDuration(){
-return wateringDuration;
-
+void Potteplante::SetDuration(int NewDuration) {
+    wateringDuration = NewDuration;
 }
 
+int Potteplante::GetDuration() {
+    return wateringDuration;
+}
 
-// Method to get the plant's ID
 int Potteplante::GetID() {
-    return id;  // Return the plant's ID
+    return id;
 }
 
-// Method to check if plant is selected
+// Setter for 'selected' status
+void Potteplante::setSelected(bool status) {
+    selected = status;
+}
+
+// Getter for 'selected' status
 bool Potteplante::isSelected() const {
-    return selected;  // Return the selected status
-}
-
-// Method to set the plant's selected status
-void Potteplante::setSelected(bool value) {
-    selected = value;  // Set the selected status
-}
-
-// Sætter varigheden for vanding
-void Potteplante::SetDuration(int NewDuration){
-	wateringDuration = NewDuration;
+    return selected;
 }

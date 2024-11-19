@@ -1,18 +1,20 @@
 #include "Jordfugtighedsensor.h"
 
-Jordfugtighedsensor::Jordfugtighedsensor(uint8_t pin)
-: humidity_(0), pin_(pin) {}
+// Konstruktor
+// Initialiserer sensorens pin og sætter den som input
+Jordfugtighedsensor::Jordfugtighedsensor(uint8_t pin) {
+    sensorPin = pin;  // Sæt pin
+    pinMode(sensorPin, INPUT);  // Sæt pin-mode som input
+}
 
+// Funktion til at hente den aktuelle luftfugtighed
+// Læs sensorens værdi og returner den
 int Jordfugtighedsensor::GetHumidity() {
-    return humidity_;
+    humidity = analogRead(sensorPin);  // Læs sensorens værdi fra analog pin
+    return humidity;  // Returner den læste værdi
 }
 
-void Jordfugtighedsensor::SetHumidity() { // Anderledes fra klassediagram, tror klassediagram har en lille fejl her
-    humidity_ = ADC_readAsPercentage();
-}
-
-double Jordfugtighedsensor::ADC_readAsPercentage() {  // Retunere Humidity som procent
-    int rawValue = analogRead(pin_);
-    double moisturePercentage = ((1023 - rawValue) * 100.0) / (1023 - 300); 
-    return moisturePercentage;
+// Funktion til at opdatere sensorens læsning
+void Jordfugtighedsensor::UpdateSensor() {
+    humidity = analogRead(sensorPin);  // Opdater læsningen fra sensor
 }

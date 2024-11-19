@@ -1,47 +1,46 @@
 #pragma once
 #include <Arduino.h>
-#include "Jordfugtighedsensor.h"
+#include "Jordfugtighedsensor.h" // Inkluderer jordfugtighedsensor.h for at bruge sensor-klassen
 
 class Potteplante {
 private:
     int id;                           // ID for potteplante
-    uint8_t humiditySensorPin;         // Sensor pin for humidity sensor
-    int humidityThreshold;             // Threshold for humidity
-    int wateringDuration;              // Duration for watering
-    bool selected;                     // If the plant is selected
-    
-    Jordfugtighedsensor jordfugtighedsensor;  // Instantiating Jordfugtighedsensor
+    uint8_t humiditySensorPin;         // Pin til jordfugtighedssensor
+    int humidityThreshold;             // Humiditetströskelværdi
+    int wateringDuration;              // Vandingens varighed
+    bool selected;                     // Boolean for at holde styr på om planten er valgt
+
+    Jordfugtighedsensor jordfugtighedsensor;  // Instantiating jordfugtighedsensor
 
 public:
-    // Constructor
-    Potteplante(int ID, uint8_t HumiditySensorPin, int HumidityThreshold, int WateringDuration);    
-    
-    // Method to water the plant
+    // Konstruktor for potteplante
+    Potteplante(int ID, uint8_t HumiditySensorPin, int HumidityThreshold, int WateringDuration);
+
+    // Funktion til at vande planten
     void WaterPlant();
-    
-    // Method to get current humidity value
+
+    // Funktion til at hente den aktuelle luftfugtighed
     int GetHumidity();
-    
-    // Method to get the threshold value
+
+    // Funktion til at hente grænseværdien for luftfugtighed
     int GetThreshold();
-    
-    // Method to set a new threshold
+
+    // Funktion til at ændre grænseværdien for luftfugtighed
     void SetThreshold(int NewHumidityThreshold);
-    
-    // Method to update sensor
+
+    // Funktion til at opdatere sensorens læsning
     void UpdateSensor();
 
-    // Sætter en ny varighed for vanding
-	void SetDuration(int NewDuration);
+    // Funktion til at sætte vandingens varighed
+    void SetDuration(int NewDuration);
 
+    // Funktion til at hente vandingens varighed
     int GetDuration();
-    
-    // Method to get the plant ID
+
+    // Funktion til at hente plantens ID
     int GetID();
-    
-    // Method to check if plant is selected
+
+    // Setter and Getter for 'selected' status
+    void setSelected(bool status);
     bool isSelected() const;
-    
-    // Method to set plant's selected status
-    void setSelected(bool value);  
-}; 
+};

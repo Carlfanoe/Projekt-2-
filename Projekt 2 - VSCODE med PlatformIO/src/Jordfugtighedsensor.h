@@ -3,12 +3,16 @@
 
 class Jordfugtighedsensor {
 private:
-    int humidity_;
-    uint8_t pin_;  // ADC pin på Arduino: Vi SKAL finde på en løsning her, fordi lige nu er adcPin den samme for hvert object af plante, hvilket den ikke må være.
-    
+    uint8_t sensorPin;   // Pin, der er tilsluttet jordfugtighedssensoren
+    int humidity;        // Variabel til at gemme sensorens læsning
+
 public:
-    Jordfugtighedsensor(uint8_t pin); // kalder automatisk ADC_init
+    // Konstruktor, der initialiserer sensorens pin
+    Jordfugtighedsensor(uint8_t pin);
+
+    // Funktion til at hente den aktuelle læsning af luftfugtigheden
     int GetHumidity();
-    void SetHumidity(); // Opdaterer attributten humidity
-    double ADC_readAsPercentage();  // Retunerer Humidity som procent
+
+    // Funktion til at opdatere sensorens læsning
+    void UpdateSensor();
 };
