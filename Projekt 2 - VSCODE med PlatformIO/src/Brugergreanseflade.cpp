@@ -44,7 +44,7 @@ void Brugergraenseflade::read() {
             }
         } else if (input == "waterplant") {
             waterPlant();
-        } else if (input == "plantstatus") {
+        } else if (input == "status") {
             displayPlantStatus();
         } else {
             Serial.println("Invalid command. Please use one of the following:");

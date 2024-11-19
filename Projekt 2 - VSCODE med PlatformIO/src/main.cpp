@@ -21,10 +21,13 @@ void serialEvent() {
 
 // Benyttes af millis(), vores delay
 unsigned long previousMillis = 0;  // Stores the last time something happened
-const unsigned long interval = 10800000;  // 3 timer = 10800000 ms
+const unsigned long interval = 20000;  // 3 timer = 10800000 ms
 
 void setup() {
-    Serial.begin(9600); // initiere med 9600 baudrate. Deafaulter til RX1 og TX. Men kan ændres 
+    Serial.begin(9600); // initiere med 9600 baudrate. Deafaulter til RX1 og TX. Men kan ændres // VIGTIG! Serial1 for bluetooth Serial for USB
+    
+	delay(1000);           // Wait for HC-05 to initialize
+
     analogReference(DEFAULT); // Sætter "Reference voltage til 5v (default)"
 }
 

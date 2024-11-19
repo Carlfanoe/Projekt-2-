@@ -3,7 +3,7 @@
 
 class Jordfugtighedsensor {
 private:
-    int humidity_ = 0;
+    int humidity_;
     uint8_t pin_;  // ADC pin på Arduino: Vi SKAL finde på en løsning her, fordi lige nu er adcPin den samme for hvert object af plante, hvilket den ikke må være.
     
 public:
