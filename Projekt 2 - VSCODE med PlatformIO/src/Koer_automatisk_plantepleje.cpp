@@ -23,12 +23,13 @@ koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* planter, i
         antalPlanter(antalPlanter),
         selectedPlant(nullptr),
         previousMillis_(0),
+        waterLevelThreshold_(20),
         waterContainer_(
-            000, //Ret den her!
-            000, // Ret den her!
-            20,
-            30,
-            3
+            22,                     // trigPin
+            23,                     // echoPin
+            waterLevelThreshold_,   // threshold
+            30,                     // Afstand i cm ved tom vandbeholder
+            3                       // Afstand i cm ved fyldt vandbeholder
         )
 {}
 
