@@ -12,7 +12,7 @@ private:
 	Brugergraenseflade brugergraenseflade;
     Display display_;
     Vandbeholder waterContainer_;
-    int waterLevelThreshold_;
+    int waterLevelThreshold_ = 20;
     unsigned long previousMillis_; // Variable for timing
     String CreateDataMessage();
 

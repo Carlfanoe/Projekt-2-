@@ -3,13 +3,11 @@
 Vandbeholder::Vandbeholder(
     int trigPin,
     int echoPin,
-    int threshold,
     int filledDistance,
     int emptyDistance
 )
     :   trigPin_(trigPin),
         echoPin_(echoPin),
-        threshold_(threshold),
         filledDistance_(filledDistance),
         emptyDistance_(emptyDistance)
 {

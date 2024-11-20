@@ -27,7 +27,6 @@ koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* planter, i
         waterContainer_(
             22,                     // trigPin
             23,                     // echoPin
-            waterLevelThreshold_,   // threshold
             30,                     // Afstand i cm ved tom vandbeholder
             3                       // Afstand i cm ved fyldt vandbeholder
         )

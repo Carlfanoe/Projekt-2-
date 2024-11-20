@@ -8,7 +8,6 @@ public:
     Vandbeholder(
         int trigPin,
         int echoPin,
-        int threshold,
         int filledDistance,
         int emptyDistance
     );
@@ -16,7 +15,6 @@ public:
 private:
     int trigPin_,
         echoPin_,
-        threshold_,
         filledDistance_,
         emptyDistance_;
     void InitializeSensor();
