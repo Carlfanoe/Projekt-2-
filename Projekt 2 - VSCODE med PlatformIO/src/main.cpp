@@ -1,4 +1,4 @@
-#include "Potteplante.h"
+//#include "Potteplante.h"
 #include "Arduino.h"
 #include "Koer_automatisk_plantepleje.h"
 
@@ -6,7 +6,7 @@
 // Man skal have objekter uden for setup() loopet
 Potteplante plant1(1, A0, 20, 4); // (ID, PIN, HumidityTreshold, WateringDuration)
 Potteplante plant2(2, A1, 20, 4); // (ID, PIN, HumidityTreshold, WateringDuration)
-Potteplante planter[] = {plant1, plant2};  // Array af planter
+Potteplante planter[] = {plant1, plant2}; // Array af planter
 koer_automatisk_plantepleje Automatiser(planter, 2);
 
 // Interrupt der kaldes når der er noget på UART buffer
