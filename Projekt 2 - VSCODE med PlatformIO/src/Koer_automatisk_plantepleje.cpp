@@ -51,8 +51,6 @@ void koer_automatisk_plantepleje::ToggleAutomaticPlantCare() {
 void koer_automatisk_plantepleje::InterpretUserInput() {
     if (brugergraenseflade.IsMessageReady()) {  // Check if there's a message ready
         String input = brugergraenseflade.ReadMessage();  // Read the input message
-        input.trim();  // Remove leading/trailing spaces
-        input.toLowerCase();  // Convert to lowercase for easier comparison
 
         if (input.startsWith("select:")) {  // If the command starts with "select:"
             String idStr = input.substring(7);  // Extract the plant ID (after "select:")
