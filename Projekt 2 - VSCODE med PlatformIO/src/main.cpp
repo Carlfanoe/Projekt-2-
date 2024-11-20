@@ -11,7 +11,7 @@ Potteplante planter[] = {plant1, plant2}; // Array af planter
 koer_automatisk_plantepleje Automatiser(planter, 2);
 
 // Interrupt der kaldes når der er noget på UART buffer
-void SerialEvent() {
+void serialEvent() {
     Automatiser.InterpretUserInput();  
 }
 
@@ -23,7 +23,7 @@ void setup() {
 }
 
 void loop() {
-    Automatiser.ToggleAutomaticPlantCare();
+    //Automatiser.ToggleAutomaticPlantCare();
 
     // Midlertidigt
     Serial.println("Test3");

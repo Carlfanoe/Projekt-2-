@@ -1,4 +1,5 @@
 #pragma once
+
 #include <Arduino.h>
 #include "Jordfugtighedsensor.h" // Inkluderer jordfugtighedsensor.h for at bruge sensor-klassen
 

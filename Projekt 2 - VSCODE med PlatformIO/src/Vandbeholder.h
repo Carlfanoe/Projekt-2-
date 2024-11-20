@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
-#include <util/delay.h>
+//#include <util/delay.h>
 
 class Vandbeholder {
 public:
