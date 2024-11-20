@@ -1,12 +1,12 @@
 #include "Brugergraenseflade.h"
 
 bool Brugergraenseflade::IsMessageReady(){
-return Serial.available();
+return Serial1.available();
 }
 
 String Brugergraenseflade::ReadMessage(){
-if (Serial.available()) {
-        String input = Serial.readStringUntil('\n'); // Read the full command
+if (Serial1.available()) {
+        String input = Serial1.readStringUntil('\n'); // Read the full command
           input.trim(); // Remove leading/trailing whitespace
           input.toLowerCase(); // Convert to lowercase
           input.replace(" ", ""); // Remove all spaces
@@ -14,6 +14,3 @@ if (Serial.available()) {
     }
 }
 
-void Brugergraenseflade::SendMessage(String Message){
-Serial.println(Message);
-}
