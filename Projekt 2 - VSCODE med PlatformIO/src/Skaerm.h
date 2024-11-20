@@ -3,9 +3,9 @@
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
 
-class Display {
+class Skaerm {
 public:
-    Display();
+    Skaerm();
     void SetDisplayState(bool state);
     void UpdateDisplay(String message);
 private:

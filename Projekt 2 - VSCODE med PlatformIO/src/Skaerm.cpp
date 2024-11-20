@@ -1,8 +1,8 @@
-#include "Display.h"
+#include "Skaerm.h"
 
-Display::Display() {InitDisplay();}
+Skaerm::Skaerm() {InitDisplay();}
 
-void Display::SetDisplayState(bool state)
+void Skaerm::SetDisplayState(bool state)
 {
   if (state) {
     // Turn on the backlight and enable the display
@@ -16,7 +16,7 @@ void Display::SetDisplayState(bool state)
   }
 }
 
-void Display::UpdateDisplay(String message)
+void Skaerm::UpdateDisplay(String message)
 {
     int lineIndex = 0; // Track the current line on the display
     String messages[4]; // Array to hold up to 4 lines of text
@@ -34,7 +34,7 @@ void Display::UpdateDisplay(String message)
     }
 }
 
-void Display::InitDisplay()
+void Skaerm::InitDisplay()
 {
     lcd.init(); // Initialize the LCD display
     lcd.backlight(); // Turn on the backlight

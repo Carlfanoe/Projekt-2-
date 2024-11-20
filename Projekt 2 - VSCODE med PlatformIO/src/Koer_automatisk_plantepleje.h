@@ -1,8 +1,9 @@
 #pragma once
+
 #include "Potteplante.h"
 #include "Brugergraenseflade.h"
 #include "Vandbeholder.h"
-#include "Display.h"
+#include "Skaerm.h"
 
 class koer_automatisk_plantepleje {
 private:
@@ -10,7 +11,7 @@ private:
     int antalPlanter;           // Number of plants
     Potteplante* selectedPlant; // Pointer to the currently selected plant
 	Brugergraenseflade brugergraenseflade;
-    Display display_;
+    Skaerm display_;
     Vandbeholder waterContainer_;
     int waterLevelThreshold_ = 20;
     unsigned long previousMillis_; // Variable for timing
