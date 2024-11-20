@@ -38,8 +38,9 @@ void koer_automatisk_plantepleje::ToggleAutomaticPlantCare() {
     // Display status message for each plant immediately at startup (only once)
     static bool firstRun = true;  // Flag to check if it's the first run
     if (firstRun) {
-        Serial1.println("Welcome to the automatic plant care system!");
-        Serial1.println("The system will now check all your plants' sensor data.");
+        Serial.println();
+        Serial.println("Welcome to the automatic plant care system!");
+        Serial.println("The system will now check all your plants' sensor data.");
         firstRun = false;  // Set the flag to false after the first run
 
         // Print the status message for each plant immediately at startup
@@ -53,14 +54,14 @@ void koer_automatisk_plantepleje::ToggleAutomaticPlantCare() {
         previousMillis_ = millis();  // Reset the timer
 
         // Perform automatic plant care check and print the status
-        Serial1.println("Performing automatic plant care check...");
+        Serial.println("Performing automatic plant care check...");
 
         String message = CreateDataMessage();
         Serial.println(message); // Til brugegrænsefladen
         display_.UpdateDisplay(message); // Til skærmen
 
         // A message indicating the system has completed checking all plants
-        Serial1.println("Plant care check completed. The system will check again in 3 hours.");
+        Serial.println("Plant care check completed. The system will check again in 3 hours.");
     }
 }
 
@@ -74,44 +75,44 @@ void koer_automatisk_plantepleje::InterpretUserInput() {
             String idStr = input.substring(7);  // Extract the plant ID (after "select:")
             int plantID = idStr.toInt();  // Convert the plant ID to an integer
             selectPlant(plantID);  // Select the plant with the given ID
-            Serial1.println("Plant selected: " + String(plantID));  // Feedback to user
+            Serial.println("Plant selected: " + String(plantID));  // Feedback to user
         } else if (input.startsWith("treshold:")) {  // If the command starts with "treshold:"
             String thresholdStr = input.substring(9);  // Extract the threshold value (after "treshold:")
             int newThreshold = thresholdStr.toInt();  // Convert the threshold to an integer
             if (selectedPlant != nullptr) {
                 selectedPlant->SetThreshold(newThreshold);  // Set the new threshold for the selected plant
-                Serial1.println("Threshold updated to: " + String(newThreshold));  // Feedback to user
+                Serial.println("Threshold updated to: " + String(newThreshold));  // Feedback to user
             } else {
-                Serial1.println("No plant selected. Please select a plant first.");  // Error message
+                Serial.println("No plant selected. Please select a plant first.");  // Error message
             }
         } else if (input.startsWith("duration:")) {  // If the command starts with "duration:"
             String durationStr = input.substring(9);  // Extract the duration value (after "duration:")
             int duration = durationStr.toInt();  // Convert the duration to an integer
             if (selectedPlant != nullptr) {
                 selectedPlant->SetDuration(duration);  // Set the new watering duration for the selected plant
-                Serial1.println("Watering duration updated to: " + String(duration) + " seconds.");  // Feedback to user
+                Serial.println("Watering duration updated to: " + String(duration) + " seconds.");  // Feedback to user
             } else {
-                Serial1.println("No plant selected. Please select a plant first.");  // Error message
+                Serial.println("No plant selected. Please select a plant first.");  // Error message
             }
         } else if (input == "waterplant") {  // If the command is "waterplant"
             if (selectedPlant != nullptr) {
                 selectedPlant->WaterPlant();  // Water the selected plant
-                Serial1.println("Watering the selected plant...");  // Feedback to user
+                Serial.println("Watering the selected plant...");  // Feedback to user
             } else {
-                Serial1.println("No plant selected. Please select a plant first.");  // Error message
+                Serial.println("No plant selected. Please select a plant first.");  // Error message
             }
         } else if (input == "status") {  // If the command is "status"
             if (selectedPlant != nullptr) {
                 // Print the selected plant's status
-                Serial1.println("Selected Plant ID: " + String(selectedPlant->GetID()) +
+                Serial.println("Selected Plant ID: " + String(selectedPlant->GetID()) +
                                 ", Humidity: " + String(selectedPlant->GetHumidity()) +
                                 ", Threshold: " + String(selectedPlant->GetThreshold()) +
                                 ", Duration: " + String(selectedPlant->GetDuration()) + " sec");
             } else {
-                Serial1.println("No plant selected. Please select a plant first.");  // Error message
+                Serial.println("No plant selected. Please select a plant first.");  // Error message
             }
         } else {
-            Serial1.println("Invalid command. Please use a valid command (select:, treshold:, duration:, waterplant, status).");  // Error message for invalid commands
+            Serial.println("Invalid command. Please use a valid command (select:, treshold:, duration:, waterplant, status).");  // Error message for invalid commands
         }
     }
 }
@@ -126,9 +127,9 @@ void koer_automatisk_plantepleje::selectPlant(int plantID) {
             }
             planter[i].setSelected(true);  // Select the plant
             selectedPlant = &planter[i];  // Set the selected plant pointer
-            Serial1.println("Plant " + String(plantID) + " selected successfully.");  // Feedback to user
+            Serial.println("Plant " + String(plantID) + " selected successfully.");  // Feedback to user
             return;
         }
     }
-    Serial1.println("Plant with ID " + String(plantID) + " not found. Please check the ID and try again.");  // Error message if plant not found
+    Serial.println("Plant with ID " + String(plantID) + " not found. Please check the ID and try again.");  // Error message if plant not found
 }
