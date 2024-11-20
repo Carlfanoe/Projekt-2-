@@ -1,6 +1,10 @@
 #include "Skaerm.h"
 
-Skaerm::Skaerm() {InitDisplay();}
+Skaerm::Skaerm() {
+  //Serial.println("Initializing display...");
+  //InitDisplay();
+  //Serial.println("Display initialized..."); //Uncommenting this breaks the system???
+}
 
 void Skaerm::SetDisplayState(bool state)
 {
