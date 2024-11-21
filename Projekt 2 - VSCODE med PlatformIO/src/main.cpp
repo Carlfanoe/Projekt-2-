@@ -20,10 +20,8 @@ void setup() {
 }
 
 unsigned long threeHours = 1000; //1000 * 60 * 60 * 3; // I milliseconds
-/*
-Bemærk at threeHours lige nu er
-indstillet til 1000ms --> 1 sekund
-*/
+/*      Bemærk at threeHours lige nu er
+        indstillet til 1000ms --> 1 sekund      */
 unsigned long lastCheckTime = millis() - threeHours; // Sikrer at systemet tjekker ved start
 void loop() {
     unsigned long currentTime = millis();
