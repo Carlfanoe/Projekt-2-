@@ -56,7 +56,7 @@ void koer_automatisk_plantepleje::ProcessInput()
                 + "\r\n";
             ui_.SendMessage(messageToSend);
         }
-        else ui_.SendMessage("Indtastet funktion er ugyldig.");
+        else ui_.SendMessage("Indtastet funktion er ugyldig.\r\n");
     }
 }
 
