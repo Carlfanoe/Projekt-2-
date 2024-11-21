@@ -50,7 +50,14 @@ void koer_automatisk_plantepleje::ProcessInput()
         String input = ui_.ReadMessage();
         String function, param1, param2 = "";
         InterpretInput(input, function, param1, param2);
-        
+        /*
+            InterpretInput() opdeler inputtet ved mellemrum.
+            Herefter indeler den det i:
+                1. ord: function
+                2. ord: param1
+                3. ord: param2
+        */ 
+
         if (function == "toggle_plantcare") {
             running_ = !running_;
         }
