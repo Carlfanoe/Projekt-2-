@@ -33,7 +33,4 @@ void loop() {
     //     lastCheckTime = currentTime;
     //     plantepleje.CheckPlants();
     // }
-
-    Serial.println("Hello there");
-    delay(1000);
 }

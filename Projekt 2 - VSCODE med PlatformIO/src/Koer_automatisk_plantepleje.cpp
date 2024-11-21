@@ -24,21 +24,19 @@ bool koer_automatisk_plantepleje::VerifyWaterLevel()
 
 String koer_automatisk_plantepleje::CreateDataMessage()
 {
-    // int waterLevel = waterContainer_.ReadWaterLevel();
-    // String message =
-    //         "Vandbeholder: " + String(waterLevel) + "%\n"
-    //         + "Jordfugtighed\n";
-    // for (int i = 0; i < antalPlanter_; i++) {
-    //     auto& plante = planter_[i];
-    //     plante.UpdateSensor();
-    //     int humidity = plante.GetHumidity();
-    //     int plantID = plante.GetID();
-    //     message += "Plante" + String(plantID) + ": " + String(humidity) + "%";
-    //     if (i < (antalPlanter_ - 1)) message += "\n";
-    // }
-    // return message;
-
-    return String();
+    int waterLevel = waterContainer_.ReadWaterLevel();
+    String message =
+            "Vandbeholder: " + String(waterLevel) + "%\n"
+            + "Jordfugtighed\n";
+    for (int i = 0; i < numPlants_; i++) {
+        auto& plant = plants_[i];
+        //plant.UpdateSensor();
+        int humidity = 69; //plant.GetHumidity();
+        int plantID = plant.GetID();
+        message += "Plante" + String(plantID) + ": " + String(humidity) + "%";
+        if (i < (numPlants_ - 1)) message += "\n";
+    }
+    return message;
 }
 
 void koer_automatisk_plantepleje::AlertLowWaterLevel()
@@ -60,7 +58,8 @@ void koer_automatisk_plantepleje::ProcessInput()
         else if (function == "change_humidity_threshold") {
             // Kode mangler
         }
-        else if (function == "PrintInput") { // Testfunktion
+        else if (function == "Test_PrintDataMessage") Serial.println(CreateDataMessage());
+        else if (function == "Test_PrintInput") { // Testfunktion
             Serial.println(input);
             String messageToSend =
                 "f:" + function
@@ -69,7 +68,7 @@ void koer_automatisk_plantepleje::ProcessInput()
                 + "\r\n";
             ui_.SendMessage(messageToSend);
         }
-        else ui_.SendMessage("Indtastet funktion er ugyldig.");
+        else ui_.SendMessage("Indtastet funktion er ugyldig.\r\n");
     }
 }
 
