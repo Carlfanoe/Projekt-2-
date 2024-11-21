@@ -11,9 +11,7 @@ Vandbeholder::Vandbeholder(
         filledDistance_(filledDistance),
         emptyDistance_(emptyDistance)
 {
-    Serial.println("Initializing ultrasonic sensor...");
     InitializeSensor();
-    //Serial.println("Ultrasonic sensor initialized..."); //Uncommenting this breaks the system???
 }
 
 int Vandbeholder::ReadWaterLevel() {
