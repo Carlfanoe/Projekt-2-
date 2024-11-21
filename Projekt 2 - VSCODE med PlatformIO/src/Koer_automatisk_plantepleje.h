@@ -13,6 +13,7 @@ public:
     bool VerifyWaterLevel();
     String CreateDataMessage();
     void AlertLowWaterLevel();
+    void InterpretUserInput();
 private:
     //tidsattributter mangler måske
     Potteplante* plants_;

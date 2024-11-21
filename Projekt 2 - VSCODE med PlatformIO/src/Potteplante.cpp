@@ -4,10 +4,12 @@ Potteplante::Potteplante(
     int humiditySensorPin,
     int waterPumpPin,
     int id,
-    int humidityThreshold
+    int humidityThreshold,
+    int wateringDuration
 )
     :   id_(id),
-        humidityThreshold_(humidityThreshold)//,
+        humidityThreshold_(humidityThreshold),
+        wateringDuration_(wateringDuration)//,
         // waterPump_(waterPumpPin),
         // humiditySensor(humiditySensorPin)
 {}

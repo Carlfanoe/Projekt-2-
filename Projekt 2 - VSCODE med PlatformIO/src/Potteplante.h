@@ -11,7 +11,8 @@ public:
         int humiditySensorPin,
         int waterPumpPin,
         int id,
-        int humidityThreshold
+        int humidityThreshold,
+        int wateringDuration
     );
 
     int GetID();
@@ -23,7 +24,7 @@ public:
 private:
     int id_;
     int humidityThreshold_;
-    int wateringDuration_ = 5; //sekunder
+    int wateringDuration_;
     //Vandpumpe waterPump_;
     //Jordfugtighedssensor humiditySensor_;
 };

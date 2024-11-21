@@ -31,3 +31,11 @@ void koer_automatisk_plantepleje::AlertLowWaterLevel()
 {
     //Kode mangler
 }
+
+void koer_automatisk_plantepleje::InterpretUserInput()
+{
+    if (Serial1.available()) {
+        String receivedMessage = Serial1.readString();
+        Serial.println(receivedMessage);
+    }
+}
