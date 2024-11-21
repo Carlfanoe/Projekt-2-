@@ -16,11 +16,8 @@ void serialEvent() {
 
 void setup() {
     Serial.begin(9600); // initiere med 9600 baudrate. Deafaulter til RX1 og TX. Men kan ændres // VIGTIG! Serial1 for bluetooth Serial for USB
-<<<<<<< Updated upstream
-	delay(2000);           // Wait for HC-05 to initialize
-=======
-	delay(1000);           // Wait for HC-05 to initialize
->>>>>>> Stashed changes
+    delay(2000);           // Wait for HC-05 to initialize
+    
     analogReference(DEFAULT); // Sætter "Reference voltage til 5v (default)"
     pinMode(A0, INPUT);  // Jordfugtighedsensor 1
     pinMode(A1, INPUT);  // Jordfugtighedsensor 2
