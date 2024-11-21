@@ -8,8 +8,10 @@
 //Parameters: humiditySensorPin, waterPumpPin, id, humidityThreshold
 Potteplante plant1(A0, 21, 1, 20, 5);
 Potteplante plant2(A1, 22, 2, 20, 5);
-Potteplante planter[] = {plant1, plant2};
-koer_automatisk_plantepleje plantepleje(planter);
+Potteplante plants[] = {plant1, plant2};
+
+int numPlants = sizeof(plants) / sizeof(plants[0]);
+koer_automatisk_plantepleje plantepleje(plants, numPlants);
 
 void serialEvent1() {plantepleje.ProcessInput();}
 

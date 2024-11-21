@@ -1,13 +1,15 @@
 #pragma once
 
+// Arduino Core libraries
 #include "Arduino.h"
 
+// Klasser
 #include "Brugergraenseflade.h"
 #include "Potteplante.h"
 
 class koer_automatisk_plantepleje {
 public:
-    koer_automatisk_plantepleje(Potteplante* plants);
+    koer_automatisk_plantepleje(Potteplante* plants, int numPlants);
 
     void CheckPlants();
     bool VerifyHumidity(Potteplante& plant);
@@ -17,8 +19,9 @@ public:
     void ProcessInput();
     bool GetRunningState();
 private:
-    bool running_ = true; // Begynder plantepleje ved opstart
     Potteplante* plants_;
+    int numPlants_;
+    bool running_ = true; // Begynder plantepleje ved opstart
     Brugergraenseflade ui_ = {9600}; // UART1 ved baud-rate på 9600
     //Skaerm display_;
     //Vandbeholder waterContainer_;

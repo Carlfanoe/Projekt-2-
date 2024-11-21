@@ -1,7 +1,7 @@
 #include "Koer_automatisk_plantepleje.h"
 
-koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* plants)
-    : plants_(plants)
+koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* plants, int numPlants)
+    : plants_(plants), numPlants_(numPlants)
 {}
 
 void koer_automatisk_plantepleje::CheckPlants()
