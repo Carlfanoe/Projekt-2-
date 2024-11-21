@@ -1,6 +1,9 @@
 #pragma once
 
+// Arduino Core libraries
 #include <Arduino.h>
+
+// Library til display
 #include <LiquidCrystal_I2C.h>
 
 class Skaerm {

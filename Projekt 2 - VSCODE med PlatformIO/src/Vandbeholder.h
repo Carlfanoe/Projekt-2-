@@ -1,7 +1,7 @@
 #pragma once
 
+// Arduino Core libraries
 #include <Arduino.h>
-//#include <util/delay.h>
 
 class Vandbeholder {
 public:
@@ -19,6 +19,4 @@ private:
         emptyDistance_;
     void InitializeSensor();
     int TranslateToPercentage(float distance);
-    // bool ReadPINA(int pin);
-    // void WritePORTA(int pin, bool state);
 };

@@ -8,8 +8,10 @@
 //Parameters: humiditySensorPin, waterPumpPin, id, humidityThreshold
 Potteplante plant1(A0, 21, 1, 20, 5);
 Potteplante plant2(A1, 22, 2, 20, 5);
-Potteplante planter[] = {plant1, plant2};
-koer_automatisk_plantepleje plantepleje(planter);
+Potteplante plants[] = {plant1, plant2};
+
+int numPlants = sizeof(plants) / sizeof(plants[0]);
+koer_automatisk_plantepleje plantepleje(plants, numPlants);
 
 void serialEvent1() {plantepleje.ProcessInput();}
 
@@ -24,11 +26,14 @@ indstillet til 1000ms --> 1 sekund
 */
 unsigned long lastCheckTime = millis() - threeHours; // Sikrer at systemet tjekker ved start
 void loop() {
-    unsigned long currentTime = millis();
-    unsigned long elapsedTime = currentTime - lastCheckTime;
+    // unsigned long currentTime = millis();
+    // unsigned long elapsedTime = currentTime - lastCheckTime;
 
-    if (plantepleje.GetRunningState() && (elapsedTime > threeHours)) {
-        lastCheckTime = currentTime;
-        plantepleje.CheckPlants();
-    }
+    // if (plantepleje.GetRunningState() && (elapsedTime > threeHours)) {
+    //     lastCheckTime = currentTime;
+    //     plantepleje.CheckPlants();
+    // }
+
+    Serial.println("Hello there");
+    delay(1000);
 }

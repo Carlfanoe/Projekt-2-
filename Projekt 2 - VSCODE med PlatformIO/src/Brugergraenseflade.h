@@ -1,5 +1,6 @@
 #pragma once
 
+// Arduino Core libraries
 #include "Arduino.h"
 
 class Brugergraenseflade {

@@ -1,7 +1,7 @@
 #include "Koer_automatisk_plantepleje.h"
 
-koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* plants)
-    : plants_(plants)
+koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* plants, int numPlants)
+    : plants_(plants), numPlants_(numPlants)
 {}
 
 void koer_automatisk_plantepleje::CheckPlants()
@@ -24,7 +24,20 @@ bool koer_automatisk_plantepleje::VerifyWaterLevel()
 
 String koer_automatisk_plantepleje::CreateDataMessage()
 {
-    // Kode mangler
+    // int waterLevel = waterContainer_.ReadWaterLevel();
+    // String message =
+    //         "Vandbeholder: " + String(waterLevel) + "%\n"
+    //         + "Jordfugtighed\n";
+    // for (int i = 0; i < antalPlanter_; i++) {
+    //     auto& plante = planter_[i];
+    //     plante.UpdateSensor();
+    //     int humidity = plante.GetHumidity();
+    //     int plantID = plante.GetID();
+    //     message += "Plante" + String(plantID) + ": " + String(humidity) + "%";
+    //     if (i < (antalPlanter_ - 1)) message += "\n";
+    // }
+    // return message;
+
     return String();
 }
 
@@ -63,6 +76,15 @@ void koer_automatisk_plantepleje::ProcessInput()
 bool koer_automatisk_plantepleje::GetRunningState()
 {
     return running_;
+}
+
+int koer_automatisk_plantepleje::GetPlantsAmount()
+{
+    // int amount = 0;
+    // for (auto& Potteplante : plants_) amount += 1;
+    // return amount;
+
+    return sizeof(plants_) / sizeof(plants_[0]);
 }
 
 void koer_automatisk_plantepleje::InterpretInput(
