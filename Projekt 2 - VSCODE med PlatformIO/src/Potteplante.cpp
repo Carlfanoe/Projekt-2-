@@ -42,7 +42,7 @@ int Potteplante::GetHumidityThreshold()
     return humidityThreshold_;
 }
 
-void Potteplante::UpdateHumidityThreshold(int newThreshold)
+void Potteplante::SetHumidityThreshold(int newThreshold)
 {
     humidityThreshold_ = newThreshold;
 }

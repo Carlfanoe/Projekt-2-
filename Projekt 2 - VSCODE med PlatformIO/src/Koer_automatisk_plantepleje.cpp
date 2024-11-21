@@ -51,39 +51,48 @@ void koer_automatisk_plantepleje::ProcessInput()
         String function, param1, param2 = "";
         InterpretInput(input, function, param1, param2);
         
-        if (function == "toggle_plantcare") running_ = !running_;
+        if (function == "toggle_plantcare") {
+            running_ = !running_;
+        }
         else if (function == "read_values") {
-            // Kode mangler
+            String dataMessage = CreateDataMessage();
+            ui_.SendMessage(dataMessage);
+        }
+        else if (function == "read_all_data") { // Ikke en del af kravspec, men nice for debugging
+            String dataMessage = CreateDataMessage();
+            String waterLevel = String(waterContainer_.ReadWaterLevel());
+            String message =
+                "-----Værdier-----\r\n"
+                + dataMessage + "\r\n"
+                + "-----Thresholds-----\r\n"
+                + "Vandbeholder: " + waterLevel + "%\r\n";
+            for (int i = 0; i < numPlants_; i++) {
+                String humidityThreshold = String(plants_[i].GetHumidityThreshold());
+                message += "Plante" + String(i + 1) + ": " + humidityThreshold + "%\r\n";
+            }
+            ui_.SendMessage(message);
         }
         else if (function == "change_humidity_threshold") {
-            // Kode mangler
+            int plantID = param1.toInt();
+            int newThreshold = param2.toInt();
+            if ((plantID == 0 && param1 != "0") || (newThreshold == 0 && param2 != "0")) {
+                ui_.SendMessage("Én eller flere af de indtastede parametre er ugyldig.");
+            }
+            else {
+                if (plantID >= 0 && plantID < numPlants_) {
+                    plants_[plantID].SetHumidityThreshold(newThreshold);
+                }
+            }
         }
-        else if (function == "Test_PrintDataMessage") Serial.println(CreateDataMessage());
-        else if (function == "Test_PrintInput") { // Testfunktion
-            Serial.println(input);
-            String messageToSend =
-                "f:" + function
-                + ", p1:" + param1
-                + ", p2:" + param2
-                + "\r\n";
-            ui_.SendMessage(messageToSend);
+        else {
+            ui_.SendMessage("Indtastet funktion er ugyldig.\r\n");
         }
-        else ui_.SendMessage("Indtastet funktion er ugyldig.\r\n");
     }
 }
 
 bool koer_automatisk_plantepleje::GetRunningState()
 {
     return running_;
-}
-
-int koer_automatisk_plantepleje::GetPlantsAmount()
-{
-    // int amount = 0;
-    // for (auto& Potteplante : plants_) amount += 1;
-    // return amount;
-
-    return sizeof(plants_) / sizeof(plants_[0]);
 }
 
 void koer_automatisk_plantepleje::InterpretInput(

@@ -26,11 +26,11 @@ indstillet til 1000ms --> 1 sekund
 */
 unsigned long lastCheckTime = millis() - threeHours; // Sikrer at systemet tjekker ved start
 void loop() {
-    // unsigned long currentTime = millis();
-    // unsigned long elapsedTime = currentTime - lastCheckTime;
+    unsigned long currentTime = millis();
+    unsigned long elapsedTime = currentTime - lastCheckTime;
 
-    // if (plantepleje.GetRunningState() && (elapsedTime > threeHours)) {
-    //     lastCheckTime = currentTime;
-    //     plantepleje.CheckPlants();
-    // }
+    if (plantepleje.GetRunningState() && (elapsedTime > threeHours)) {
+        lastCheckTime = currentTime;
+        plantepleje.CheckPlants();
+    }
 }

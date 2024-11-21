@@ -21,7 +21,7 @@ public:
     int GetHumidity();
     void UpdateHumidity();
     int GetHumidityThreshold();
-    void UpdateHumidityThreshold(int newThreshold);
+    void SetHumidityThreshold(int newThreshold);
 private:
     int id_;
     int humidityThreshold_;

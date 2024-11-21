@@ -19,7 +19,6 @@ public:
     void AlertLowWaterLevel();
     void ProcessInput();
     bool GetRunningState();
-    int GetPlantsAmount();
 private:
     Potteplante* plants_;
     int numPlants_;
