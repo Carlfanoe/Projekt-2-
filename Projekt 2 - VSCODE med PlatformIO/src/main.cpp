@@ -4,7 +4,7 @@
 #include "Koer_automatisk_plantepleje.h"
 
 
-// Man skal have objekter uden for setup() loopet
+// Man skal have objekter uden for setup()
 Potteplante plant1(1, A0, 20, 4); // (ID, PIN, HumidityTreshold, WateringDuration)
 Potteplante plant2(2, A1, 20, 4); // (ID, PIN, HumidityTreshold, WateringDuration)
 Potteplante planter[] = {plant1, plant2}; // Array af planter
