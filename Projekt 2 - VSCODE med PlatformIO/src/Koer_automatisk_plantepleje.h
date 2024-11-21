@@ -1,10 +1,5 @@
 #pragma once
 
-#include "Potteplante.h"
-#include "Brugergraenseflade.h"
-#include "Vandbeholder.h"
-#include "Skaerm.h"
-
 class koer_automatisk_plantepleje {
 public:
     koer_automatisk_plantepleje(Potteplante* planter, int antalPlanter);

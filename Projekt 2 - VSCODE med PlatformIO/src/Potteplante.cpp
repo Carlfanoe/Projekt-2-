@@ -1,8 +1,9 @@
 #include "Potteplante.h"
 
 // Konstruktor
-Potteplante::Potteplante(int ID, uint8_t HumiditySensorPin, int HumidityThreshold, int WateringDuration)
-    : jordfugtighedsensor(HumiditySensorPin), id(ID), humidityThreshold(HumidityThreshold), wateringDuration(WateringDuration), selected(false) {}
+Potteplante::Potteplante(int id, int humidityThreshold)
+    : id_(id), humidityThreshold_(humidityThreshold)
+{}
 
 // Metode til at vande planten
 void Potteplante::WaterPlant() {
