@@ -20,6 +20,7 @@ void koer_automatisk_plantepleje::ToggleAutomaticPlantCare() {
 
         // Print the status message for each plant immediately at startup
         for (int i = 0; i < antalPlanter; i++) {
+            planter[i].UpdateSensor();
             String statusMessage = "Plant " + String(planter[i].GetID()) +
                                    ": Humidity - " + String(planter[i].GetHumidity()) + "%" +
                                    ", Threshold - " + String(planter[i].GetThreshold()) +
@@ -91,6 +92,7 @@ void koer_automatisk_plantepleje::read() {
         } else if (input == "status") {  // If the command is "st"
             if (selectedPlant != nullptr) {
                 // Print the selected plant's status
+                selectedPlant->UpdateSensor();
                 Serial.println("Selected Plant ID: " + String(selectedPlant->GetID()) +
                                ", Humidity: " + String(selectedPlant->GetHumidity()) +
                                ", Threshold: " + String(selectedPlant->GetThreshold()) +

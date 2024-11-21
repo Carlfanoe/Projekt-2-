@@ -11,10 +11,7 @@ void Potteplante::WaterPlant() {
 
 // Metode til at hente den aktuelle Jordfugtighed
 int Potteplante::GetHumidity() {
-    jordfugtighedsensor.UpdateSensor();  // Sørg for at opdatere sensorens værdi først
-    int rawHumidity = jordfugtighedsensor.GetHumidity();  // Hent den opdaterede værdi
-    int humidityPercent = map(rawHumidity, 0, 1023, 0, 100);  // Konverter til procent
-    return humidityPercent;  // Returner den beregnede luftfugtighed i procent
+   return jordfugtighedsensor.GetHumidity();
 }
 
 
