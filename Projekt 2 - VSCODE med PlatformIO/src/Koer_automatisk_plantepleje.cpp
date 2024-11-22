@@ -44,12 +44,12 @@ void koer_automatisk_plantepleje::AlertLowWaterLevel()
     // Kode mangler
 }
 
-void koer_automatisk_plantepleje::ProcessInput()
+void koer_automatisk_plantepleje::InterpretInput()
 {
     if (ui_.IsMessageReady()) {
         String input = ui_.ReadMessage();
         String function, param1, param2 = "";
-        InterpretInput(input, function, param1, param2);
+        ProcessInput(input, function, param1, param2);
         /*
             InterpretInput() opdeler inputtet ved mellemrum.
             Herefter indeler den det i:
@@ -102,7 +102,7 @@ bool koer_automatisk_plantepleje::GetRunningState()
     return running_;
 }
 
-void koer_automatisk_plantepleje::InterpretInput(
+void koer_automatisk_plantepleje::ProcessInput(
     String &input,
     String &function,
     String &param1,
