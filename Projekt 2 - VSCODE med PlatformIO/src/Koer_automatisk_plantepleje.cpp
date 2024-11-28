@@ -6,14 +6,14 @@ koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* plants, in
 
 void koer_automatisk_plantepleje::CheckPlants()
 {
-    Serial.println("Checking plants...");
-    // Kode mangler
-}
+    for (int i = 0; i < numPlants_; i++) {
+        Potteplante& plant = plants_[i];
+        if (!plant.VerifyHumidity()) {
+            // Vand plante
+        }
+    }
 
-bool koer_automatisk_plantepleje::VerifyHumidity(Potteplante &plant)
-{
-    // Kode mangler
-    return false;
+    //Serial.println("Checking plants...");
 }
 
 bool koer_automatisk_plantepleje::VerifyWaterLevel()

@@ -12,7 +12,6 @@ public:
     koer_automatisk_plantepleje(Potteplante* plants, int numPlants);
 
     void CheckPlants();
-    bool VerifyHumidity(Potteplante& plant);
     bool VerifyWaterLevel();
     String CreateDataMessage();
     void AlertLowWaterLevel();

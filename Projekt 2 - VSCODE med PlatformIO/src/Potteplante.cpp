@@ -26,15 +26,18 @@ void Potteplante::WaterPlant()
 
 int Potteplante::GetHumidity()
 {
-    //return humiditySensor_.GetHumidity();
-
-    //Midletidigt, slet det her efter implementering:
-    return 0;
+    return humidity_;
 }
 
 void Potteplante::UpdateHumidity()
 {
-    //humiditySensor_.UpdateHumidity();
+    //humidity_ = humiditySensor_.UpdateHumidity();
+}
+
+bool Potteplante::VerifyHumidity()
+{
+    UpdateHumidity();
+    return humidity_ >= humidityThreshold_;
 }
 
 int Potteplante::GetHumidityThreshold()
