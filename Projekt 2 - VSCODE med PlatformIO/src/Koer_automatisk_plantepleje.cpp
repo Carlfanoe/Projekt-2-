@@ -58,7 +58,7 @@ void koer_automatisk_plantepleje::ProcessInput()
                 3. ord: param2
         */ 
 
-        if (function == "toggle_plantcare") {
+        if (function == "toggle_plantcare") { // ØHH FEJL? LIGE MEGET HVAD SLUKKER DEN?
             running_ = !running_;
         }
         else if (function == "read_values") {
