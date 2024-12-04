@@ -8,6 +8,7 @@ void koer_automatisk_plantepleje::CheckPlants()
 {
     String waterLevel = String(waterContainer_.ReadWaterLevel());
     Serial.println("Vandbeholder: " + waterLevel + "%");
+
 }
 
 bool koer_automatisk_plantepleje::VerifyHumidity(Potteplante &plant)
@@ -64,8 +65,10 @@ void koer_automatisk_plantepleje::ProcessInput()
         else if (function == "read_values") {
             String dataMessage = CreateDataMessage();
             ui_.SendMessage(dataMessage);
+            display_.UpdateDisplay(dataMessage);
         }
         else if (function == "read_all_data") { // Ikke en del af kravspec, men nice for debugging
+            Serial.println("bruh moment");
             String dataMessage = CreateDataMessage();
             String waterLevel = String(waterContainer_.ReadWaterLevel());
             String message =
@@ -78,6 +81,7 @@ void koer_automatisk_plantepleje::ProcessInput()
                 message += "Plante" + String(i + 1) + ": " + humidityThreshold + "%\r\n";
             }
             ui_.SendMessage(message);
+            display_.UpdateDisplay(dataMessage);
         }
         else if (function == "change_humidity_threshold") {
             int plantID = param1.toInt();
