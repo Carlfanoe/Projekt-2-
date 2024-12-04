@@ -7,6 +7,7 @@
 #include "Brugergraenseflade.h"
 #include "Potteplante.h"
 #include "Vandbeholder.h"
+#include "Skaerm.h"
 
 
 class koer_automatisk_plantepleje {
@@ -28,7 +29,8 @@ private:
             23, // echoPin
             30, // Afstand i cm ved tom vandbeholder
             3   // Afstand i cm ved fyldt vandbeholder
-        };    //Skaerm display_;
+        };    
+    Skaerm display_;
 
 // attributter
     int numPlants_;

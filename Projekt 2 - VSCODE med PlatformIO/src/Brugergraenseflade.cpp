@@ -2,20 +2,20 @@
 
 Brugergraenseflade::Brugergraenseflade(int baudRate)
 {
-    Serial.begin(baudRate);
+    Serial1.begin(baudRate);
 }
 
 bool Brugergraenseflade::IsMessageReady()
 {
-    return Serial.available();
+    return Serial1.available();
 }
 
 String Brugergraenseflade::ReadMessage()
 {
-    return Serial.readString();
+    return Serial1.readString();
 }
 
 void Brugergraenseflade::SendMessage(String message)
 {
-    Serial.print(message);
+    Serial1.print(message);
 }

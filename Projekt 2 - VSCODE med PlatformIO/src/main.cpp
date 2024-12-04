@@ -17,6 +17,8 @@ void serialEvent1() {plantepleje.ProcessInput();}
 
 void setup() {
     Serial.begin(9600); // Midlertidigt til debugging
+    pinMode(7, OUTPUT);
+    digitalWrite(7, HIGH);
 }
 
 unsigned long threeHours = 1000; //1000 * 60 * 60 * 3; // I milliseconds

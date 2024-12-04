@@ -7,11 +7,11 @@ Potteplante::Potteplante(
     int humidityThreshold,
     int wateringDuration
 )
-    :   id_(id),
+    :   humiditySensor_(humiditySensorPin),
+        //waterPump_(waterPumpPin),
+        id_(id),
         humidityThreshold_(humidityThreshold),
-        wateringDuration_(wateringDuration)//,
-        // waterPump_(waterPumpPin),
-        // humiditySensor(humiditySensorPin)
+        wateringDuration_(wateringDuration)
 {}
 
 int Potteplante::GetID()
@@ -26,18 +26,12 @@ void Potteplante::WaterPlant()
 
 int Potteplante::GetHumidity()
 {
-    return humidity_;
-}
-
-void Potteplante::UpdateHumidity()
-{
-    //humidity_ = humiditySensor_.UpdateHumidity();
+    return humiditySensor_.GetHumidity();
 }
 
 bool Potteplante::VerifyHumidity()
 {
-    UpdateHumidity();
-    return humidity_ >= humidityThreshold_;
+    return GetHumidity() >= humidityThreshold_;
 }
 
 int Potteplante::GetHumidityThreshold()

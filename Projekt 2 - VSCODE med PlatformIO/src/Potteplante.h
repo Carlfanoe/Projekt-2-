@@ -2,9 +2,7 @@
 
 // Arduino Core libraries
 #include <Arduino.h>
-
-// #include <Vandbeholder.h>
-// #include <Jordfugtighedssensor.h>
+#include "Jordfugtighedsensor.h"
 
 class Potteplante {
 public:
@@ -28,5 +26,5 @@ private:
     int humidityThreshold_;
     int wateringDuration_;
     //Vandpumpe waterPump_;
-    //Jordfugtighedssensor humiditySensor_;
+    Jordfugtighedsensor humiditySensor_;
 };
