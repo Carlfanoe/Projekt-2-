@@ -5,7 +5,7 @@
 #include "Potteplante.h"
 #include "Koer_automatisk_plantepleje.h"
 
-//Parameters: humiditySensorPin, waterPumpPin, id, humidityThreshold
+//Parameters: humiditySensorPin, waterPumpPin, id, humidityThreshold, duration
 Potteplante plant1(A0, 21, 1, 20, 5);
 Potteplante plant2(A1, 22, 2, 20, 5);
 Potteplante plants[] = {plant1, plant2};

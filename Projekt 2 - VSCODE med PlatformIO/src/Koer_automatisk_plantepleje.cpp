@@ -4,13 +4,29 @@ koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* plants, in
     : plants_(plants), numPlants_(numPlants)
 {}
 
+// Itterere gennem alle planter, printer alle sensorer til begge skærme 
 void koer_automatisk_plantepleje::CheckPlants()
 {
     for (int i = 0; i < numPlants_; i++) {
+
         Potteplante& plant = plants_[i];
+
+    // Vand plante
         if (!plant.VerifyHumidity()) {
             // Vand plante
         }
+
+    // Print til brugergreanseflade
+    ui_.SendMessage("Jordfugtighed: ");
+    ui_.SendMessage(static_cast<String>(plant.GetHumidity()));
+    ui_.SendMessage(" \n");
+
+    ui_.SendMessage("Vandstand: ");
+    ui_.SendMessage(static_cast<String>(plant.GetHumidity()));
+    ui_.SendMessage(" \n");
+
+    // print til skærm
+
     }
 
     //Serial.println("Checking plants...");
@@ -22,6 +38,7 @@ bool koer_automatisk_plantepleje::VerifyWaterLevel()
     return false;
 }
 
+// Sender beskede med info til skærmen. 
 String koer_automatisk_plantepleje::CreateDataMessage()
 {
     int waterLevel = 69; //waterContainer_.ReadWaterLevel();
@@ -41,9 +58,10 @@ String koer_automatisk_plantepleje::CreateDataMessage()
 
 void koer_automatisk_plantepleje::AlertLowWaterLevel()
 {
-    // Kode mangler
+    // tjekker vandstand, kalder højtaler, sender til skærm 
 }
 
+// bruges til at sende beskede via interrupt 
 void koer_automatisk_plantepleje::ProcessInput()
 {
     if (ui_.IsMessageReady()) {
@@ -102,6 +120,7 @@ bool koer_automatisk_plantepleje::GetRunningState()
     return running_;
 }
 
+// hjælpefunktion til processinput, og bruges til at splitte beskeder 
 void koer_automatisk_plantepleje::InterpretInput(
     String &input,
     String &function,
