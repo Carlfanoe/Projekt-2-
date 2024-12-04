@@ -6,6 +6,8 @@
 // Klasser
 #include "Brugergraenseflade.h"
 #include "Potteplante.h"
+#include "Vandbeholder.h"
+
 
 class koer_automatisk_plantepleje {
 public:
@@ -18,13 +20,17 @@ public:
     void ProcessInput();
     bool GetRunningState();
 private:
+// instanser af klasser 
     Potteplante* plants_;
+    Brugergraenseflade ui_ = {9600}; // UART1 ved baud-rate på 9600
+    Vandbeholder waterContainer_;
+    //Skaerm display_;
+
+// attributter
     int numPlants_;
     bool running_ = true; // Begynder plantepleje ved opstart
-    Brugergraenseflade ui_ = {9600}; // UART1 ved baud-rate på 9600
-    //Skaerm display_;
-    //Vandbeholder waterContainer_;
     int waterLevelThreshold_ = 20;
+    
     void InterpretInput(
         String &input,
         String &function,

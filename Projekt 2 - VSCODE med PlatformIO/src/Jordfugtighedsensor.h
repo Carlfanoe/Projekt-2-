@@ -8,6 +8,7 @@ private:
     int moistValMin = 350;
     int moistValMax = 850;
     int moistValRange = moistValMax - moistValMin;
+    
 
     // Referencemålinger:
 // Måling i rent vand: moistVal = ~850
