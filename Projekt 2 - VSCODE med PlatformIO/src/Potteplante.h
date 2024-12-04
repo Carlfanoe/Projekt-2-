@@ -8,6 +8,7 @@ class Potteplante {
 public:
     Potteplante(
         int humiditySensorPin,
+        int humiditySupplyPin,
         int waterPumpPin,
         int id,
         int humidityThreshold,
@@ -22,7 +23,6 @@ public:
     void SetHumidityThreshold(int newThreshold);
 private:
     int id_;
-    int humidity_; // = humiditySensor_.UpdateHumidity();
     int humidityThreshold_;
     int wateringDuration_;
     //Vandpumpe waterPump_;

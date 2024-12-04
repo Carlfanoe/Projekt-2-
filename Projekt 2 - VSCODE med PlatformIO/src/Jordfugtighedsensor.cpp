@@ -1,15 +1,17 @@
 #include "Jordfugtighedsensor.h"
 #include <Arduino.h>
 
-Jordfugtighedsensor::Jordfugtighedsensor(int MoistPin){
-    moistPin = MoistPin;
+Jordfugtighedsensor::Jordfugtighedsensor(uint8_t MoistPin, uint8_t supplyPin)
+  : moistPin(MoistPin), supplyPin_(supplyPin)
+{
 }
 
 // returnere fugtigheds som en procent
 int Jordfugtighedsensor::GetHumidity(){
-
-  digitalWrite(8,HIGH);
-  int avrgPercent = 0;
+  Serial.println(moistPin);
+  Serial.println(supplyPin_);
+  digitalWrite(supplyPin_, HIGH);
+  double avrgPercent = 0.0;
   for (int i = 0; i < 3 ; i = i + 1) 
     {
       moistVal = analogRead(moistPin);
@@ -23,9 +25,11 @@ int Jordfugtighedsensor::GetHumidity(){
       avrgPercent = avrgPercent + percentArray[i];   //Alle 3 samples af moistval i procent
     }
     avrgPercent = avrgPercent / 3;
-  digitalWrite(8,LOW);
+  digitalWrite(supplyPin_, LOW);
   delay(1000); // for stability
 
-return avrgPercent; // returnere en int, så der fjernes nogle nuller
+  Serial.println(avrgPercent);
+
+return static_cast <int> (avrgPercent); // returnere en int, så der fjernes nogle nuller
     
 }

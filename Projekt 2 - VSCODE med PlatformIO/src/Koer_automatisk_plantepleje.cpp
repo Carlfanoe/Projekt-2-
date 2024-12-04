@@ -7,32 +7,32 @@ koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* plants, in
 // Itterere gennem alle planter, printer alle sensorer til begge skærme og vande planter
 void koer_automatisk_plantepleje::CheckPlants()
 {
-    Serial.println(plants_[0].GetHumidity());
+    // Serial.println(plants_[0].GetHumidity());
     
-    // for (int i = 0; i < numPlants_; i++) {
+    for (int i = 0; i < numPlants_; i++) {
 
-    //     Potteplante& plant = plants_[i];
+        Potteplante& plant = plants_[i];
 
-    // // Vand plante
-    //     if (!plant.VerifyHumidity()) {
-    //         // Vand plante
-    //     }
-    // }
-    // // Print til brugergreanseflade
-    // String dataMessage = CreateDataMessage();
-    // String message =
-    //     "-----Værdier-----\r\n"
-    //     + dataMessage + "\r\n"
-    //     + "-----Thresholds-----\r\n"
-    //     + "Vandbeholder: " + waterLevelThreshold_ + "%\r\n";
-    // for (int i = 0; i < numPlants_; i++) {
-    //     String humidityThreshold = String(plants_[i].GetHumidityThreshold());
-    //     message += "Plante" + String(i + 1) + ": " + humidityThreshold + "%\r\n";
-    // }
-    // ui_.SendMessage(message);
-    // display_.UpdateDisplay(dataMessage);
+    // Vand plante
+        if (!plant.VerifyHumidity()) {
+            // Vand plante
+        }
+    }
+    // Print til brugergreanseflade
+    String dataMessage = CreateDataMessage();
+    String message =
+        "-----Værdier-----\r\n"
+        + dataMessage + "\r\n"
+        + "-----Thresholds-----\r\n"
+        + "Vandbeholder: " + waterLevelThreshold_ + "%\r\n";
+    for (int i = 0; i < numPlants_; i++) {
+        String humidityThreshold = String(plants_[i].GetHumidityThreshold());
+        message += "Plante" + String(i + 1) + ": " + humidityThreshold + "%\r\n";
+    }
+    ui_.SendMessage(message);
+    display_.UpdateDisplay(dataMessage);
 
-    //Serial.println("Checking plants...");
+    // Serial.println("Checking plants...");
 }
 
 bool koer_automatisk_plantepleje::VerifyWaterLevel()

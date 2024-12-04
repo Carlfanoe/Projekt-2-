@@ -3,12 +3,13 @@
 
 class Jordfugtighedsensor {
 private:
-    int moistPin = A0;
+    uint8_t moistPin;
+    uint8_t supplyPin_;
     double moistVal = 0;
     double moistValMin = 348;   //Disse skal lige kalibreres ordentligt så det passer med jord
     double moistValMax = 1023;  //Disse skal lige kalibreres ordentligt så det passer med jord
     double moistValRange = moistValMax - moistValMin;
-    int percentArray[4];
+    double percentArray[4];
 
     
 
@@ -18,7 +19,7 @@ private:
 
 public:
     // Konstruktor, der initialiserer sensorens pin
-    Jordfugtighedsensor(int MoistPin);
+    Jordfugtighedsensor(uint8_t MoistPin, uint8_t supplyPin);
     // Funktion til at hente den aktuelle læsning af luftfugtigheden
     int GetHumidity();
 };
