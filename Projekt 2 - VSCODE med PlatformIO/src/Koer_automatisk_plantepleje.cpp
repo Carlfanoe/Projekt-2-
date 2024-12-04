@@ -22,11 +22,11 @@ void koer_automatisk_plantepleje::CheckPlants()
     ui_.SendMessage(" \n");
 
     ui_.SendMessage("Vandstand: ");
-    ui_.SendMessage(static_cast<String>(plant.GetHumidity()));
+    ui_.SendMessage(static_cast<String>(waterContainer_.ReadWaterLevel()));
     ui_.SendMessage(" \n");
 
     // print til skærm
-
+    CreateDataMessage();
     }
 
     //Serial.println("Checking plants...");

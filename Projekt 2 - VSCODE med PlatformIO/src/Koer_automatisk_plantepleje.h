@@ -23,8 +23,12 @@ private:
 // instanser af klasser 
     Potteplante* plants_;
     Brugergraenseflade ui_ = {9600}; // UART1 ved baud-rate på 9600
-    Vandbeholder waterContainer_;
-    //Skaerm display_;
+    Vandbeholder waterContainer_ = {
+            22, // trigPin
+            23, // echoPin
+            30, // Afstand i cm ved tom vandbeholder
+            3   // Afstand i cm ved fyldt vandbeholder
+        };    //Skaerm display_;
 
 // attributter
     int numPlants_;
