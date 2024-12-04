@@ -17,16 +17,18 @@ void koer_automatisk_plantepleje::CheckPlants()
         }
 
     // Print til brugergreanseflade
-    ui_.SendMessage("Jordfugtighed: ");
-    ui_.SendMessage(static_cast<String>(plant.GetHumidity()));
-    ui_.SendMessage(" \n");
-
-    ui_.SendMessage("Vandstand: ");
-    ui_.SendMessage(static_cast<String>(waterContainer_.ReadWaterLevel()));
-    ui_.SendMessage(" \n");
-
-    // print til skærm
-    CreateDataMessage();
+            String dataMessage = CreateDataMessage();
+            String waterLevel = String(waterContainer_.ReadWaterLevel());
+            String message =
+                "-----Værdier-----\r\n"
+                + dataMessage + "\r\n"
+                + "-----Thresholds-----\r\n"
+                + "Vandbeholder: " + waterLevel + "%\r\n";
+            for (int i = 0; i < numPlants_; i++) {
+                String humidityThreshold = String(plants_[i].GetHumidityThreshold());
+                message += "Plante" + String(i + 1) + ": " + humidityThreshold + "%\r\n";
+            }
+            ui_.SendMessage(message);
     }
 
     //Serial.println("Checking plants...");
@@ -85,7 +87,7 @@ void koer_automatisk_plantepleje::ProcessInput()
         }
         else if (function == "read_all_data") { // Ikke en del af kravspec, men nice for debugging
             String dataMessage = CreateDataMessage();
-            String waterLevel = "69"; //String(waterContainer_.ReadWaterLevel());
+            String waterLevel = String(waterContainer_.ReadWaterLevel());
             String message =
                 "-----Værdier-----\r\n"
                 + dataMessage + "\r\n"
