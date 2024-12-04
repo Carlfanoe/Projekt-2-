@@ -8,13 +8,24 @@ Jordfugtighedsensor::Jordfugtighedsensor(int MoistPin){
 // returnere fugtigheds som en procent
 int Jordfugtighedsensor::GetHumidity(){
 
-  moistVal = analogRead(moistPin);
-  
-  double percent = ((moistVal-moistValMin) * 100.0)/(moistValMax-moistValMin);
-  // int percent = 2.718282 * 2.718282 * (.008985 * moistVal + 0.207762); //calculate percent for probes about 1 - 1.5 inches apart
-  
+  digitalWrite(8,HIGH);
+  int avrgPercent = 0;
+  for (int i = 0; i < 3 ; i = i + 1) 
+    {
+      moistVal = analogRead(moistPin);
+      double percent = ((moistVal-moistValMin) * 100)/(moistValMax-moistValMin);
+      percentArray[i] = percent;
+      delay(500);
+    };
+	
+	for (int i = 0; i < 3; i++)
+    {
+      avrgPercent = avrgPercent + percentArray[i];   //Alle 3 samples af moistval i procent
+    }
+    avrgPercent = avrgPercent / 3;
+  digitalWrite(8,LOW);
   delay(1000); // for stability
 
-return percent; // returnere en int, så der fjernes nogle nuller
+return avrgPercent; // returnere en int, så der fjernes nogle nuller
     
 }

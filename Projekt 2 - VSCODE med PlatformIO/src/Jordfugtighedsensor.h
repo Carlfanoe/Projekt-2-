@@ -3,15 +3,17 @@
 
 class Jordfugtighedsensor {
 private:
-    int moistPin = 0;
-    int moistVal = 0;
-    int moistValMin = 350;
-    int moistValMax = 850;
-    int moistValRange = moistValMax - moistValMin;
+    int moistPin = A0;
+    double moistVal = 0;
+    double moistValMin = 348;   //Disse skal lige kalibreres ordentligt så det passer med jord
+    double moistValMax = 1023;  //Disse skal lige kalibreres ordentligt så det passer med jord
+    double moistValRange = moistValMax - moistValMin;
+    int percentArray[4];
+
     
 
     // Referencemålinger:
-// Måling i rent vand: moistVal = ~850
+// Måling med kortslutning: moistVal = ~1023
 // Måling i luften (afbrudt) = ~350
 
 public:
