@@ -43,8 +43,10 @@ int Vandbeholder::TranslateToPercentage(float distance)
 {
     int percentFull = (
         (
-            (static_cast<float>(emptyDistance_) - distance)
-            / (static_cast<float>(emptyDistance_ - filledDistance_))
+            1 - (
+                (static_cast<float>(emptyDistance_ - distance))
+                / (static_cast<float>(emptyDistance_ - filledDistance_))
+            )
         )
         * 100
     );
