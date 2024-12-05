@@ -19,32 +19,9 @@ koer_automatisk_plantepleje::koer_automatisk_plantepleje(
 // Itterere gennem alle planter, printer alle sensorer til begge skærme og vande planter
 void koer_automatisk_plantepleje::CheckPlants()
 {
-    // String tempMessage = String(waterContainer_.ReadWaterLevel()) + "\n";
-    // for (int i = 0; i < numPlants_; i++) {
-    //     auto& plant = plants_[i];
-    //     tempMessage += plant.GetHumidity() + "\n";
-    // }
-    // display_.Update(tempMessage);
-
-    
-
-    // if (VerifyWaterLevel()) {
-    //     for (int i = 0; i < numPlants_; i++) {
-    //         Potteplante& plant = plants_[i];
-    //         if (!plant.VerifyHumidity()) plant.WaterPlant();
-    //     }
-    // }
-    // else AlertLowWaterLevel();
-
-
-
-    
-
     int waterLevel = waterContainer_.ReadWaterLevel();
     int waterLevelThreshold = waterContainer_.GetThreshold();
-
-
-
+    
     if (VerifyWaterLevel(waterLevel, waterLevelThreshold)) {
         for (int i = 0; i < numPlants_; i++) {
             Potteplante& plant = plants_[i];
@@ -110,6 +87,7 @@ void koer_automatisk_plantepleje::AlertLowWaterLevel()
 {
     // tjekker vandstand, kalder højtaler, sender til skærm
     speaker_.tune(500, 50);
+    ui_.SendMessage("FEJL: Vandstand i beholderen er for lav!\r\n");
 }
 
 // bruges til at sende beskede via interrupt 
@@ -141,7 +119,7 @@ void koer_automatisk_plantepleje::ProcessInput()
             int plantID = param1.toInt();
             int newThreshold = param2.toInt();
             if ((plantID == 0 && param1 != "0") || (newThreshold == 0 && param2 != "0")) {
-                ui_.SendMessage("Én eller flere af de indtastede parametre er ugyldig.");
+                ui_.SendMessage("FEJL: Én eller flere af de indtastede parametre er ugyldig!\r\n");
             }
             else {
                 if (plantID >= 0) {
@@ -154,12 +132,12 @@ void koer_automatisk_plantepleje::ProcessInput()
                             plantFound = true;
                         }
                     }
-                    if (!plantFound) ui_.SendMessage("Invalid plantID argument!");
+                    if (!plantFound) ui_.SendMessage("FEJL: Invalid plantID argument!\r\n");
                 }
             }
         }
         else {
-            ui_.SendMessage("Indtastet funktion er ugyldig.\r\n");
+            ui_.SendMessage("FEJL: Indtastet funktion er ugyldig!\r\n");
         }
     }
 }

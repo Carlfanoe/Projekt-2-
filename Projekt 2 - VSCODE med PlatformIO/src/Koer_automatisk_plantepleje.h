@@ -35,7 +35,7 @@ private:
 
     // attributter
     int numPlants_;
-    bool running_ = true; // Begynder plantepleje ved opstart
+    bool running_ = false; // Begynder IKKE plantepleje ved opstart
     
     bool VerifyWaterLevel(int waterLevel, int threshold);
     String CreateDataMessage(int waterLevel);
