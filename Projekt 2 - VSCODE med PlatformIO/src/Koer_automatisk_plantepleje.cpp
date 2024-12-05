@@ -30,6 +30,7 @@ void koer_automatisk_plantepleje::CheckPlants()
 
     // Print til brugergreanseflade og skærm
     SendDetailedMessage();
+    SendDataMessage();
 }
 
 
@@ -52,7 +53,7 @@ void koer_automatisk_plantepleje::SendDataMessage()
         message += "Plante" + String(plantID) + ": " + String(humidity) + "%";
         if (i < (numPlants_ - 1)) message += "\n";
     }
-    ui_.SendMessage(message);
+    //ui_.SendMessage(message);
     display_.Update(message);
     //return message;
 }
