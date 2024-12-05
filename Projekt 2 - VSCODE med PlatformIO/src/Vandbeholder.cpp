@@ -31,7 +31,9 @@ int Vandbeholder::ReadWaterLevel() {
 
     // Calculating the distance
     float distance = duration * 0.034 / 2; // Centimeters
-    return TranslateToPercentage(distance);
+    int percentage = TranslateToPercentage(distance);
+    Serial.println(percentage);
+    return percentage;
 }
 
 int Vandbeholder::GetThreshold()
@@ -56,5 +58,5 @@ int Vandbeholder::TranslateToPercentage(float distance)
             )
         * 100
         );
-    return constrain(percentFull, 0, 100);
+    return constrain(percentFull, 0, 100); // percentFull;
 }

@@ -2,7 +2,7 @@
 
 koer_automatisk_plantepleje::koer_automatisk_plantepleje(
     Hoejtaler& speaker,
-    LiquidCrystal_I2C& display,
+    Skaerm& display,
     Brugergraenseflade& ui,
     Vandbeholder& waterContainer,
     Potteplante* plants,
@@ -19,23 +19,42 @@ koer_automatisk_plantepleje::koer_automatisk_plantepleje(
 // Itterere gennem alle planter, printer alle sensorer til begge skærme og vande planter
 void koer_automatisk_plantepleje::CheckPlants()
 {
-    // AlertLowWaterLevel(); //Midlertidig test
+    // String tempMessage = String(waterContainer_.ReadWaterLevel()) + "\n";
+    // for (int i = 0; i < numPlants_; i++) {
+    //     auto& plant = plants_[i];
+    //     tempMessage += plant.GetHumidity() + "\n";
+    // }
+    // display_.Update(tempMessage);
 
-    if (!VerifyWaterLevel()) AlertLowWaterLevel();
+    Serial.println(VerifyWaterLevel());
+    // for (int i = 0; i < numPlants_; i++) {
+    //     Potteplante& plant = plants_[i];
+    //     if (!plant.VerifyHumidity()) plant.WaterPlant();
+    // }
 
-    for (int i = 0; i < numPlants_; i++) {
-        Potteplante& plant = plants_[i];
-        if (!plant.VerifyHumidity()) plant.WaterPlant();
-    }
+
+
+    // if (VerifyWaterLevel()) {
+    //     for (int i = 0; i < numPlants_; i++) {
+    //         Potteplante& plant = plants_[i];
+    //         if (!plant.VerifyHumidity()) plant.WaterPlant();
+    //     }
+    // }
+    // else AlertLowWaterLevel();
+
+
 
     // Print til brugergreanseflade og skærm
-    SendDetailedMessage();
+    SendDataMessage();
+    // SendDetailedMessage();
 }
 
 
 bool koer_automatisk_plantepleje::VerifyWaterLevel()
 {
-    return waterContainer_.ReadWaterLevel() >= waterContainer_.GetThreshold();
+    int waterLevel = waterContainer_.ReadWaterLevel();
+    int threshold = waterContainer_.GetThreshold();
+    return (waterLevel >= threshold);
 }
 
 // Genererer besked med info til skærmen. 
@@ -52,7 +71,6 @@ void koer_automatisk_plantepleje::SendDataMessage()
         message += "Plante" + String(plantID) + ": " + String(humidity) + "%";
         if (i < (numPlants_ - 1)) message += "\n";
     }
-    ui_.SendMessage(message);
     display_.Update(message);
     //return message;
 }

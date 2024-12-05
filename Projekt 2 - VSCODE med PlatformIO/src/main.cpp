@@ -6,7 +6,7 @@
 #include "Koer_automatisk_plantepleje.h"
 
 Hoejtaler speaker = {6};
-LiquidCrystal_I2C display = LiquidCrystal_I2C(0x27, 20, 4);
+Skaerm display(0x27, 20, 4);
 Brugergraenseflade ui = {9600}; // UART1 ved baud-rate på 9600
 Vandbeholder waterContainer = {
     22, // trigPin
@@ -17,7 +17,7 @@ Vandbeholder waterContainer = {
 };
 
 Potteplante plants[] = {
-    {0, A0, 20, 20, 1000}, // Test-plante: Fugtighed kan justeres ved potentiometer på A0
+    //{0, A0, 20, 20, 1000}, // Test-plante: Fugtighed kan justeres ved potentiometer på A0
     {1, A1, 7, 20, 1000}, // Plante nr. 1
     {2, A2, 10, 20, 1000}  // Plante nr. 2
 };
@@ -43,10 +43,11 @@ koer_automatisk_plantepleje plantepleje(
 void serialEvent1() {plantepleje.ProcessInput();}
 
 void setup() {
+    display.Initialize();
     Serial.begin(9600); // Midlertidigt til debugging
 }
 
-unsigned long threeHours = 10000;
+unsigned long threeHours = 300;
 /*
     Bemærk at threeHours lige nu er indstillet til 0ms,
     dvs. CheckPlants() kører konstant uden delay.

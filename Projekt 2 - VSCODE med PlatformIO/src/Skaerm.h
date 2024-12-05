@@ -8,10 +8,10 @@
 
 class Skaerm {
 public:
-    Skaerm(LiquidCrystal_I2C& display);
+    Skaerm(uint8_t address, uint8_t columns, uint8_t rows);
+    void Initialize();
     void SetState(bool state);
     void Update(String message);
 private:
-    void Initialize();
-    LiquidCrystal_I2C& display_; // = LiquidCrystal_I2C(0x27, 20, 4);
+    LiquidCrystal_I2C lcd_;
 };

@@ -15,7 +15,7 @@ class koer_automatisk_plantepleje {
 public:
     koer_automatisk_plantepleje(
         Hoejtaler& speaker,
-        LiquidCrystal_I2C& display,
+        Skaerm& display,
         Brugergraenseflade& ui,
         Vandbeholder& waterContainer,
         Potteplante* plants,
@@ -28,7 +28,7 @@ public:
 private:
     // instanser af klasser
     Hoejtaler& speaker_;
-    Skaerm display_; // DETTTE VIRKER IKKE!!!!!
+    Skaerm& display_;
     Brugergraenseflade& ui_;
     Vandbeholder& waterContainer_;
     Potteplante* plants_;
