@@ -26,11 +26,7 @@ void koer_automatisk_plantepleje::CheckPlants()
     // }
     // display_.Update(tempMessage);
 
-    Serial.println(VerifyWaterLevel());
-    // for (int i = 0; i < numPlants_; i++) {
-    //     Potteplante& plant = plants_[i];
-    //     if (!plant.VerifyHumidity()) plant.WaterPlant();
-    // }
+    // Serial.println(VerifyWaterLevel());
 
 
 
