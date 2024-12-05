@@ -36,7 +36,6 @@ private:
     // attributter
     int numPlants_;
     bool running_ = true; // Begynder plantepleje ved opstart
-    int waterLevelThreshold_ = 20;
     
     void InterpretInput(
         String &input,

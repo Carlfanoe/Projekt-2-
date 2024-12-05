@@ -26,7 +26,7 @@ void koer_automatisk_plantepleje::CheckPlants()
     String detailedMessage = "                  Vaerdier     Graense\r\n"
         + String("Vandbeholder:     ")
         + String(waterContainer_.ReadWaterLevel()) + String("%           ")
-        + String(waterLevelThreshold_) + String("%")
+        + String(waterContainer_.GetThreshold()) + String("%")
         + "\r\n";
 
     for (int i = 0; i < numPlants_; i++) {
@@ -43,7 +43,7 @@ void koer_automatisk_plantepleje::CheckPlants()
 
 bool koer_automatisk_plantepleje::VerifyWaterLevel()
 {
-    return waterContainer_.ReadWaterLevel() >= waterLevelThreshold_;
+    return waterContainer_.ReadWaterLevel() >= waterContainer_.GetThreshold();
 }
 
 // Sender beskede med info til skærmen. 

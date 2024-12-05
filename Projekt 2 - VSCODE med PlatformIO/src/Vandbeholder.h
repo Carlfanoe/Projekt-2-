@@ -8,15 +8,18 @@ public:
     Vandbeholder(
         int trigPin,
         int echoPin,
+        int threshold,
         int filledDistance,
         int emptyDistance
     );
     int ReadWaterLevel();
+    int GetThreshold();
 private:
     int trigPin_,
         echoPin_,
+        threshold_,
         filledDistance_,
         emptyDistance_;
     void InitializeSensor();
-    int TranslateToPercentage(float distance);
+    int TranslateToPercentage(long distance);
 };
