@@ -7,10 +7,9 @@
 class Potteplante {
 public:
     Potteplante(
-        int humiditySensorPin,
-        int humiditySupplyPin,
-        int waterPumpPin,
         int id,
+        int humiditySensorPin,
+        int waterPumpPin,
         int humidityThreshold,
         int wateringDuration
     );

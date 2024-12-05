@@ -12,7 +12,13 @@
 
 class koer_automatisk_plantepleje {
 public:
-    koer_automatisk_plantepleje(Potteplante* plants, int numPlants);
+    koer_automatisk_plantepleje(
+        LiquidCrystal_I2C& display,
+        Brugergraenseflade& ui,
+        Vandbeholder& waterContainer,
+        Potteplante* plants,
+        int numPlants
+    );
 
     void CheckPlants();
     bool VerifyWaterLevel();
@@ -21,18 +27,13 @@ public:
     void ProcessInput();
     bool GetRunningState();
 private:
-// instanser af klasser 
-    Potteplante* plants_;
-    Brugergraenseflade ui_ = {9600}; // UART1 ved baud-rate på 9600
-    Vandbeholder waterContainer_ = {
-        22, // trigPin
-        23, // echoPin
-        30, // Afstand i cm ved tom vandbeholder
-        3   // Afstand i cm ved fyldt vandbeholder
-    };    
+    // instanser af klasser
     Skaerm display_;
+    Brugergraenseflade& ui_;
+    Vandbeholder& waterContainer_;
+    Potteplante* plants_;
 
-// attributter
+    // attributter
     int numPlants_;
     bool running_ = true; // Begynder plantepleje ved opstart
     int waterLevelThreshold_ = 20;

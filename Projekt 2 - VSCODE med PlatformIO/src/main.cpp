@@ -5,26 +5,46 @@
 #include "Potteplante.h"
 #include "Koer_automatisk_plantepleje.h"
 
-//Parameters: humiditySensorPin, waterPumpPin, id, humidityThreshold, duration
-Potteplante plant1(A0, 8, 21, 1, 20, 5);
-//Potteplante plant2(A1, 9, 22, 2, 20, 5);
-Potteplante plants[] = {plant1};
+LiquidCrystal_I2C display = LiquidCrystal_I2C(0x27, 20, 4);
+Brugergraenseflade ui = {9600}; // UART1 ved baud-rate på 9600
+Vandbeholder waterContainer = {
+    22, // trigPin
+    23, // echoPin
+    30, // Afstand i cm ved tom vandbeholder
+    3   // Afstand i cm ved fyldt vandbeholder
+};
+
+Potteplante plants[] = {
+    {0, A0, 20, 20, 5}, // Test-plante: Fugtighed kan justeres ved potentiometer på A0
+    {1, A1, 21, 20, 5}, // Plante nr. 1
+    {2, A2, 22, 20, 5}  // Plante nr. 2
+};
+/* 
+    Plante parametre:
+    • id,
+    • humiditySensorPin,
+    • waterPumpPin,
+    • humidityThreshold,
+    • duration
+*/
 
 int numPlants = sizeof(plants) / sizeof(plants[0]);
-koer_automatisk_plantepleje plantepleje(plants, numPlants);
+koer_automatisk_plantepleje plantepleje(display, ui, waterContainer, plants, numPlants);
 
 void serialEvent1() {plantepleje.ProcessInput();}
 
 void setup() {
     Serial.begin(9600); // Midlertidigt til debugging
-    pinMode(8, OUTPUT);
-    pinMode(9, OUTPUT);
-
 }
 
-unsigned long threeHours = 5000; //1000 * 60 * 60 * 3; // I milliseconds
-/*      Bemærk at threeHours lige nu er
-        indstillet til 1000ms --> 1 sekund      */
+unsigned long threeHours = 1000;
+/*
+    Bemærk at threeHours lige nu er indstillet til 0ms,
+    dvs. CheckPlants() kører konstant uden delay.
+    I endelig version af koden, vil det være tre timer:
+    1000 * 60 * 60 * 3
+*/
+
 unsigned long lastCheckTime = millis() - threeHours; // Sikrer at systemet tjekker ved start
 void loop() {
     unsigned long currentTime = millis();

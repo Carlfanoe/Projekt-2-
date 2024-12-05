@@ -1,25 +1,25 @@
 #include "Skaerm.h"
 
-Skaerm::Skaerm() {
-    // Serial.println("INITIALIZING!");
-    // InitDisplay();
+Skaerm::Skaerm(LiquidCrystal_I2C& display) : display_(display)
+{
+    //Initialize(); // Stopper pt. hele koden. Ikke så godt...
 }
 
-void Skaerm::SetDisplayState(bool state)
+void Skaerm::SetState(bool state)
 {
     if (state) {
         // Turn on the backlight and enable the display
-        lcd.backlight();
-        lcd.display();
+        display_.backlight();
+        display_.display();
     }
     else {
         // Turn off the backlight and disable the display
-        lcd.noBacklight();
-        lcd.noDisplay();
+        display_.noBacklight();
+        display_.noDisplay();
     }
 }
 
-void Skaerm::UpdateDisplay(String message)
+void Skaerm::Update(String message)
 {
     int lineIndex = 0; // Track the current line on the display
     String messages[4]; // Array to hold up to 4 lines of text
@@ -29,16 +29,16 @@ void Skaerm::UpdateDisplay(String message)
         if (c == '\n') lineIndex++; // Move to the next line if '\n' is encountered
         else messages[lineIndex] += c; // Append character to the current line
     }
-    lcd.clear(); // Clear the display before updating
+    display_.clear(); // Clear the display before updating
     for (int i = 0; i < 4; i++) {
         // Set cursor to the beginning of each line and print the corresponding message
-        lcd.setCursor(0, i);
-        lcd.print(messages[i]);
+        display_.setCursor(0, i);
+        display_.print(messages[i]);
     }
 }
 
-void Skaerm::InitDisplay()
+void Skaerm::Initialize()
 {
-    lcd.init(); // Initialize the LCD display
-    lcd.backlight(); // Turn on the backlight
+    display_.init(); // Initialize the LCD display
+    display_.backlight(); // Turn on the backlight
 }

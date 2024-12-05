@@ -25,7 +25,7 @@ int Vandbeholder::ReadWaterLevel() {
     digitalWrite(trigPin_, LOW);
 
     // Reads the echoPin, returns the sound wave travel time in microseconds
-    long duration = pulseIn(echoPin_, HIGH);
+    long duration = pulseIn(echoPin_, HIGH, 10);
 
     // Calculating the distance
     int distance = duration * 0.034 / 2; // Centimeters

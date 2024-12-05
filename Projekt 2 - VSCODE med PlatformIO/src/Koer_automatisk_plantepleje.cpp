@@ -1,53 +1,57 @@
 #include "Koer_automatisk_plantepleje.h"
 
-koer_automatisk_plantepleje::koer_automatisk_plantepleje(Potteplante* plants, int numPlants)
-    : plants_(plants), numPlants_(numPlants)
+koer_automatisk_plantepleje::koer_automatisk_plantepleje(
+    LiquidCrystal_I2C& display,
+    Brugergraenseflade& ui,
+    Vandbeholder& waterContainer,
+    Potteplante* plants,
+    int numPlants
+) :
+    display_(display),
+    ui_(ui),
+    waterContainer_(waterContainer),
+    plants_(plants),
+    numPlants_(numPlants)
 {}
 
 // Itterere gennem alle planter, printer alle sensorer til begge skærme og vande planter
 void koer_automatisk_plantepleje::CheckPlants()
 {
-    // Serial.println(plants_[0].GetHumidity());
-    
     for (int i = 0; i < numPlants_; i++) {
-
         Potteplante& plant = plants_[i];
-
-    // Vand plante
-        if (!plant.VerifyHumidity()) {
-            // Vand plante
-        }
+        if (!plant.VerifyHumidity()) plant.WaterPlant();
     }
+
     // Print til brugergreanseflade
-    String dataMessage = CreateDataMessage();
-    String message =
-        "-----Værdier-----\r\n"
-        + dataMessage + "\r\n"
-        + "-----Thresholds-----\r\n"
-        + "Vandbeholder: " + waterLevelThreshold_ + "%\r\n";
-    for (int i = 0; i < numPlants_; i++) {
-        String humidityThreshold = String(plants_[i].GetHumidityThreshold());
-        message += "Plante" + String(i + 1) + ": " + humidityThreshold + "%\r\n";
-    }
-    ui_.SendMessage(message);
-    display_.UpdateDisplay(dataMessage);
+    String detailedMessage = "                  Vaerdier     Graense\r\n"
+        + String("Vandbeholder:     ")
+        + String(waterContainer_.ReadWaterLevel()) + String("%           ")
+        + String(waterLevelThreshold_) + String("%")
+        + "\r\n";
 
-    // Serial.println("Checking plants...");
+    for (int i = 0; i < numPlants_; i++) {
+        auto& plant = plants_[i];
+        detailedMessage +=
+            "Plante" + String(plant.GetID()) + ":          "
+            + String(plant.GetHumidity()) + String("%           ")
+            + String(plant.GetHumidityThreshold()) + String("%\r\n");
+    }
+    ui_.SendMessage(detailedMessage + "\r\n\n\n");
+    String dataMessage = CreateDataMessage();
+    display_.Update(dataMessage);
 }
 
 bool koer_automatisk_plantepleje::VerifyWaterLevel()
 {
-    // Kode mangler
-    return false;
+    return waterContainer_.ReadWaterLevel() >= waterLevelThreshold_;
 }
 
 // Sender beskede med info til skærmen. 
 String koer_automatisk_plantepleje::CreateDataMessage()
 {
-    int waterLevel = waterContainer_.ReadWaterLevel();
     String message =
-            "Vandbeholder: " + String(waterLevel) + "%\n"
-            + "Jordfugtighed\n";
+        "Vandbeholder: " + String(waterContainer_.ReadWaterLevel()) + "%\n"
+        + "Jordfugtighed\n";
     for (int i = 0; i < numPlants_; i++) {
         auto& plant = plants_[i];
         int humidity = plant.GetHumidity();
@@ -130,6 +134,7 @@ void koer_automatisk_plantepleje::InterpretInput(
     String &param2
 ) {
     input.trim(); // Fjerner spaces foran/efter input
+    input.toLowerCase(); // Gør hele inputtet til lowercase
 
     int firstSpaceIndex = input.indexOf(' ');
 

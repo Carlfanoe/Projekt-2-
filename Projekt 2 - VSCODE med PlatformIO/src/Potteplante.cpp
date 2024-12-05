@@ -1,10 +1,9 @@
 #include "Potteplante.h"
 
 Potteplante::Potteplante(
-    int humiditySensorPin,
-    int humiditySupplyPin,
-    int waterPumpPin,
     int id,
+    int humiditySensorPin,
+    int waterPumpPin,
     int humidityThreshold,
     int wateringDuration
 )
@@ -12,7 +11,7 @@ Potteplante::Potteplante(
         humidityThreshold_(humidityThreshold),
         wateringDuration_(wateringDuration),
         //waterPump_(waterPumpPin),
-        humiditySensor_(humiditySensorPin, humiditySupplyPin)
+        humiditySensor_(humiditySensorPin)
 {}
 
 int Potteplante::GetID()
