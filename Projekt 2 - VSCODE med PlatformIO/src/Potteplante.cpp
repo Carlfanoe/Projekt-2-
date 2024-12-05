@@ -8,10 +8,10 @@ Potteplante::Potteplante(
     int wateringDuration
 )
     :   id_(id),
+        humiditySensor_(humiditySensorPin),
+        waterPump_(waterPumpPin),
         humidityThreshold_(humidityThreshold),
-        wateringDuration_(wateringDuration),
-        //waterPump_(waterPumpPin),
-        humiditySensor_(humiditySensorPin)
+        wateringDuration_(wateringDuration)
 {}
 
 int Potteplante::GetID()
@@ -21,7 +21,7 @@ int Potteplante::GetID()
 
 void Potteplante::WaterPlant()
 {
-    //Kode mangler
+    waterPump_.PumpWater(wateringDuration_);
 }
 
 int Potteplante::GetHumidity()

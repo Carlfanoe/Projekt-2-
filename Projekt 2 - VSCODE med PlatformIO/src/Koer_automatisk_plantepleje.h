@@ -8,11 +8,13 @@
 #include "Potteplante.h"
 #include "Vandbeholder.h"
 #include "Skaerm.h"
+#include "Hoejtaler.h"
 
 
 class koer_automatisk_plantepleje {
 public:
     koer_automatisk_plantepleje(
+        Hoejtaler& speaker,
         LiquidCrystal_I2C& display,
         Brugergraenseflade& ui,
         Vandbeholder& waterContainer,
@@ -20,15 +22,13 @@ public:
         int numPlants
     );
 
-    void CheckPlants();
-    bool VerifyWaterLevel();
-    String CreateDataMessage();
-    void AlertLowWaterLevel();
     void ProcessInput();
+    void CheckPlants();
     bool GetRunningState();
 private:
     // instanser af klasser
-    Skaerm display_;
+    Hoejtaler& speaker_;
+    Skaerm display_; // DETTTE VIRKER IKKE!!!!!
     Brugergraenseflade& ui_;
     Vandbeholder& waterContainer_;
     Potteplante* plants_;
@@ -37,6 +37,10 @@ private:
     int numPlants_;
     bool running_ = true; // Begynder plantepleje ved opstart
     
+    bool VerifyWaterLevel();
+    void SendDataMessage();
+    void SendDetailedMessage();
+    void AlertLowWaterLevel();
     void InterpretInput(
         String &input,
         String &function,

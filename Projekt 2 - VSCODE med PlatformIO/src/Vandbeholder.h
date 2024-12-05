@@ -9,8 +9,8 @@ public:
         int trigPin,
         int echoPin,
         int threshold,
-        int filledDistance,
-        int emptyDistance
+        float filledDistance,
+        float emptyDistance
     );
     int ReadWaterLevel();
     int GetThreshold();
@@ -21,5 +21,5 @@ private:
         filledDistance_,
         emptyDistance_;
     void InitializeSensor();
-    int TranslateToPercentage(long distance);
+    int TranslateToPercentage(float distance);
 };

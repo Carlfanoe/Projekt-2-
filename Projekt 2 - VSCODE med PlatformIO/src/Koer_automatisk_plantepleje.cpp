@@ -1,12 +1,14 @@
 #include "Koer_automatisk_plantepleje.h"
 
 koer_automatisk_plantepleje::koer_automatisk_plantepleje(
+    Hoejtaler& speaker,
     LiquidCrystal_I2C& display,
     Brugergraenseflade& ui,
     Vandbeholder& waterContainer,
     Potteplante* plants,
     int numPlants
 ) :
+    speaker_(speaker),
     display_(display),
     ui_(ui),
     waterContainer_(waterContainer),
@@ -17,40 +19,31 @@ koer_automatisk_plantepleje::koer_automatisk_plantepleje(
 // Itterere gennem alle planter, printer alle sensorer til begge skærme og vande planter
 void koer_automatisk_plantepleje::CheckPlants()
 {
+    // AlertLowWaterLevel(); //Midlertidig test
+
+    if (!VerifyWaterLevel()) AlertLowWaterLevel();
+
     for (int i = 0; i < numPlants_; i++) {
         Potteplante& plant = plants_[i];
         if (!plant.VerifyHumidity()) plant.WaterPlant();
     }
 
-    // Print til brugergreanseflade
-    String detailedMessage = "                  Vaerdier     Graense\r\n"
-        + String("Vandbeholder:     ")
-        + String(waterContainer_.ReadWaterLevel()) + String("%           ")
-        + String(waterContainer_.GetThreshold()) + String("%")
-        + "\r\n";
-
-    for (int i = 0; i < numPlants_; i++) {
-        auto& plant = plants_[i];
-        detailedMessage +=
-            "Plante" + String(plant.GetID()) + ":          "
-            + String(plant.GetHumidity()) + String("%           ")
-            + String(plant.GetHumidityThreshold()) + String("%\r\n");
-    }
-    ui_.SendMessage(detailedMessage + "\r\n\n\n");
-    String dataMessage = CreateDataMessage();
-    display_.Update(dataMessage);
+    // Print til brugergreanseflade og skærm
+    SendDetailedMessage();
 }
+
 
 bool koer_automatisk_plantepleje::VerifyWaterLevel()
 {
     return waterContainer_.ReadWaterLevel() >= waterContainer_.GetThreshold();
 }
 
-// Sender beskede med info til skærmen. 
-String koer_automatisk_plantepleje::CreateDataMessage()
+// Genererer besked med info til skærmen. 
+void koer_automatisk_plantepleje::SendDataMessage()
 {
+    int waterLevel = waterContainer_.ReadWaterLevel();
     String message =
-        "Vandbeholder: " + String(waterContainer_.ReadWaterLevel()) + "%\n"
+        "Vandbeholder: " + String(waterLevel) + "%\n"
         + "Jordfugtighed\n";
     for (int i = 0; i < numPlants_; i++) {
         auto& plant = plants_[i];
@@ -59,12 +52,41 @@ String koer_automatisk_plantepleje::CreateDataMessage()
         message += "Plante" + String(plantID) + ": " + String(humidity) + "%";
         if (i < (numPlants_ - 1)) message += "\n";
     }
-    return message;
+    ui_.SendMessage(message);
+    display_.Update(message);
+    //return message;
+}
+
+// Genererer besked med info til brugergrænseflade. 
+void koer_automatisk_plantepleje::SendDetailedMessage()
+{
+    int waterLevel = waterContainer_.ReadWaterLevel();
+    int waterLevelThreshold = waterContainer_.GetThreshold();
+
+    String detailedMessage = "                  Vaerdier     Graense\r\n"
+        + String("Vandbeholder:     ")
+        + String(waterLevel) + String("%           ")
+        + String(waterLevelThreshold) + String("%")
+        + "\r\n";
+    
+
+    for (int i = 0; i < numPlants_; i++) {
+        auto& plant = plants_[i];
+        int humidity = plant.GetHumidity();
+        int humidityThreshold = plant.GetHumidityThreshold();
+        detailedMessage +=
+            "Plante" + String(plant.GetID()) + ":          "
+            + String(humidity) + String("%           ")
+            + String(humidityThreshold) + String("%\r\n");
+    }
+    ui_.SendMessage(detailedMessage + "\r\n");
+    //return detailedMessage;
 }
 
 void koer_automatisk_plantepleje::AlertLowWaterLevel()
 {
-    // tjekker vandstand, kalder højtaler, sender til skærm 
+    // tjekker vandstand, kalder højtaler, sender til skærm
+    speaker_.tune(500, 50);
 }
 
 // bruges til at sende beskede via interrupt 
@@ -86,22 +108,8 @@ void koer_automatisk_plantepleje::ProcessInput()
             running_ = !running_;
         }
         else if (function == "read_values") {
-            String dataMessage = CreateDataMessage();
-            ui_.SendMessage(dataMessage);
-        }
-        else if (function == "read_all_data") { // Ikke en del af kravspec, men nice for debugging
-            String dataMessage = CreateDataMessage();
-            String waterLevel = String(waterContainer_.ReadWaterLevel());
-            String message =
-                "-----Værdier-----\r\n"
-                + dataMessage + "\r\n"
-                + "-----Thresholds-----\r\n"
-                + "Vandbeholder: " + waterLevel + "%\r\n";
-            for (int i = 0; i < numPlants_; i++) {
-                String humidityThreshold = String(plants_[i].GetHumidityThreshold());
-                message += "Plante" + String(i + 1) + ": " + humidityThreshold + "%\r\n";
-            }
-            ui_.SendMessage(message);
+            SendDataMessage();
+            SendDetailedMessage();
         }
         else if (function == "change_humidity_threshold") {
             int plantID = param1.toInt();

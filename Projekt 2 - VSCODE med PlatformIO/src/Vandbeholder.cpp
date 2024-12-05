@@ -4,8 +4,8 @@ Vandbeholder::Vandbeholder(
     int trigPin,
     int echoPin,
     int threshold,
-    int filledDistance,
-    int emptyDistance
+    float filledDistance,
+    float emptyDistance
 )
     : trigPin_(trigPin),
     echoPin_(echoPin),
@@ -27,10 +27,10 @@ int Vandbeholder::ReadWaterLevel() {
     digitalWrite(trigPin_, LOW);
 
     // Reads the echoPin, returns the sound wave travel time in microseconds
-    long duration = pulseIn(echoPin_, HIGH, 100000); // 100ms timeout
+    long duration = pulseIn(echoPin_, HIGH, 50000); // 100ms timeout
 
     // Calculating the distance
-    long distance = duration * 0.034 / 2; // Centimeters
+    float distance = duration * 0.034 / 2; // Centimeters
     return TranslateToPercentage(distance);
 }
 
@@ -45,13 +45,13 @@ void Vandbeholder::InitializeSensor()
     pinMode(echoPin_, INPUT);
 }
 
-int Vandbeholder::TranslateToPercentage(long distance)
+int Vandbeholder::TranslateToPercentage(float distance)
 {
     int percentFull = (
         (
             1 - (
-                (static_cast<long>(emptyDistance_ - distance))
-                / (static_cast<long>(emptyDistance_ - filledDistance_))
+                    (emptyDistance_ - distance)
+                    / (emptyDistance_ - filledDistance_)
                 )
             )
         * 100
