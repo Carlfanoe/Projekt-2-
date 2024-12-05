@@ -26,9 +26,7 @@ void koer_automatisk_plantepleje::CheckPlants()
     // }
     // display_.Update(tempMessage);
 
-    // Serial.println(VerifyWaterLevel());
-
-
+    
 
     // if (VerifyWaterLevel()) {
     //     for (int i = 0; i < numPlants_; i++) {
@@ -40,23 +38,37 @@ void koer_automatisk_plantepleje::CheckPlants()
 
 
 
+    
+
+    int waterLevel = waterContainer_.ReadWaterLevel();
+    int waterLevelThreshold = waterContainer_.GetThreshold();
+
+
+
+    if (VerifyWaterLevel(waterLevel, waterLevelThreshold)) {
+        for (int i = 0; i < numPlants_; i++) {
+            Potteplante& plant = plants_[i];
+            if (!plant.VerifyHumidity()) plant.WaterPlant();
+        }
+    }
+    else AlertLowWaterLevel();
+
     // Print til brugergreanseflade og skærm
-    SendDataMessage();
-    // SendDetailedMessage();
+    String dataMessage = CreateDataMessage(waterLevel);
+    String detailedMessage = CreateDetailedMessage(waterLevel, waterLevelThreshold);
+    display_.Update(dataMessage);
+    ui_.SendMessage(detailedMessage);
 }
 
 
-bool koer_automatisk_plantepleje::VerifyWaterLevel()
+bool koer_automatisk_plantepleje::VerifyWaterLevel(int waterLevel, int threshold)
 {
-    int waterLevel = waterContainer_.ReadWaterLevel();
-    int threshold = waterContainer_.GetThreshold();
     return (waterLevel >= threshold);
 }
 
 // Genererer besked med info til skærmen. 
-void koer_automatisk_plantepleje::SendDataMessage()
+String koer_automatisk_plantepleje::CreateDataMessage(int waterLevel)
 {
-    int waterLevel = waterContainer_.ReadWaterLevel();
     String message =
         "Vandbeholder: " + String(waterLevel) + "%\n"
         + "Jordfugtighed\n";
@@ -67,16 +79,13 @@ void koer_automatisk_plantepleje::SendDataMessage()
         message += "Plante" + String(plantID) + ": " + String(humidity) + "%";
         if (i < (numPlants_ - 1)) message += "\n";
     }
-    display_.Update(message);
-    //return message;
+    //display_.Update(message);
+    return message;
 }
 
 // Genererer besked med info til brugergrænseflade. 
-void koer_automatisk_plantepleje::SendDetailedMessage()
+String koer_automatisk_plantepleje::CreateDetailedMessage(int waterLevel, int waterLevelThreshold)
 {
-    int waterLevel = waterContainer_.ReadWaterLevel();
-    int waterLevelThreshold = waterContainer_.GetThreshold();
-
     String detailedMessage = "                  Vaerdier     Graense\r\n"
         + String("Vandbeholder:     ")
         + String(waterLevel) + String("%           ")
@@ -93,8 +102,8 @@ void koer_automatisk_plantepleje::SendDetailedMessage()
             + String(humidity) + String("%           ")
             + String(humidityThreshold) + String("%\r\n");
     }
-    ui_.SendMessage(detailedMessage + "\r\n");
-    //return detailedMessage;
+    //ui_.SendMessage(detailedMessage + "\r\n");
+    return detailedMessage;
 }
 
 void koer_automatisk_plantepleje::AlertLowWaterLevel()
@@ -118,12 +127,15 @@ void koer_automatisk_plantepleje::ProcessInput()
                 3. ord: param2
         */ 
 
-        if (function == "toggle_plantcare") { // ØHH FEJL? LIGE MEGET HVAD SLUKKER DEN?
-            running_ = !running_;
-        }
+        if (function == "start_plantcare") running_ = true;
+        else if (function == "stop_plantcare") running_ = false;
         else if (function == "read_values") {
-            SendDataMessage();
-            SendDetailedMessage();
+            int waterLevel = waterContainer_.ReadWaterLevel();
+            int waterLevelThreshold = waterContainer_.GetThreshold();
+            String dataMessage = CreateDataMessage(waterLevel);
+            String detailedMessage = CreateDetailedMessage(waterLevel, waterLevelThreshold);
+            display_.Update(dataMessage);
+            ui_.SendMessage(detailedMessage);
         }
         else if (function == "change_humidity_threshold") {
             int plantID = param1.toInt();
@@ -132,8 +144,17 @@ void koer_automatisk_plantepleje::ProcessInput()
                 ui_.SendMessage("Én eller flere af de indtastede parametre er ugyldig.");
             }
             else {
-                if (plantID >= 0 && plantID < numPlants_) {
-                    plants_[plantID].SetHumidityThreshold(newThreshold);
+                if (plantID >= 0) {
+                    bool plantFound = false;
+                    for (int i = 0; i < numPlants_; i++) {
+                        auto& plant = plants_[i];
+                        if (plantID == plant.GetID()) {
+                            plant.SetHumidityThreshold(newThreshold);
+                            ui_.SendMessage("Threshold has been updated to " + String(newThreshold) + '%' + " for plant" + String(plantID));
+                            plantFound = true;
+                        }
+                    }
+                    if (!plantFound) ui_.SendMessage("Invalid plantID argument!");
                 }
             }
         }

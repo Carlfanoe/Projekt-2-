@@ -19,7 +19,7 @@ Vandbeholder waterContainer = {
 Potteplante plants[] = {
     //{0, A0, 20, 20, 1000}, // Test-plante: Fugtighed kan justeres ved potentiometer på A0
     {1, A1, 7, 20, 1000}, // Plante nr. 1
-    {2, A2, 10, 20, 1000}  // Plante nr. 2
+    {500, A2, 10, 20, 1000}  // Plante nr. 2
 };
 /* 
     Plante parametre:
@@ -47,7 +47,7 @@ void setup() {
     Serial.begin(9600); // Midlertidigt til debugging
 }
 
-unsigned long threeHours = 300;
+unsigned long threeHours = 1000;
 /*
     Bemærk at threeHours lige nu er indstillet til 0ms,
     dvs. CheckPlants() kører konstant uden delay.

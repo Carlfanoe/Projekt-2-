@@ -17,20 +17,24 @@ Vandbeholder::Vandbeholder(
 }
 
 int Vandbeholder::ReadWaterLevel() {
-    // Clears the trigPin
+    // Trigger the sensor
     digitalWrite(trigPin_, LOW);
     delayMicroseconds(2);
-
-    // Sets the trigPin on HIGH state for 10 micro seconds
     digitalWrite(trigPin_, HIGH);
     delayMicroseconds(10);
     digitalWrite(trigPin_, LOW);
 
-    // Reads the echoPin, returns the sound wave travel time in microseconds
-    long duration = pulseIn(echoPin_, HIGH, 50000); // 100ms timeout
+    // Read the echo
+    long duration = pulseIn(echoPin_, HIGH, 50000); // 50 ms timeout
 
-    // Calculating the distance
+    if (duration == 0) {
+        // Handle timeout (no echo received)
+        return 0; // Or an error code/value indicating a problem
+    }
+
+    // Calculate distance and percentage
     float distance = duration * 0.034 / 2; // Centimeters
+    //Serial.println(distance);
     int percentage = TranslateToPercentage(distance);
     return percentage;
 }

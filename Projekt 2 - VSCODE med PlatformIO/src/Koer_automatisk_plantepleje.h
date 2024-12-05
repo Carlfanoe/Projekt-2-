@@ -37,9 +37,9 @@ private:
     int numPlants_;
     bool running_ = true; // Begynder plantepleje ved opstart
     
-    bool VerifyWaterLevel();
-    void SendDataMessage();
-    void SendDetailedMessage();
+    bool VerifyWaterLevel(int waterLevel, int threshold);
+    String CreateDataMessage(int waterLevel);
+    String CreateDetailedMessage(int waterLevel, int waterLevelThreshold);
     void AlertLowWaterLevel();
     void InterpretInput(
         String &input,
