@@ -133,7 +133,11 @@ void koer_automatisk_plantepleje::ProcessInput()
                         auto& plant = plants_[i];
                         if (plantID == plant.GetID()) { // Tjek om plante-ID matcher.
                             plant.SetHumidityThreshold(newThreshold); // Opdater grænsen.
-                            ui_.SendMessage("Threshold has been updated to " + String(newThreshold) + '%' + " for plant" + String(plantID));
+                            ui_.SendMessage(
+                                "Threshold has been updated to "
+                                + String(newThreshold) + '%'
+                                + " for plant"
+                                + String(plantID));
                             plantFound = true;
                         }
                     }
@@ -142,7 +146,8 @@ void koer_automatisk_plantepleje::ProcessInput()
             }
         }
         else {
-            ui_.SendMessage("FEJL: Indtastet funktion er ugyldig!\r\n"); // Fejlmeddelelse for ugyldig funktion.
+            // Fejlmeddelelse for ugyldig funktion.
+            ui_.SendMessage("FEJL: Indtastet funktion er ugyldig!\r\n");
         }
     }
 }
