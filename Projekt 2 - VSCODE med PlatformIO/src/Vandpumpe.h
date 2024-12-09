@@ -2,7 +2,7 @@
 
 class Vandpumpe{
 private:
-    const int pumpPin;
+    int pin_;
 public:
     Vandpumpe(int pin);
 

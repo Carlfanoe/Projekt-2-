@@ -1,18 +1,18 @@
 #include "Vandpumpe.h"
 
-Vandpumpe::Vandpumpe(int pin) : pumpPin(pin)
+Vandpumpe::Vandpumpe(int pin) : pin_(pin)
 {
   InitPump();
 }
 
 void Vandpumpe::InitPump()
 {
-  pinMode(pumpPin, OUTPUT);
+  pinMode(pin_, OUTPUT);
 }
 
 void Vandpumpe::PumpWater(int duration_ms)
 {
-  digitalWrite(pumpPin, HIGH);   // Turn on the pump
-  delay(duration_ms);           // Keep it on for the specified duration
-  digitalWrite(pumpPin, LOW);   // Turn off the pump
+  digitalWrite(pin_, HIGH); // Turn on the pump
+  delay(duration_ms);       // Keep it on for the specified duration
+  digitalWrite(pin_, LOW);  // Turn off the pump
 }
