@@ -53,7 +53,7 @@ void setup() { // Kaldes automatisk vha. Arduino Core Libraries.
     display.Initialize(); // Initialiser skærmen.
 }
 
-unsigned long threeHours = 1000 * 60 * 60 * 3; // Definering af tre timer i sekunder
+unsigned long threeHours = 1000UL * 60 * 60 * 3; // Definering af tre timer i sekunder
 
 // Tidsforskel mellem sidste tjek af planter: 0 i starten, så der tjekkes ved start:
 unsigned long lastCheckTime = millis() - threeHours;
